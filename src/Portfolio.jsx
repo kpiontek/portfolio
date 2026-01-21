@@ -904,7 +904,7 @@ const Portfolio = () => {
               fontSize: '14px',
               color: '#999'
             }}>
-              Additional work includes enterprise client projects under NDA.
+              Additional work includes client projects under NDA.
               <br />
               Happy to discuss experience in more detail.
             </p>
