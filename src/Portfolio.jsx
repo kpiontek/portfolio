@@ -197,8 +197,8 @@ const Portfolio = () => {
               <br />experiences for over 14 years
             </h1>
             <p className="hero-description fade-up delay-2">
-              Specializing in Drupal, headless architectures, and modern React frontends.
-              Passionate about building technology that actually works for the people using it.
+              From legacy PHP to modern React, I've continuously adapted to new technologies
+              throughout my career. Passionate about building solutions that work for real people.
             </p>
             <div className="hero-buttons fade-up delay-3">
               <a
@@ -244,15 +244,16 @@ const Portfolio = () => {
                   I focus on creating maintainable, performant solutions at scale.
                 </p>
                 <p className="about-text">
-                  Much of my work involves modernizing legacy systems, migrating aging PHP applications
-                  to modern Drupal architectures while keeping the lights on. I've also grown into
-                  leadership roles: mentoring junior developers, conducting code reviews, and stepping
-                  up as backup for technical leads and directors when needed.
+                  The web changes fast, and I've made it a point to evolve with it. I've picked up
+                  new languages, frameworks, and paradigms whenever the job demanded it—whether that
+                  meant diving into headless architectures, learning GraphQL, or adopting TypeScript.
+                  Much of my work involves modernizing legacy systems and migrating aging applications
+                  to modern stacks while keeping the lights on.
                 </p>
                 <p className="about-text">
-                  I care about bridging the gap between complex technology
-                  and the people who use it. Good software isn't just well-architected, it's built
-                  with empathy for end users who don't speak in APIs and frameworks.
+                  I've also grown into leadership roles: mentoring junior developers, conducting code
+                  reviews, and stepping up as backup for technical leads and directors when needed.
+                  I care about bridging the gap between complex technology and the people who use it.
                 </p>
               </div>
 
