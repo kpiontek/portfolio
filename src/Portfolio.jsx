@@ -245,7 +245,7 @@ const Portfolio = () => {
                 </p>
                 <p className="about-text">
                   The web changes fast, and I've made it a point to evolve with it. I've picked up
-                  new languages, frameworks, and paradigms whenever the job demanded it—whether that
+                  new languages, frameworks, and paradigms whenever the job demanded it - whether that
                   meant diving into headless architectures, learning GraphQL, or adopting TypeScript.
                   Much of my work involves modernizing legacy systems and migrating aging applications
                   to modern stacks while keeping the lights on.
@@ -347,7 +347,7 @@ const Portfolio = () => {
         {/* Contact Section */}
         <section id="contact" className="section">
           <div className="container-narrow scroll-fade contact-content">
-            <div className="section-label">// CONTACT</div>
+            <div className="section-label">// CONTACT KYLE</div>
             <h2 className="section-title-large">
               Let's build something<br />
               <span className="gradient-text">together</span>
@@ -378,8 +378,8 @@ const Portfolio = () => {
       </main>
 
       <footer className="footer">
-        <div className="footer-text footer-copyright">© 2026 Kyle Piontek</div>
-        <div className="footer-text footer-credit">Works on my machine ¯\(ツ)/¯</div>
+        <div className="footer-text footer-copyright">© {new Date().getFullYear()} Kyle Piontek</div>
+        <div className="footer-text footer-credit">No divs were harmed in the making of this website</div>
       </footer>
     </div>
   );
