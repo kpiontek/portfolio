@@ -59,7 +59,7 @@ $transition-slow: 0.6s ease;
 
 @mixin section-label {
   @include font-mono;
-  font-size: 12px;
+  font-size: 24px;
   color: $color-accent;
   margin-bottom: $spacing-lg;
   letter-spacing: 2px;
@@ -117,6 +117,25 @@ $transition-slow: 0.6s ease;
   color: $color-text;
   font-family: $font-sans;
   overflow-x: hidden;
+
+  // Dot pattern overlay across entire page
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba($color-text, 0.07) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .container {
@@ -375,11 +394,10 @@ $transition-slow: 0.6s ease;
 
 .section {
   padding: $spacing-5xl $spacing-2xl;
-  border-top: 1px solid $color-border;
 }
 
 .section-work {
-  background: $color-bg-dark;
+  background: transparent;
 }
 
 .section-label {
@@ -438,7 +456,7 @@ $transition-slow: 0.6s ease;
 
 .toolkit-label {
   @include font-mono;
-  font-size: 12px;
+  font-size: 18px;
   color: $color-text-muted-dark;
   margin-bottom: $spacing-xl;
   letter-spacing: 2px;
@@ -452,7 +470,7 @@ $transition-slow: 0.6s ease;
 
 .skill-category {
   @include font-mono;
-  font-size: 11px;
+  font-size: 14px;
   color: $color-accent;
   margin-bottom: $spacing-sm;
   letter-spacing: 1px;
@@ -735,11 +753,10 @@ $transition-slow: 0.6s ease;
 }
 
 .hover-lift {
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  transition: border-color $transition-normal;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba($color-accent, 0.15);
+    border-color: $color-border-medium;
   }
 }
 
