@@ -339,7 +339,7 @@ const Portfolio = () => {
         {/* Contact Section */}
         <section id="contact" className="section">
           <div className="container-narrow scroll-fade contact-content">
-            <div className="section-label">// CONTACT KYLE</div>
+            <div className="section-label">// CONTACT</div>
             <h2 className="section-title-large">
               Let's build something<br />
               <span className="gradient-text">together</span>
@@ -349,7 +349,7 @@ const Portfolio = () => {
             </p>
 
             <a href="mailto:hello@kylepiontek.com" className="email-btn">
-              HELLO@KYLEPIONTEK.COM
+              HELLO @ KYLEPIONTEK.COM
             </a>
 
             <div className="social-links">
