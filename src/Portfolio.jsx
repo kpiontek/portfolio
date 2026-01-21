@@ -337,18 +337,22 @@ const Portfolio = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
           style={{
-            fontFamily: "'Space Mono', monospace",
-            fontSize: '18px',
-            fontWeight: 700,
-            letterSpacing: '-0.5px',
             cursor: 'pointer',
             background: 'none',
             border: 'none',
-            color: '#e8e8e8',
-            padding: 0
+            padding: 0,
+            display: 'flex',
+            alignItems: 'center'
           }}
         >
-          <span style={{ color: '#3b82f6' }}>K</span>P
+          <img
+            src="/kp-logo.png"
+            alt="Kyle Piontek"
+            style={{
+              height: '32px',
+              width: 'auto'
+            }}
+          />
         </button>
 
         {/* Desktop Nav */}
