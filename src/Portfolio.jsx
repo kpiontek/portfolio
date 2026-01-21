@@ -529,7 +529,7 @@ const Portfolio = () => {
             marginBottom: '24px',
             letterSpacing: '2px'
           }}>
-            FULL-STACK DEVELOPER
+            SENIOR FULL-STACK WEB DEVELOPER
           </div>
           
           <h1 className="fade-up delay-1" style={{
