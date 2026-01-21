@@ -232,7 +232,7 @@ const Portfolio = () => {
               <div className="scroll-fade">
                 <div className="about-header">
                   <img src="/headshot.jpg" alt="Kyle Piontek" className="headshot" />
-                  <div className="section-label">01 — ABOUT</div>
+                  <div className="section-label">// ABOUT ME</div>
                 </div>
                 <h2 className="section-title">
                   Code that works,<br />
@@ -279,7 +279,7 @@ const Portfolio = () => {
         {/* Work Section */}
         <section id="work" className="section section-work">
           <div className="container">
-            <div className="section-label">02 — SELECTED WORK</div>
+            <div className="section-label">// SELECTED WORK</div>
             <h2 className="section-title" style={{ marginBottom: '64px' }}>
               Projects & Contributions
             </h2>
@@ -347,7 +347,7 @@ const Portfolio = () => {
         {/* Contact Section */}
         <section id="contact" className="section">
           <div className="container-narrow scroll-fade contact-content">
-            <div className="section-label">03 — CONTACT</div>
+            <div className="section-label">// CONTACT</div>
             <h2 className="section-title-large">
               Let's build something<br />
               <span className="gradient-text">together</span>
