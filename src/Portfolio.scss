@@ -1,0 +1,859 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+// =============================================================================
+// Variables
+// =============================================================================
+
+// Colors
+$color-bg: #0a0a0b;
+$color-bg-dark: #080808;
+$color-bg-card: #0d0d0d;
+$color-bg-card-dark: #141414;
+$color-text: #e8e8e8;
+$color-text-muted: #999;
+$color-text-muted-dark: #888;
+$color-text-muted-darker: #777;
+$color-text-muted-darkest: #666;
+$color-accent: #3b82f6;
+$color-accent-secondary: #8b5cf6;
+$color-border: #1a1a1a;
+$color-border-light: #222;
+$color-border-dark: #141414;
+$color-border-medium: #333;
+
+// Typography
+$font-sans: 'Source Sans 3', -apple-system, sans-serif;
+$font-mono: 'Space Mono', monospace;
+
+// Spacing
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 64px;
+$spacing-4xl: 80px;
+$spacing-5xl: 120px;
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+
+// Container widths
+$container-max: 1200px;
+$container-narrow: 800px;
+$container-hero: 900px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.6s ease;
+
+// =============================================================================
+// Mixins
+// =============================================================================
+
+@mixin font-mono {
+  font-family: $font-mono;
+}
+
+@mixin section-label {
+  @include font-mono;
+  font-size: 12px;
+  color: $color-accent;
+  margin-bottom: $spacing-lg;
+  letter-spacing: 2px;
+}
+
+// =============================================================================
+// Base reset and globals
+// =============================================================================
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: $color-accent;
+  color: white;
+}
+
+// =============================================================================
+// Utility classes
+// =============================================================================
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.font-mono {
+  @include font-mono;
+}
+
+.text-muted { color: $color-text-muted; }
+.text-muted-dark { color: $color-text-muted-dark; }
+.text-muted-darker { color: $color-text-muted-darker; }
+.text-muted-darkest { color: $color-text-muted-darkest; }
+.text-accent { color: $color-accent; }
+.text-light { color: $color-text; }
+
+// =============================================================================
+// Layout
+// =============================================================================
+
+.page-wrapper {
+  min-height: 100vh;
+  background-color: $color-bg;
+  color: $color-text;
+  font-family: $font-sans;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: $container-max;
+  margin: 0 auto;
+}
+
+.container-narrow {
+  max-width: $container-narrow;
+  margin: 0 auto;
+}
+
+.container-hero {
+  max-width: $container-hero;
+  position: relative;
+}
+
+// =============================================================================
+// Skip link (accessibility)
+// =============================================================================
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $color-accent;
+  color: white;
+  padding: $spacing-xs $spacing-md;
+  z-index: 1000;
+  text-decoration: none;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// =============================================================================
+// Navigation
+// =============================================================================
+
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-lg $spacing-2xl;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba($color-bg, 0.95) 0%, rgba($color-bg, 0) 100%);
+  backdrop-filter: blur(8px);
+}
+
+.logo-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 32px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  @include font-mono;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.nav-link {
+  position: relative;
+  color: $color-text-muted;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &.active {
+    color: $color-accent;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: $color-accent;
+    transition: width $transition-normal;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// =============================================================================
+// Hamburger button
+// =============================================================================
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-xs;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: $color-text;
+  transition: transform $transition-normal, opacity $transition-normal;
+}
+
+// =============================================================================
+// Mobile menu
+// =============================================================================
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($color-bg, 0.98);
+  z-index: 99;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-xl;
+  transition: opacity $transition-normal;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &.closed {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.mobile-menu-link {
+  @include font-mono;
+  font-size: 24px;
+  color: $color-text;
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: color $transition-fast;
+
+  &.active {
+    color: $color-accent;
+  }
+}
+
+// =============================================================================
+// Hero section
+// =============================================================================
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: $spacing-5xl $spacing-2xl $spacing-4xl;
+  position: relative;
+}
+
+.hero-decoration {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba($color-accent, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.hero-label {
+  @include font-mono;
+  font-size: 13px;
+  color: $color-accent;
+  margin-bottom: $spacing-lg;
+  letter-spacing: 2px;
+}
+
+.hero-title {
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: $spacing-xl;
+  letter-spacing: -2px;
+}
+
+.hero-description {
+  font-size: 20px;
+  color: $color-text-muted;
+  max-width: 600px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.hero-buttons {
+  margin-top: $spacing-2xl;
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+}
+
+// =============================================================================
+// Buttons
+// =============================================================================
+
+.btn-primary {
+  padding: $spacing-md $spacing-xl;
+  background: $color-accent;
+  color: white;
+  text-decoration: none;
+  @include font-mono;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all $transition-normal;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  padding: $spacing-md $spacing-xl;
+  border: 1px solid $color-border-medium;
+  background: transparent;
+  color: $color-text-muted;
+  text-decoration: none;
+  @include font-mono;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all $transition-normal;
+  cursor: pointer;
+}
+
+// =============================================================================
+// Sections
+// =============================================================================
+
+.section {
+  padding: $spacing-5xl $spacing-2xl;
+  border-top: 1px solid $color-border;
+}
+
+.section-work {
+  background: $color-bg-dark;
+}
+
+.section-label {
+  @include section-label;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: $spacing-xl;
+  line-height: 1.3;
+}
+
+.section-title-large {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 300;
+  margin-bottom: $spacing-lg;
+  line-height: 1.3;
+}
+
+// =============================================================================
+// About section
+// =============================================================================
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-4xl;
+  align-items: start;
+}
+
+.about-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-xl;
+}
+
+.headshot {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $color-border-light;
+}
+
+.about-text {
+  color: $color-text-muted;
+  line-height: 1.8;
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.toolkit-label {
+  @include font-mono;
+  font-size: 12px;
+  color: $color-text-muted-dark;
+  margin-bottom: $spacing-xl;
+  letter-spacing: 2px;
+}
+
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.skill-category {
+  @include font-mono;
+  font-size: 11px;
+  color: $color-accent;
+  margin-bottom: $spacing-sm;
+  letter-spacing: 1px;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.skill-tag {
+  padding: $spacing-xs $spacing-md;
+  background: $color-bg-card-dark;
+  border: 1px solid $color-border-light;
+  font-size: 13px;
+  color: $color-text-muted;
+  cursor: default;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $color-accent;
+    color: white;
+    transform: scale(1.05);
+  }
+}
+
+// =============================================================================
+// Projects
+// =============================================================================
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.project-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: stretch;
+}
+
+.project-image-container {
+  background: $color-bg-card-dark;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.project-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-bg-card-dark 0%, $color-border 100%);
+  color: $color-text-muted-darkest;
+}
+
+.project-placeholder-text {
+  margin-top: $spacing-sm;
+  @include font-mono;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: $color-text-muted-darker;
+}
+
+.project-info {
+  padding: $spacing-xl;
+}
+
+.project-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.project-status {
+  @include font-mono;
+  font-size: 11px;
+  color: $color-text-muted-dark;
+  padding: 4px $spacing-xs;
+  border: 1px solid $color-border-medium;
+  letter-spacing: 1px;
+}
+
+.project-link {
+  @include font-mono;
+  font-size: 12px;
+  color: $color-text-muted;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-accent;
+  }
+}
+
+.project-title {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: $spacing-md;
+}
+
+.project-description {
+  color: $color-text-muted;
+  line-height: 1.7;
+  margin-bottom: $spacing-lg;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.tech-item {
+  @include font-mono;
+  font-size: 11px;
+  color: $color-accent;
+  letter-spacing: 0.5px;
+}
+
+.tech-separator {
+  color: $color-text-muted-darkest;
+  margin: 0 $spacing-xs;
+}
+
+.more-projects {
+  margin-top: $spacing-3xl;
+  padding: $spacing-xl;
+  background: $color-bg;
+  border: 1px dashed $color-border-light;
+  text-align: center;
+}
+
+.more-projects-title {
+  @include font-mono;
+  font-size: 18px;
+  color: $color-text;
+  margin-bottom: $spacing-xs;
+}
+
+.more-projects-text {
+  @include font-mono;
+  font-size: 14px;
+  color: $color-text-muted;
+}
+
+// =============================================================================
+// Contact
+// =============================================================================
+
+.contact-content {
+  text-align: center;
+}
+
+.contact-description {
+  color: $color-text-muted;
+  font-size: 18px;
+  margin-bottom: $spacing-2xl;
+  line-height: 1.7;
+}
+
+.email-btn {
+  display: inline-block;
+  padding: 20px $spacing-2xl;
+  background: transparent;
+  border: 1px solid $color-accent;
+  color: $color-accent;
+  text-decoration: none;
+  @include font-mono;
+  font-size: 14px;
+  letter-spacing: 2px;
+  transition: all $transition-normal;
+
+  &:hover,
+  &:focus {
+    background: $color-accent;
+    color: white;
+  }
+}
+
+.social-links {
+  margin-top: $spacing-3xl;
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xl;
+}
+
+.social-link {
+  color: $color-text-muted;
+  transition: color $transition-fast;
+
+  &:hover,
+  &:focus {
+    color: $color-accent;
+  }
+}
+
+// =============================================================================
+// Footer
+// =============================================================================
+
+.footer {
+  padding: $spacing-xl $spacing-2xl;
+  border-top: 1px solid $color-border-dark;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  @include font-mono;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.footer-copyright {
+  color: $color-text-muted-darker;
+}
+
+.footer-credit {
+  color: $color-text-muted-darkest;
+}
+
+// =============================================================================
+// Animations
+// =============================================================================
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, $color-accent 0%, $color-accent-secondary 50%, $color-accent 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+.hover-lift {
+  transition: transform $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba($color-accent, 0.15);
+  }
+}
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity $transition-slow, transform $transition-slow;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =============================================================================
+// Background patterns
+// =============================================================================
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba($color-accent, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-accent, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+// =============================================================================
+// Accessibility - reduced motion
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .scroll-fade,
+  .hover-lift,
+  .skill-tag,
+  .nav-link,
+  .nav-link::after,
+  .gradient-text {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scroll-fade {
+    opacity: 1;
+    transform: none;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// =============================================================================
+// Focus styles for keyboard navigation
+// =============================================================================
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid $color-accent;
+  outline-offset: 2px;
+}
+
+// =============================================================================
+// Mobile responsive
+// =============================================================================
+
+@media (max-width: $breakpoint-mobile) {
+  .nav-header {
+    padding: $spacing-md $spacing-lg;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+
+  .hero-section {
+    padding: 100px $spacing-lg 60px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+
+    a {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .section {
+    padding-left: $spacing-lg;
+    padding-right: $spacing-lg;
+  }
+
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .project-image-container {
+    min-height: 200px;
+  }
+
+  .footer {
+    padding: $spacing-lg;
+    flex-direction: column;
+    gap: $spacing-sm;
+    text-align: center;
+  }
+}
