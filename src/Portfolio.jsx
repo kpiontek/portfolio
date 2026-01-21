@@ -121,14 +121,6 @@ const Portfolio = () => {
               {item}
             </a>
           ))}
-          <a
-            href="/Kyle_Piontek_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link"
-          >
-            Resume<span className="sr-only"> (opens in new tab)</span>
-          </a>
         </div>
 
         <button
