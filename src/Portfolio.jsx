@@ -379,7 +379,7 @@ const Portfolio = () => {
 
       <footer className="footer">
         <div className="footer-text footer-copyright">© 2026 Kyle Piontek</div>
-        <div className="footer-text footer-credit">Built with React</div>
+        <div className="footer-text footer-credit">Works on my machine ¯\(ツ)/¯</div>
       </footer>
     </div>
   );
