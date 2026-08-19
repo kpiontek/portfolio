@@ -1,380 +1,535 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './Portfolio.scss';
 
-// Optimized project images (800px wide, webp format)
-import smarthomeuImg from './assets/projects/smarthomeu.png?w=800&format=webp';
-import optivImg from './assets/projects/optiv.png?w=800&format=webp';
-import cashortradeImg from './assets/projects/cashortrade.png?w=800&format=webp';
+import sitecmdImg from './assets/projects/sitecmd.webp';
+import visitYourTeamImg from './assets/projects/visit-your-team.webp';
+import wasItVibedImg from './assets/projects/was-it-vibed.webp';
 
-const Portfolio = () => {
+const experience = [
+  {
+    dates: 'May 2025 - Present',
+    role: 'Senior Web Developer',
+    company: 'Digital Artisans',
+    detail:
+      'Leading development on an enterprise headless CMS with Drupal, React, and GraphQL. Took over a troubled implementation, stabilized the platform, and resumed feature delivery without disrupting production.',
+  },
+  {
+    dates: 'Current',
+    role: 'Founder & Product Engineer',
+    company: 'Brambleworks',
+    detail:
+      'Building and operating independent technology products including SiteCMD, Visit Your Team, and Was It Vibed, from product direction and interface design through full-stack architecture, release, and ongoing operations.',
+  },
+  {
+    dates: 'Apr 2024 - Apr 2025',
+    role: 'Full Stack Web Developer',
+    company: 'Optiv Security',
+    detail:
+      'Served as backup Lead Technical Architect on a Drupal 10 platform. Improved backend and caching performance by nearly 50% while building responsive, reusable components.',
+  },
+  {
+    dates: 'Jun 2020 - Apr 2024',
+    role: 'Software Engineer',
+    company: 'Tyler Technologies',
+    detail:
+      'Helped deliver and maintain more than 120 Drupal websites for the State of Vermont, modernized legacy PHP systems, mentored developers, and served as backup Director of Development.',
+  },
+  {
+    dates: 'Feb 2019 - Jun 2020',
+    role: 'Full Stack Engineer',
+    company: 'CashorTrade.org',
+    detail:
+      'Built for a ticket marketplace serving more than 500,000 members. Cut API response time by 30% and helped deliver payment and escrow work that more than doubled company revenue.',
+  },
+];
+
+const capabilities = [
+  {
+    title: 'Product engineering',
+    detail:
+      'React, Next.js, TypeScript, JavaScript, accessible HTML and CSS, interface systems, and data-heavy applications.',
+  },
+  {
+    title: 'Platforms and APIs',
+    detail:
+      'PHP, Node.js, GraphQL, REST, MySQL, Redis, Drupal, WordPress, and practical integration architecture.',
+  },
+  {
+    title: 'Desktop and edge',
+    detail:
+      'React and TypeScript frontends, Rust application logic, Tauri desktop apps, SQLite, Cloudflare Workers, Durable Objects, and explicit privacy boundaries.',
+  },
+  {
+    title: 'Technical leadership',
+    detail:
+      'Architecture, stabilization, modernization, code review, mentoring, delivery planning, and communication across disciplines.',
+  },
+];
+
+function ArrowUpRight({ decorative = true }) {
+  return (
+    <svg
+      aria-hidden={decorative}
+      className="arrow-icon"
+      fill="none"
+      viewBox="0 0 16 16"
+    >
+      <path d="M4 12 12 4M5 4h7v7" />
+    </svg>
+  );
+}
+
+function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id || 'hero');
-        }
-      });
-    }, {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    });
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
 
-    const sections = document.querySelectorAll('section[id]');
-    sections.forEach((section) => sectionObserver.observe(section));
-
-    const animationObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, {
-      root: null,
-      rootMargin: '0px 0px -100px 0px',
-      threshold: 0.1
-    });
-
-    const animatedElements = document.querySelectorAll('.scroll-fade');
-    animatedElements.forEach((el) => animationObserver.observe(el));
+    document.addEventListener('keydown', closeOnEscape);
 
     return () => {
-      sectionObserver.disconnect();
-      animationObserver.disconnect();
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [mobileMenuOpen]);
+
+  useLayoutEffect(() => {
+    if (mobileMenuOpen) {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.setProperty(
+        '--scrollbar-compensation',
+        `${scrollbarWidth}px`,
+      );
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+      document.body.style.removeProperty('--scrollbar-compensation');
+    }
+
+    return () => {
+      document.body.classList.remove('menu-open');
+      document.body.style.removeProperty('--scrollbar-compensation');
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia('(min-width: 821px)');
+    const closeAtDesktop = (event) => {
+      if (event.matches) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    desktopMedia.addEventListener('change', closeAtDesktop);
+
+    return () => {
+      desktopMedia.removeEventListener('change', closeAtDesktop);
     };
   }, []);
 
-  const skills = [
-    { category: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Sass/SCSS', 'Tailwind CSS'] },
-    { category: 'Backend', items: ['PHP', 'Node.js', 'MySQL', 'Redis', 'GraphQL', 'REST APIs'] },
-    { category: 'CMS & Platform', items: ['Drupal', 'Headless CMS', 'Acquia', 'WordPress'] },
-    { category: 'Infrastructure', items: ['Git', 'Docker', 'CI/CD', 'Varnish', 'Solr', 'WCAG/Accessibility'] },
-  ];
-
-  const projects = [
-    {
-      title: 'Smart Home U',
-      description: 'Educational platform helping everyday users navigate smart home technology with clear, jargon-free guidance.',
-      tech: ['Drupal', 'PHP', 'SEO', 'Content Strategy'],
-      link: 'https://smarthomeu.com',
-      status: 'Personal Project',
-      image: smarthomeuImg
-    },
-    {
-      title: 'Enterprise Headless CMS',
-      description: 'Architected and delivered headless Drupal implementations with Next.js frontends for healthcare organizations.',
-      tech: ['Drupal', 'Next.js', 'React', 'GraphQL', 'Acquia'],
-      link: null,
-      status: 'Client Work',
-      image: null
-    },
-    {
-      title: 'Optiv.com',
-      description: 'Corporate marketing site for a leading cybersecurity solutions provider. Improved backend performance and caching, reducing load times by nearly 50%.',
-      tech: ['Drupal 10', 'PHP', 'Acquia'],
-      link: 'https://www.optiv.com',
-      status: 'Client Work',
-      image: optivImg
-    },
-    {
-      title: 'CashorTrade.org',
-      description: 'High-traffic ticket exchange platform serving 500,000+ users. Optimized database queries and API performance, reducing response times by 30%.',
-      tech: ['PHP', 'MySQL', 'JavaScript', 'REST APIs'],
-      link: 'https://www.cashortrade.org',
-      status: 'Client Work',
-      image: cashortradeImg
-    }
-  ];
-
-  const navItems = ['About', 'Work', 'Contact'];
+  const closeMenu = () => setMobileMenuOpen(false);
 
   return (
-    <div className="page-wrapper">
-      <a href="#main-content" className="skip-link">
+    <div className="portfolio">
+      <a className="skip-link" href="#main-content">
         Skip to main content
       </a>
 
-      {/* Navigation */}
-      <nav className="nav-header">
-        <button
-          className="logo-btn"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Scroll to top"
-        >
-          <img src="/kp-logo.png" alt="Kyle Piontek" className="logo-img" />
-        </button>
+      <header className="site-header">
+        <div className="shell header-inner">
+          <a className="brand" href="#top" onClick={closeMenu}>
+            <span className="brand-name">Kyle Piontek</span>
+            <span className="brand-role">Senior Full Stack Developer</span>
+          </a>
 
-        <div className="nav-links">
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className={`nav-link ${activeSection === item.toLowerCase() ? 'active' : ''}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              {item}
-            </a>
-          ))}
+          <nav className="desktop-nav" aria-label="Primary navigation">
+            <a href="#work">Work</a>
+            <a href="#experience">Experience</a>
+            <a href="#about">About</a>
+          </nav>
+
+          <a
+            className="header-resume"
+            href="/Kyle_Piontek_Resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Resume
+            <ArrowUpRight />
+            <span className="sr-only"> opens in a new tab</span>
+          </a>
+
+          <button
+            ref={menuButtonRef}
+            className={`menu-button ${mobileMenuOpen ? 'is-open' : ''}`}
+            type="button"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
+            onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+          >
+            <span />
+            <span />
+          </button>
         </div>
 
-        <button
-          className="hamburger-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-menu"
+        <nav
+          className={`mobile-nav ${mobileMenuOpen ? 'is-open' : ''}`}
+          id="mobile-navigation"
+          aria-hidden={!mobileMenuOpen}
+          aria-label="Mobile navigation"
         >
-          <span
-            className="hamburger-line"
-            style={{ transform: mobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none' }}
-          />
-          <span
-            className="hamburger-line"
-            style={{ opacity: mobileMenuOpen ? 0 : 1 }}
-          />
-          <span
-            className="hamburger-line"
-            style={{ transform: mobileMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none' }}
-          />
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <nav
-        id="mobile-menu"
-        className={`mobile-menu ${mobileMenuOpen ? 'open' : 'closed'}`}
-        role="navigation"
-        aria-label="Mobile navigation"
-        aria-hidden={!mobileMenuOpen}
-      >
-        {navItems.map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className={`mobile-menu-link ${activeSection === item.toLowerCase() ? 'active' : ''}`}
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            {item}
-          </a>
-        ))}
-        <a
-          href="/Kyle_Piontek_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mobile-menu-link"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          Resume<span className="sr-only"> (opens in new tab)</span>
-        </a>
-      </nav>
+          <div className="shell mobile-nav-inner">
+            <a href="#work" onClick={closeMenu}>
+              Work
+            </a>
+            <a href="#experience" onClick={closeMenu}>
+              Experience
+            </a>
+            <a href="#about" onClick={closeMenu}>
+              About
+            </a>
+            <a href="#contact" onClick={closeMenu}>
+              Contact
+            </a>
+            <a
+              href="/Kyle_Piontek_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              onClick={closeMenu}
+            >
+              Resume <ArrowUpRight />
+              <span className="sr-only"> opens in a new tab</span>
+            </a>
+          </div>
+        </nav>
+      </header>
 
       <main id="main-content">
-        {/* Hero Section */}
-        <section className="hero-section grid-bg">
-          <div className="hero-decoration" aria-hidden="true" />
-          <div className="container-hero">
-            <div className="hero-label fade-up">SENIOR FULL-STACK WEB DEVELOPER</div>
-            <h1 className="hero-title fade-up delay-1">
-              Building <span className="gradient-text">robust</span> web
-              <br />experiences for over 14 years
-            </h1>
-            <p className="hero-description fade-up delay-2">
-              From legacy PHP to modern React, I've continuously adapted to new technologies
-              throughout my career. Passionate about building solutions that work for real people.
-            </p>
-            <div className="hero-buttons fade-up delay-3">
-              <a
-                href="#contact"
-                className="btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                GET IN TOUCH
-              </a>
-              <a
-                href="#work"
-                className="btn-secondary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                VIEW WORK
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="section">
-          <div className="container">
-            <div className="about-grid">
-              <div className="scroll-fade">
-                <div className="about-header">
-                  <img src="/headshot.jpg" alt="Kyle Piontek" className="headshot" />
-                  <div className="section-label">// ABOUT ME</div>
-                </div>
-                <h2 className="section-title">
-                  Code that works,<br />
-                  <span className="text-muted-dark">architecture that scales</span>
-                </h2>
-                <p className="about-text">
-                  I've spent over 14 years building web applications that solve real problems.
-                  From managing portfolios of 120+ websites to engineering platforms serving 500,000+ users,
-                  I focus on creating maintainable, performant solutions at scale.
-                </p>
-                <p className="about-text">
-                  The web changes fast, and I've made it a point to evolve with it. I've picked up
-                  new languages, frameworks, and paradigms whenever the job demanded it - whether that
-                  meant diving into headless architectures, learning GraphQL, or adopting TypeScript.
-                  Much of my work involves modernizing legacy systems and migrating aging applications
-                  to modern stacks while keeping the lights on.
-                </p>
-                <p className="about-text">
-                  I've also grown into leadership roles: mentoring junior developers, conducting code
-                  reviews, and stepping up as backup for technical leads and directors when needed.
-                  I care about bridging the gap between complex technology and the people who use it.
-                </p>
-              </div>
-
-              <div className="scroll-fade">
-                <div className="toolkit-label">TOOLKIT</div>
-                <div className="skills-container">
-                  {skills.map((skillGroup) => (
-                    <div key={skillGroup.category}>
-                      <div className="skill-category">{skillGroup.category}</div>
-                      <div className="skill-list">
-                        {skillGroup.items.map((skill) => (
-                          <span key={skill} className="skill-tag">{skill}</span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+        <section className="hero" id="top">
+          <div className="shell hero-layout">
+            <h1>I build software that holds up.</h1>
+            <div className="hero-copy">
+              <p>
+                I&apos;m Kyle, a Senior Full Stack Developer with more than 14
+                years of experience shipping, stabilizing, and modernizing
+                software for enterprise platforms, public services, and
+                independent products.
+              </p>
+              <p>
+                I work from architecture through interface, with practical
+                judgment and care for the people using what I build.
+              </p>
+              <div className="hero-actions">
+                <a className="button button-primary" href="#work">
+                  View selected work
+                </a>
+                <a
+                  className="text-link"
+                  href="/Kyle_Piontek_Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Download resume
+                  <ArrowUpRight />
+                  <span className="sr-only"> opens in a new tab</span>
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Work Section */}
-        <section id="work" className="section section-work">
-          <div className="container">
-            <div className="section-label">// SELECTED WORK</div>
-            <h2 className="section-title" style={{ marginBottom: '64px' }}>
-              Projects & Contributions
-            </h2>
+        <section className="work section" id="work">
+          <div className="shell">
+            <div className="section-heading">
+              <h2>Selected work</h2>
+              <p>
+                Recent independent products alongside the platform work that
+                has defined my career.
+              </p>
+            </div>
 
-            <div className="projects-container">
-              {projects.map((project) => (
-                <div key={project.title} className="project-card hover-lift scroll-fade">
-                  <div className="project-image-container">
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={`${project.title} screenshot`}
-                        className="project-image"
-                      />
-                    ) : (
-                      <div className="project-placeholder">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden="true">
-                          <rect x="3" y="3" width="18" height="18" rx="2" />
-                          <circle cx="8.5" cy="8.5" r="1.5" />
-                          <path d="M21 15l-5-5L5 21" />
-                        </svg>
-                        <span className="project-placeholder-text">CONFIDENTIAL</span>
-                      </div>
-                    )}
-                  </div>
+            <article className="project-feature">
+              <a
+                className="project-media project-media-feature"
+                href="https://sitecmd.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Visit the SiteCMD website"
+              >
+                <img
+                  src={sitecmdImg}
+                  alt="SiteCMD homepage introducing the local-first website and code scanner"
+                  width="1400"
+                  height="780"
+                  fetchpriority="high"
+                />
+              </a>
 
-                  <div className="project-info">
-                    <div className="project-header">
-                      <span className="project-status">{project.status}</span>
-                      {project.link && (
-                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-                          VIEW PROJECT<span className="sr-only"> (opens in new tab)</span>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                            <path d="M7 17L17 7M17 7H7M17 7V17" />
-                          </svg>
-                        </a>
-                      )}
-                    </div>
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-description">{project.description}</p>
-                    <div className="project-tech">
-                      {project.tech.map((tech, idx) => (
-                        <span key={tech} className="tech-item">
-                          {tech}
-                          {idx < project.tech.length - 1 && <span className="tech-separator">·</span>}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+              <div className="project-feature-copy">
+                <div>
+                  <h3>SiteCMD</h3>
+                  <p className="project-role">
+                    Independent product, full-stack engineering
+                  </p>
                 </div>
+                <p className="project-summary">
+                  A local-first desktop app, CLI, and MCP server that audit
+                  websites and source code, prioritize issues by real risk, and
+                  hand exact fixes to the tools developers already use.
+                </p>
+                <ul className="project-contributions">
+                  <li>
+                    Built the Rust scan engines, Tauri desktop application,
+                    React interface, CLI, and MCP server as one connected
+                    system.
+                  </li>
+                  <li>
+                    Designed the privacy boundary so source code, credentials,
+                    and findings remain on the user&apos;s machine unless they
+                    deliberately connect a service.
+                  </li>
+                  <li>
+                    Created release and verification guardrails for a
+                    cross-platform product spanning desktop, web, and
+                    developer tooling.
+                  </li>
+                </ul>
+                <p className="project-stack">
+                  Rust, Tauri, React, TypeScript, SQLite, Node.js, Cloudflare
+                </p>
+                <div className="project-links">
+                  <a
+                    className="text-link"
+                    href="https://sitecmd.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Visit SiteCMD <ArrowUpRight />
+                    <span className="sr-only"> opens in a new tab</span>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <div className="supporting-projects">
+              <article className="supporting-project">
+                <a
+                  className="project-media"
+                  href="https://visityourteam.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit the Visit Your Team website"
+                >
+                  <img
+                    src={visitYourTeamImg}
+                    alt="Visit Your Team homepage with venue planning tools"
+                    width="1425"
+                    height="890"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="supporting-project-copy">
+                  <h3>Visit Your Team</h3>
+                  <p className="project-role">
+                    Independent product, product design and engineering
+                  </p>
+                  <p>
+                    A game-day planning guide for every NFL, NBA, NHL, and MLB
+                    venue, with real prices, insider tips, comparison tools,
+                    rankings, and a trip cost calculator.
+                  </p>
+                  <p>
+                    Built around validated data for 124 teams and roughly 1,165
+                    static routes, with shared venue integrity rules and
+                    editorial tooling.
+                  </p>
+                  <p className="project-stack">
+                    Next.js, React, TypeScript, Supabase, Cloudflare
+                  </p>
+                  <a
+                    className="text-link"
+                    href="https://visityourteam.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Visit the site <ArrowUpRight />
+                    <span className="sr-only"> opens in a new tab</span>
+                  </a>
+                </div>
+              </article>
+
+              <article className="supporting-project">
+                <a
+                  className="project-media"
+                  href="https://wasitvibed.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit the Was It Vibed website"
+                >
+                  <img
+                    src={wasItVibedImg}
+                    alt="Was It Vibed homepage with scanner form and illustrative evidence report"
+                    width="1400"
+                    height="780"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="supporting-project-copy">
+                  <h3>Was It Vibed</h3>
+                  <p className="project-role">
+                    Independent experiment, product and engineering
+                  </p>
+                  <p>
+                    A public scanner that estimates whether a website was
+                    vibe-coded using explainable pattern matching across CSS,
+                    HTML, copy, design, and metadata.
+                  </p>
+                  <p>
+                    Built as a hardened Cloudflare service with URL safety,
+                    Turnstile, distributed rate limits, cached shareable
+                    results, and no AI judgment in the scoring loop.
+                  </p>
+                  <p className="project-stack">
+                    Cloudflare Workers, TypeScript, Durable Objects, D1, Vitest
+                  </p>
+                  <a
+                    className="text-link"
+                    href="https://wasitvibed.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Run a scan <ArrowUpRight />
+                    <span className="sr-only"> opens in a new tab</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="experience section" id="experience">
+          <div className="shell">
+            <div className="section-heading">
+              <h2>Experience</h2>
+              <p>
+                Senior contribution across independent products, enterprise
+                delivery, public infrastructure, and high-traffic platforms.
+              </p>
+            </div>
+
+            <ol className="experience-list">
+              {experience.map((item) => (
+                <li className="experience-item" key={item.company}>
+                  <p className="experience-dates">{item.dates}</p>
+                  <div className="experience-role">
+                    <h3>{item.role}</h3>
+                    <p>{item.company}</p>
+                  </div>
+                  <p className="experience-detail">{item.detail}</p>
+                </li>
               ))}
+            </ol>
+
+            <a
+              className="text-link experience-resume"
+              href="/Kyle_Piontek_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read the full resume <ArrowUpRight />
+              <span className="sr-only"> opens in a new tab</span>
+            </a>
+          </div>
+        </section>
+
+        <section className="about section" id="about">
+          <div className="shell about-layout">
+            <div className="about-portrait">
+              <img
+                src="/headshot.jpg"
+                alt="Kyle Piontek"
+                width="246"
+                height="258"
+              />
             </div>
 
-            <div className="more-projects">
-              <p className="more-projects-title">And many more...</p>
-              <p className="more-projects-text">
-                Additional work includes client projects under NDA.
-                <br />
-                Happy to discuss experience in more detail.
+            <div className="about-copy">
+              <h2>About</h2>
+              <p className="about-lead">
+                I build dependable products, modernize complex platforms, and
+                help teams make sound technical decisions.
+              </p>
+              <p>
+                Much of my career has been spent modernizing systems that
+                cannot simply go offline: government site portfolios,
+                revenue-producing platforms, and enterprise CMS programs. I
+                know how to improve them without losing what already works.
+              </p>
+              <p>
+                I also build products end to end. Recent work spans React
+                frontends for Tauri desktop applications with Rust at the core,
+                data-heavy Next.js sites, public Cloudflare services, and the
+                operational work required to ship them. I mentor, review,
+                communicate tradeoffs, and step into technical leadership when
+                a project needs it.
               </p>
             </div>
           </div>
+
+          <div className="shell capabilities">
+            {capabilities.map((capability) => (
+              <div className="capability" key={capability.title}>
+                <h3>{capability.title}</h3>
+                <p>{capability.detail}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="section">
-          <div className="container-narrow scroll-fade contact-content">
-            <div className="section-label">// CONTACT</div>
-            <h2 className="section-title-large">
-              Let's build something<br />
-              <span className="gradient-text">together</span>
-            </h2>
-            <p className="contact-description">
-              Open to new opportunities and conversations about making technology work better for real people.
-            </p>
-
-            <a href="mailto:hello@kylepiontek.com" className="email-btn">
-              HELLO @ KYLEPIONTEK.COM
-            </a>
-
-            <div className="social-links">
-              <a
-                href="https://www.linkedin.com/in/kyle-piontek/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label="LinkedIn profile (opens in new tab)"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-              </a>
+        <section className="contact" id="contact">
+          <div className="shell contact-layout">
+            <h2>Let&apos;s talk.</h2>
+            <div className="contact-copy">
+              <p>
+                If you&apos;re hiring for a senior engineering role or need
+                experienced help with a difficult platform, I&apos;d be glad to
+                hear what you&apos;re working on.
+              </p>
+              <div className="contact-links">
+                <a href="mailto:hello@kylepiontek.com">
+                  hello@kylepiontek.com <ArrowUpRight />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/kyle-piontek"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn <ArrowUpRight />
+                  <span className="sr-only"> opens in a new tab</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <div className="footer-text footer-copyright">© {new Date().getFullYear()} Kyle Piontek</div>
-        <div className="footer-text footer-credit">No divs were harmed in the making of this website</div>
+      <footer className="site-footer">
+        <div className="shell footer-inner">
+          <p>© {new Date().getFullYear()} Kyle Piontek</p>
+          <p>Senior Full Stack Developer based in Vermont</p>
+          <a href="#top">Back to top</a>
+        </div>
       </footer>
     </div>
   );
-};
+}
 
 export default Portfolio;
