@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './Portfolio.scss';
 
 import sitecmdImg from './assets/projects/sitecmd.webp';
+import smartHomeUImg from './assets/projects/smarthomeu.webp';
 import visitYourTeamImg from './assets/projects/visit-your-team.webp';
 import wasItVibedImg from './assets/projects/was-it-vibed.webp';
 
@@ -11,21 +12,21 @@ const experience = [
     role: 'Senior Web Developer',
     company: 'Digital Artisans',
     detail:
-      'Leading development on an enterprise headless CMS with Drupal, React, and GraphQL. Took over a troubled implementation, stabilized the platform, and resumed feature delivery without disrupting production.',
+      'Own full-stack features across the data model, GraphQL API, and React UI of an enterprise Drupal platform. Took over a delayed project after two vendor handoffs, stabilized the codebase, and restored a monthly release schedule.',
   },
   {
-    dates: 'Current',
+    dates: '2026 - Present',
     role: 'Founder & Product Engineer',
     company: 'Brambleworks',
     detail:
-      'Building and operating independent technology products including SiteCMD, Visit Your Team, and Was It Vibed, from product direction and interface design through full-stack architecture, release, and ongoing operations.',
+      'Building and operating independent technology products including SiteCMD, SmartHomeU, Visit Your Team, and Was It Vibed, from product direction and interface design through full-stack architecture, release, and ongoing operations.',
   },
   {
     dates: 'Apr 2024 - Apr 2025',
     role: 'Full Stack Web Developer',
     company: 'Optiv Security',
     detail:
-      'Served as backup Lead Technical Architect on a Drupal 10 platform. Improved backend and caching performance by nearly 50% while building responsive, reusable components.',
+      'Served as backup Lead Technical Architect on a Drupal 10 platform. Cut page load times by nearly 50% by optimizing backend code, reducing frontend scripts, and improving caching.',
   },
   {
     dates: 'Jun 2020 - Apr 2024',
@@ -45,24 +46,24 @@ const experience = [
 
 const capabilities = [
   {
-    title: 'Product engineering',
+    title: 'Ship new products',
     detail:
-      'React, Next.js, TypeScript, JavaScript, accessible HTML and CSS, interface systems, and data-heavy applications.',
+      'Four independent products in production, designed, built, and operated end to end: SiteCMD, SmartHomeU, Visit Your Team, and Was It Vibed.',
   },
   {
-    title: 'Platforms and APIs',
+    title: 'Rescue difficult platforms',
     detail:
-      'PHP, Node.js, GraphQL, REST, MySQL, Redis, Drupal, WordPress, and practical integration architecture.',
+      'Troubled codebases taken over and stabilized, legacy websites and apps modernized without downtime, and monthly release schedules restored for teams under pressure.',
   },
   {
-    title: 'Desktop and edge',
+    title: 'Make it fast and accessible',
     detail:
-      'React and TypeScript frontends, Rust application logic, Tauri desktop apps, SQLite, Cloudflare Workers, Durable Objects, and explicit privacy boundaries.',
+      'Page loads cut by nearly half, API responses by 30%, and WCAG accessibility treated as part of done, not an audit finding to fix later.',
   },
   {
-    title: 'Technical leadership',
+    title: 'Lead the technical work',
     detail:
-      'Architecture, stabilization, modernization, code review, mentoring, delivery planning, and communication across disciplines.',
+      'Architecture, code review, mentoring, and release planning. Trusted as the standing backup for lead architects and a director of development.',
   },
 ];
 
@@ -153,6 +154,7 @@ function Portfolio() {
             <a href="#work">Work</a>
             <a href="#experience">Experience</a>
             <a href="#about">About</a>
+            <a href="#contact">Contact</a>
           </nav>
 
           <a
@@ -215,13 +217,17 @@ function Portfolio() {
       <main id="main-content">
         <section className="hero" id="top">
           <div className="shell hero-layout">
-            <h1>I build software that holds up.</h1>
+            <h1>
+              Hey,
+              <br />
+              I&apos;m Kyle.
+            </h1>
             <div className="hero-copy">
               <p>
-                I&apos;m Kyle, a Senior Full Stack Developer with more than 14
-                years of experience shipping, stabilizing, and modernizing
-                software for enterprise platforms, public services, and
-                independent products.
+                I&apos;m a Senior Full Stack Developer with 15 years of
+                experience shipping, stabilizing, and modernizing software for
+                enterprise platforms, public services, and independent
+                products.
               </p>
               <p>
                 I work from architecture through interface, with practical
@@ -250,62 +256,42 @@ function Portfolio() {
           <div className="shell">
             <div className="section-heading">
               <h2>Selected work</h2>
-              <p>
-                Recent independent products alongside the platform work that
-                has defined my career.
-              </p>
+              <p>Four products I designed, built, and run myself.</p>
             </div>
 
-            <article className="project-feature">
-              <a
-                className="project-media project-media-feature"
-                href="https://sitecmd.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Visit the SiteCMD website"
-              >
-                <img
-                  src={sitecmdImg}
-                  alt="SiteCMD homepage introducing the local-first website and code scanner"
-                  width="1400"
-                  height="780"
-                  fetchpriority="high"
-                />
-              </a>
-
-              <div className="project-feature-copy">
-                <div>
+            <div className="project-grid">
+              <article className="project-card">
+                <a
+                  className="project-media"
+                  href="https://sitecmd.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit the SiteCMD website"
+                >
+                  <img
+                    src={sitecmdImg}
+                    alt="SiteCMD homepage introducing the local-first website and code scanner"
+                    width="1400"
+                    height="780"
+                    fetchpriority="high"
+                  />
+                </a>
+                <div className="project-card-copy">
                   <h3>SiteCMD</h3>
-                  <p className="project-role">
-                    Independent product, full-stack engineering
+                  <p>
+                    A local-first desktop app, CLI, and MCP server that audit
+                    websites and source code, prioritize issues by real risk,
+                    and hand exact fixes to the tools developers already use.
                   </p>
-                </div>
-                <p className="project-summary">
-                  A local-first desktop app, CLI, and MCP server that audit
-                  websites and source code, prioritize issues by real risk, and
-                  hand exact fixes to the tools developers already use.
-                </p>
-                <ul className="project-contributions">
-                  <li>
-                    Built the Rust scan engines, Tauri desktop application,
-                    React interface, CLI, and MCP server as one connected
-                    system.
-                  </li>
-                  <li>
-                    Designed the privacy boundary so source code, credentials,
-                    and findings remain on the user&apos;s machine unless they
-                    deliberately connect a service.
-                  </li>
-                  <li>
-                    Created release and verification guardrails for a
-                    cross-platform product spanning desktop, web, and
-                    developer tooling.
-                  </li>
-                </ul>
-                <p className="project-stack">
-                  Rust, Tauri, React, TypeScript, SQLite, Node.js, Cloudflare
-                </p>
-                <div className="project-links">
+                  <p>
+                    Built as one connected system, from the Rust scan engines
+                    to the Tauri desktop app and React interface, with a
+                    privacy boundary that keeps code and findings on the
+                    user&apos;s machine.
+                  </p>
+                  <p className="project-stack">
+                    Rust, Tauri, React, TypeScript, SQLite, Node.js, Cloudflare
+                  </p>
                   <a
                     className="text-link"
                     href="https://sitecmd.com"
@@ -316,11 +302,9 @@ function Portfolio() {
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
-              </div>
-            </article>
+              </article>
 
-            <div className="supporting-projects">
-              <article className="supporting-project">
+              <article className="project-card">
                 <a
                   className="project-media"
                   href="https://visityourteam.com"
@@ -336,11 +320,8 @@ function Portfolio() {
                     loading="lazy"
                   />
                 </a>
-                <div className="supporting-project-copy">
+                <div className="project-card-copy">
                   <h3>Visit Your Team</h3>
-                  <p className="project-role">
-                    Independent product, product design and engineering
-                  </p>
                   <p>
                     A game-day planning guide for every NFL, NBA, NHL, and MLB
                     venue, with real prices, insider tips, comparison tools,
@@ -360,13 +341,13 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit the site <ArrowUpRight />
+                    Visit Visit Your Team <ArrowUpRight />
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
               </article>
 
-              <article className="supporting-project">
+              <article className="project-card">
                 <a
                   className="project-media"
                   href="https://wasitvibed.com"
@@ -382,11 +363,8 @@ function Portfolio() {
                     loading="lazy"
                   />
                 </a>
-                <div className="supporting-project-copy">
+                <div className="project-card-copy">
                   <h3>Was It Vibed</h3>
-                  <p className="project-role">
-                    Independent experiment, product and engineering
-                  </p>
                   <p>
                     A public scanner that estimates whether a website was
                     vibe-coded using explainable pattern matching across CSS,
@@ -406,7 +384,50 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Run a scan <ArrowUpRight />
+                    Visit Was It Vibed <ArrowUpRight />
+                    <span className="sr-only"> opens in a new tab</span>
+                  </a>
+                </div>
+              </article>
+
+              <article className="project-card">
+                <a
+                  className="project-media"
+                  href="https://smarthomeu.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit the SmartHomeU website"
+                >
+                  <img
+                    src={smartHomeUImg}
+                    alt="SmartHomeU homepage with smart home courses, guides, and reviews"
+                    width="1440"
+                    height="900"
+                    loading="lazy"
+                  />
+                </a>
+                <div className="project-card-copy">
+                  <h3>SmartHomeU</h3>
+                  <p>
+                    A smart home education site with 22 free courses and 112
+                    lessons, product reviews, comparison tools, and a product
+                    database with live retail pricing.
+                  </p>
+                  <p>
+                    Built on Drupal 11 with a custom theme and a Node.js
+                    price-scraping service that keeps the product database
+                    current.
+                  </p>
+                  <p className="project-stack">
+                    Drupal 11, PHP, MySQL, Node.js, Puppeteer
+                  </p>
+                  <a
+                    className="text-link"
+                    href="https://smarthomeu.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Visit SmartHomeU <ArrowUpRight />
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -447,6 +468,21 @@ function Portfolio() {
               Read the full resume <ArrowUpRight />
               <span className="sr-only"> opens in a new tab</span>
             </a>
+
+            <figure className="endorsement">
+              <blockquote>
+                <p>
+                  “Kyle was not only extremely skilled in turning our designs
+                  into functional, responsive code, but he also made the
+                  process smooth and collaborative… His knowledge of WCAG
+                  helped ensure our designs weren&apos;t just visually
+                  appealing but user-friendly as well. Anyone looking for a
+                  thoughtful, skilled, and team-oriented engineer would be
+                  lucky to have him on board.”
+                </p>
+              </blockquote>
+              <figcaption>Design collaborator, via LinkedIn</figcaption>
+            </figure>
           </div>
         </section>
 
@@ -491,6 +527,10 @@ function Portfolio() {
                 <p>{capability.detail}</p>
               </div>
             ))}
+            <p className="capabilities-stack">
+              Day to day: TypeScript, JavaScript, React, Next.js, Node.js, PHP,
+              Drupal, GraphQL, MySQL, Rust, Tauri, and Cloudflare.
+            </p>
           </div>
         </section>
 
