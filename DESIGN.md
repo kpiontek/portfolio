@@ -23,7 +23,7 @@ colors:
 typography:
   display:
     fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "clamp(4rem, 7vw, 5.75rem)"
+    fontSize: "clamp(4.25rem, 7.5vw, 6rem)"
     fontWeight: 730
     lineHeight: 0.98
     letterSpacing: "-0.038em"
@@ -172,7 +172,7 @@ The palette is grounded, restrained, and high-contrast. Deep evergreen owns prim
 
 ### Hierarchy
 
-- **Display** (730, 4-5.75rem responsive, 0.98 line-height, -0.038em tracking): The opening statement only. Its exact size is `clamp(4rem, 7vw, 5.75rem)` and its measure stays short.
+- **Display** (730, 4.25-6rem responsive, 0.98 line-height, -0.038em tracking): The opening statement only. Its exact size is `clamp(4.25rem, 7.5vw, 6rem)`, its measure stays short, and it carries the same full-width evergreen underline as section titles.
 - **Headline** (710, 2.7-4.4rem responsive, 1 line-height, -0.035em tracking): Major section titles and the inverse contact heading use `clamp(2.7rem, 5vw, 4.4rem)`.
 - **Title** (710, 2.3-3.5rem responsive, 1.04 line-height, -0.035em tracking): Featured project names use `clamp(2.3rem, 4vw, 3.5rem)`, with supporting project titles stepping down from the same family.
 - **Lead** (540, 1.2-1.42rem responsive, 1.48 line-height, -0.018em tracking): Opening context and project summaries use `clamp(1.2rem, 1.8vw, 1.42rem)` to bridge headings and body evidence.

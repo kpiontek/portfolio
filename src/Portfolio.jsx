@@ -100,6 +100,11 @@ function Portfolio() {
   }, [mobileMenuOpen]);
 
   useLayoutEffect(() => {
+    const obscured = [
+      document.getElementById('main-content'),
+      document.querySelector('.site-footer'),
+    ];
+
     if (mobileMenuOpen) {
       const scrollbarWidth =
         window.innerWidth - document.documentElement.clientWidth;
@@ -109,14 +114,17 @@ function Portfolio() {
         `${scrollbarWidth}px`,
       );
       document.body.classList.add('menu-open');
+      obscured.forEach((el) => el && (el.inert = true));
     } else {
       document.body.classList.remove('menu-open');
       document.body.style.removeProperty('--scrollbar-compensation');
+      obscured.forEach((el) => el && (el.inert = false));
     }
 
     return () => {
       document.body.classList.remove('menu-open');
       document.body.style.removeProperty('--scrollbar-compensation');
+      obscured.forEach((el) => el && (el.inert = false));
     };
   }, [mobileMenuOpen]);
 
@@ -472,16 +480,19 @@ function Portfolio() {
             <figure className="endorsement">
               <blockquote>
                 <p>
-                  “Kyle was not only extremely skilled in turning our designs
+                  Kyle was not only extremely skilled in turning our designs
                   into functional, responsive code, but he also made the
                   process smooth and collaborative… His knowledge of WCAG
                   helped ensure our designs weren&apos;t just visually
                   appealing but user-friendly as well. Anyone looking for a
                   thoughtful, skilled, and team-oriented engineer would be
-                  lucky to have him on board.”
+                  lucky to have him on board.
                 </p>
               </blockquote>
-              <figcaption>Design collaborator, via LinkedIn</figcaption>
+              <figcaption>
+                <span className="endorsement-name">Melina Sanchez</span>,
+                Senior Designer at Optiv
+              </figcaption>
             </figure>
           </div>
         </section>
@@ -503,20 +514,22 @@ function Portfolio() {
                 I build dependable products, modernize complex platforms, and
                 help teams make sound technical decisions.
               </p>
-              <p>
-                Much of my career has been spent modernizing systems that
-                cannot simply go offline: government site portfolios,
-                revenue-producing platforms, and enterprise CMS programs. I
-                know how to improve them without losing what already works.
-              </p>
-              <p>
-                I also build products end to end. Recent work spans React
-                frontends for Tauri desktop applications with Rust at the core,
-                data-heavy Next.js sites, public Cloudflare services, and the
-                operational work required to ship them. I mentor, review,
-                communicate tradeoffs, and step into technical leadership when
-                a project needs it.
-              </p>
+              <div className="about-columns">
+                <p>
+                  Much of my career has been spent modernizing systems that
+                  cannot simply go offline: government site portfolios,
+                  revenue-producing platforms, and enterprise CMS programs. I
+                  know how to improve them without losing what already works.
+                </p>
+                <p>
+                  I also build products end to end. Recent work spans React
+                  frontends for Tauri desktop applications with Rust at the
+                  core, data-heavy Next.js sites, public Cloudflare services,
+                  and the operational work required to ship them. I mentor,
+                  review, communicate tradeoffs, and step into technical
+                  leadership when a project needs it.
+                </p>
+              </div>
             </div>
           </div>
 
