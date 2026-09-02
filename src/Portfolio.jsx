@@ -220,13 +220,13 @@ function Portfolio() {
             <div className="hero-copy">
               <p>
                 I&apos;m a Senior Full Stack Developer with 15 years of
-                experience shipping, stabilizing, and modernizing software for
-                enterprise platforms, public services, and independent
-                products.
+                building and fixing software: 120+ state government websites,
+                a marketplace with 500,000 users, and four products of my own
+                that I run today.
               </p>
               <p>
-                I work from architecture through interface, with practical
-                judgment and care for the people using what I build.
+                Based in Vermont, working remotely, and open to senior and
+                staff engineering roles.
               </p>
               <div className="hero-actions">
                 <a className="button button-primary" href="#work">
@@ -274,8 +274,9 @@ function Portfolio() {
                   <h3>SiteCMD</h3>
                   <p>
                     A local-first desktop app, CLI, and MCP server that audit
-                    websites and source code, prioritize issues by real risk,
-                    and hand exact fixes to the tools developers already use.
+                    websites and source code with 420+ checks, prioritize
+                    issues by real risk, and hand exact fixes to the tools
+                    developers already use.
                   </p>
                   <p>
                     Built as one connected system, from the Rust scan engines
@@ -323,8 +324,8 @@ function Portfolio() {
                   </p>
                   <p>
                     Built around validated data for 124 teams and roughly 1,165
-                    static routes, with shared venue integrity rules and
-                    editorial tooling.
+                    static routes, now drawing 5,000+ monthly visitors, mostly
+                    from organic search.
                   </p>
                   <p className="project-stack">
                     Next.js, React, TypeScript, Supabase, Cloudflare
@@ -435,8 +436,8 @@ function Portfolio() {
             <div className="section-heading">
               <h2>Experience</h2>
               <p>
-                Senior contribution across independent products, enterprise
-                delivery, public infrastructure, and high-traffic platforms.
+                Fifteen years, from agency work to state government to
+                enterprise platforms, plus my own products since 2026.
               </p>
             </div>
 
@@ -499,8 +500,8 @@ function Portfolio() {
             <div className="about-copy">
               <h2>About</h2>
               <p className="about-lead">
-                I build dependable products, modernize complex platforms, and
-                help teams make sound technical decisions.
+                I build products end to end, keep difficult platforms online,
+                and work AI-native with a hard line on what ships.
               </p>
             </div>
 
@@ -512,12 +513,13 @@ function Portfolio() {
                 know how to improve them without losing what already works.
               </p>
               <p>
-                I also build products end to end. Recent work spans React
+                I also build products end to end. Claude Code and Codex write
+                a lot of my code now; automated tests, repository hooks, and my
+                own review decide what merges. Recent work spans React
                 frontends for Tauri desktop applications with Rust at the core,
                 data-heavy Next.js sites, public Cloudflare services, and the
-                operational work required to ship them. I mentor, review,
-                communicate tradeoffs, and step into technical leadership when
-                a project needs it.
+                operational work required to ship them. I mentor, review, and
+                step into technical leadership when a project needs it.
               </p>
             </div>
           </div>
@@ -531,7 +533,8 @@ function Portfolio() {
             ))}
             <p className="capabilities-stack">
               Day to day: TypeScript, JavaScript, React, Next.js, Node.js, PHP,
-              Drupal, GraphQL, MySQL, Rust, Tauri, and Cloudflare.
+              Drupal, GraphQL, MySQL, Rust, Tauri, Cloudflare, Claude Code,
+              Codex, and MCP.
             </p>
           </div>
         </section>
@@ -557,19 +560,11 @@ function Portfolio() {
                 <span className="sr-only"> opens in a new tab</span>
               </a>
               <a
-                href="https://github.com/kpiontek"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Personal GitHub
-                <span className="sr-only"> opens in a new tab</span>
-              </a>
-              <a
                 href="https://github.com/brambleworks"
                 target="_blank"
                 rel="noreferrer"
               >
-                Brambleworks GitHub
+                GitHub
                 <span className="sr-only"> opens in a new tab</span>
               </a>
             </div>
