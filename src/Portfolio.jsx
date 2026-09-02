@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './Portfolio.scss';
 
+import headshotImg from './assets/headshot.webp';
 import sitecmdImg from './assets/projects/sitecmd.webp';
 import smartHomeUImg from './assets/projects/smarthomeu.webp';
 import visitYourTeamImg from './assets/projects/visit-your-team.webp';
@@ -66,19 +67,6 @@ const capabilities = [
       'Architecture, code review, mentoring, and release planning. Trusted as the standing backup for lead architects and a director of development.',
   },
 ];
-
-function ArrowUpRight({ decorative = true }) {
-  return (
-    <svg
-      aria-hidden={decorative}
-      className="arrow-icon"
-      fill="none"
-      viewBox="0 0 16 16"
-    >
-      <path d="M4 12 12 4M5 4h7v7" />
-    </svg>
-  );
-}
 
 function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -172,7 +160,6 @@ function Portfolio() {
             rel="noreferrer"
           >
             Resume
-            <ArrowUpRight />
             <span className="sr-only"> opens in a new tab</span>
           </a>
 
@@ -215,7 +202,7 @@ function Portfolio() {
               rel="noreferrer"
               onClick={closeMenu}
             >
-              Resume <ArrowUpRight />
+              Resume
               <span className="sr-only"> opens in a new tab</span>
             </a>
           </div>
@@ -252,7 +239,6 @@ function Portfolio() {
                   rel="noreferrer"
                 >
                   Download resume
-                  <ArrowUpRight />
                   <span className="sr-only"> opens in a new tab</span>
                 </a>
               </div>
@@ -306,7 +292,7 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit SiteCMD <ArrowUpRight />
+                    Visit SiteCMD
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -349,7 +335,7 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit Visit Your Team <ArrowUpRight />
+                    Visit Visit Your Team
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -392,7 +378,7 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit Was It Vibed <ArrowUpRight />
+                    Visit Was It Vibed
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -435,7 +421,7 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit SmartHomeU <ArrowUpRight />
+                    Visit SmartHomeU
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -473,7 +459,7 @@ function Portfolio() {
               target="_blank"
               rel="noreferrer"
             >
-              Read the full resume <ArrowUpRight />
+              Read the full resume
               <span className="sr-only"> opens in a new tab</span>
             </a>
 
@@ -501,10 +487,12 @@ function Portfolio() {
           <div className="shell about-layout">
             <div className="about-portrait">
               <img
-                src="/headshot.jpg"
+                src={headshotImg}
                 alt="Kyle Piontek"
-                width="246"
-                height="258"
+                width="640"
+                height="640"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -514,22 +502,23 @@ function Portfolio() {
                 I build dependable products, modernize complex platforms, and
                 help teams make sound technical decisions.
               </p>
-              <div className="about-columns">
-                <p>
-                  Much of my career has been spent modernizing systems that
-                  cannot simply go offline: government site portfolios,
-                  revenue-producing platforms, and enterprise CMS programs. I
-                  know how to improve them without losing what already works.
-                </p>
-                <p>
-                  I also build products end to end. Recent work spans React
-                  frontends for Tauri desktop applications with Rust at the
-                  core, data-heavy Next.js sites, public Cloudflare services,
-                  and the operational work required to ship them. I mentor,
-                  review, communicate tradeoffs, and step into technical
-                  leadership when a project needs it.
-                </p>
-              </div>
+            </div>
+
+            <div className="about-columns">
+              <p>
+                Much of my career has been spent modernizing systems that
+                cannot simply go offline: government site portfolios,
+                revenue-producing platforms, and enterprise CMS programs. I
+                know how to improve them without losing what already works.
+              </p>
+              <p>
+                I also build products end to end. Recent work spans React
+                frontends for Tauri desktop applications with Rust at the core,
+                data-heavy Next.js sites, public Cloudflare services, and the
+                operational work required to ship them. I mentor, review,
+                communicate tradeoffs, and step into technical leadership when
+                a project needs it.
+              </p>
             </div>
           </div>
 
@@ -549,26 +538,40 @@ function Portfolio() {
 
         <section className="contact" id="contact">
           <div className="shell contact-layout">
-            <h2>Let&apos;s talk.</h2>
             <div className="contact-copy">
+              <h2>Let&apos;s talk.</h2>
               <p>
                 If you&apos;re hiring for a senior engineering role or need
                 experienced help with a difficult platform, I&apos;d be glad to
                 hear what you&apos;re working on.
               </p>
-              <div className="contact-links">
-                <a href="mailto:hello@kylepiontek.com">
-                  hello@kylepiontek.com <ArrowUpRight />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/kyle-piontek"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn <ArrowUpRight />
-                  <span className="sr-only"> opens in a new tab</span>
-                </a>
-              </div>
+            </div>
+            <div className="contact-links">
+              <a href="mailto:hello@kylepiontek.com">hello@kylepiontek.com</a>
+              <a
+                href="https://www.linkedin.com/in/kyle-piontek"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+                <span className="sr-only"> opens in a new tab</span>
+              </a>
+              <a
+                href="https://github.com/kpiontek"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Personal GitHub
+                <span className="sr-only"> opens in a new tab</span>
+              </a>
+              <a
+                href="https://github.com/brambleworks"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Brambleworks GitHub
+                <span className="sr-only"> opens in a new tab</span>
+              </a>
             </div>
           </div>
         </section>

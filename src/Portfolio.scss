@@ -171,24 +171,9 @@ img {
 .header-resume {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
   margin-left: 32px;
   padding-left: 32px;
   border-left: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-.arrow-icon {
-  width: 0.9em;
-  height: 0.9em;
-  flex: 0 0 auto;
-  overflow: visible;
-}
-
-.arrow-icon path {
-  stroke: currentColor;
-  stroke-linecap: square;
-  stroke-linejoin: miter;
-  stroke-width: 1.5;
 }
 
 .menu-button {
@@ -302,8 +287,7 @@ img {
 .hero::before,
 .work::before,
 .experience::before,
-.about::before,
-.contact::before {
+.about::before {
   position: absolute;
   z-index: -1;
   pointer-events: none;
@@ -415,7 +399,6 @@ img {
   display: inline-flex;
   width: fit-content;
   align-items: center;
-  gap: 8px;
   padding-bottom: 4px;
   border-bottom: 1px solid currentColor;
   color: var(--accent);
@@ -727,14 +710,15 @@ img {
 
 .about-layout {
   display: grid;
-  grid-template-columns: minmax(240px, 4fr) minmax(0, 8fr);
-  gap: clamp(64px, 10vw, 144px);
+  grid-template-columns: minmax(280px, 5fr) minmax(0, 7fr);
+  column-gap: clamp(64px, 10vw, 144px);
+  row-gap: clamp(48px, 6vw, 72px);
   align-items: start;
 }
 
 .about-portrait {
-  width: min(100%, 246px);
-  max-width: 246px;
+  width: min(100%, 320px);
+  max-width: 320px;
   aspect-ratio: 1;
   overflow: hidden;
   background: #dfe7e1;
@@ -765,10 +749,10 @@ img {
 }
 
 .about-columns {
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 40px;
-  margin-top: 28px;
+  gap: clamp(40px, 7vw, 88px);
 }
 
 .about-columns p {
@@ -836,22 +820,6 @@ img {
   color: #ffffff;
 }
 
-.contact::before {
-  inset: 0;
-  background-image: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.08) 1px,
-    transparent 1px
-  );
-  background-size: 80px 100%;
-  mask-image: linear-gradient(
-    to right,
-    transparent 5%,
-    var(--ink) 55%,
-    transparent 100%
-  );
-}
-
 .contact-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr);
@@ -869,7 +837,7 @@ img {
 
 .contact-copy > p {
   max-width: 62ch;
-  margin: 4px 0 0;
+  margin: 36px 0 0;
   color: var(--inverse-muted);
   font-size: 1.05rem;
   line-height: 1.75;
@@ -880,13 +848,12 @@ img {
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
-  margin-top: 40px;
+  margin-top: 4px;
 }
 
 .contact-links a {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   padding-bottom: 5px;
   border-bottom: 1px solid currentColor;
   color: var(--inverse-hover);
@@ -1139,11 +1106,16 @@ img {
 
   .about-layout {
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 48px;
   }
 
   .about-portrait {
-    max-width: 246px;
+    max-width: 280px;
+  }
+
+  .about-columns {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .about-copy h2 {
