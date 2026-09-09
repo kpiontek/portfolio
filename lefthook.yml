@@ -20,6 +20,11 @@ pre-commit:
           echo "gitleaks is not installed; skipping the secret scan (brew install gitleaks)"
         fi
 
+commit-msg:
+  jobs:
+    - name: message-format
+      run: node scripts/check-commit-message.mjs --file "{1}"
+
 pre-push:
   parallel: false
   jobs:

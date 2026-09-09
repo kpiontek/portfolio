@@ -29,6 +29,7 @@ Cloudflare Pages builds and deploys `dist/` on every push to `main`. Security he
 - WCAG 2.2 AA. The browser test runs axe in light, dark, and mobile contexts.
 - Every asset under `src/assets` must be imported; every poster is 1200x750.
 - Commits are authored as Kyle Piontek with no tool attribution or trailers.
+- Commit subjects are plain English: a capitalized imperative verb and a specific object, at most ten words and sixty characters, no `feat:` style prefix, no colon, no trailing punctuation. The body, if any, is at most four short lines of reasoning that the diff does not show. `scripts/check-commit-message.mjs` enforces this from the commit-msg hook and on pull request titles. Example: `Add security headers for Cloudflare Pages`.
 
 The tests under `tests/` encode these rules. When one fails, fix the site, not the test, unless the rule itself is being changed on purpose.
 
