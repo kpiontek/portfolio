@@ -560,7 +560,7 @@ function Portfolio() {
                 <span className="sr-only"> opens in a new tab</span>
               </a>
               <a
-                href="https://github.com/brambleworks"
+                href="https://github.com/kpiontek"
                 target="_blank"
                 rel="noreferrer"
               >
