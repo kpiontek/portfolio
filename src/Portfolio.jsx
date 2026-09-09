@@ -2,10 +2,21 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './Portfolio.scss';
 
 import headshotImg from './assets/headshot.webp';
-import sitecmdImg from './assets/projects/sitecmd.webp';
-import smartHomeUImg from './assets/projects/smarthomeu.webp';
-import visitYourTeamImg from './assets/projects/visit-your-team.webp';
-import wasItVibedImg from './assets/projects/was-it-vibed.webp';
+import sitecmdPoster from './assets/projects/sitecmd-poster.webp';
+import sitecmdWebm from './assets/projects/sitecmd.webm';
+import sitecmdMp4 from './assets/projects/sitecmd.mp4';
+import smartHomeUPoster from './assets/projects/smarthomeu-poster.webp';
+import smartHomeUWebm from './assets/projects/smarthomeu.webm';
+import smartHomeUMp4 from './assets/projects/smarthomeu.mp4';
+import visitYourTeamPoster from './assets/projects/visit-your-team-poster.webp';
+import visitYourTeamWebm from './assets/projects/visit-your-team.webm';
+import visitYourTeamMp4 from './assets/projects/visit-your-team.mp4';
+import wasItVibedPoster from './assets/projects/was-it-vibed-poster.webp';
+import wasItVibedWebm from './assets/projects/was-it-vibed.webm';
+import wasItVibedMp4 from './assets/projects/was-it-vibed.mp4';
+
+const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
+const FINE_POINTER = '(hover: hover) and (pointer: fine)';
 
 const experience = [
   {
@@ -17,7 +28,7 @@ const experience = [
   },
   {
     dates: '2026 - Present',
-    role: 'Founder & Product Engineer',
+    role: 'Founder & Engineer',
     company: 'Brambleworks',
     detail:
       'Building and operating independent technology products including SiteCMD, SmartHomeU, Visit Your Team, and Was It Vibed, from product direction and interface design through full-stack architecture, release, and ongoing operations.',
@@ -34,42 +45,71 @@ const experience = [
     role: 'Software Engineer',
     company: 'Tyler Technologies',
     detail:
-      'Helped deliver and maintain more than 120 Drupal websites for the State of Vermont, modernized legacy PHP systems, mentored developers, and served as backup Director of Development.',
+      'Built and maintained more than 120 Drupal websites for the State of Vermont, migrated legacy PHP applications to Drupal with zero downtime, mentored developers, and covered for the Director of Development.',
   },
   {
     dates: 'Feb 2019 - Jun 2020',
     role: 'Full Stack Engineer',
     company: 'CashorTrade.org',
     detail:
-      'Built for a ticket marketplace serving more than 500,000 members. Cut API response time by 30% and helped deliver payment and escrow work that more than doubled company revenue.',
+      'Designed and built the payments and escrow system for a ticket marketplace serving more than 500,000 users, which more than doubled company revenue. Cut API response times by 30%.',
   },
 ];
 
-const capabilities = [
-  {
-    title: 'Ship new products',
-    detail:
-      'Four independent products in production, designed, built, and operated end to end: SiteCMD, SmartHomeU, Visit Your Team, and Was It Vibed.',
-  },
-  {
-    title: 'Rescue difficult platforms',
-    detail:
-      'Troubled codebases taken over and stabilized, legacy websites and apps modernized without downtime, and monthly release schedules restored for teams under pressure.',
-  },
-  {
-    title: 'Make it fast and accessible',
-    detail:
-      'Page loads cut by nearly half, API responses by 30%, and WCAG accessibility treated as part of done, not an audit finding to fix later.',
-  },
-  {
-    title: 'Lead the technical work',
-    detail:
-      'Architecture, code review, mentoring, and release planning. Trusted as the standing backup for lead architects and a director of development.',
-  },
-];
+function ProductMedia({ href, label, poster, webm, mp4, priority = false }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || window.matchMedia(REDUCED_MOTION).matches) return undefined;
+
+    video.muted = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(video);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <a
+      className="project-media"
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+    >
+      <video
+        ref={videoRef}
+        className="project-video"
+        poster={poster}
+        width="1200"
+        height="750"
+        muted
+        playsInline
+        loop
+        preload={priority ? 'auto' : 'metadata'}
+        aria-hidden="true"
+        tabIndex={-1}
+      >
+        <source src={webm} type="video/webm" />
+        <source src={mp4} type="video/mp4" />
+      </video>
+    </a>
+  );
+}
 
 function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const heroRef = useRef(null);
   const menuButtonRef = useRef(null);
 
   useEffect(() => {
@@ -132,6 +172,39 @@ function Portfolio() {
   }, []);
 
   const closeMenu = () => setMobileMenuOpen(false);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (
+      !hero ||
+      !window.matchMedia(FINE_POINTER).matches ||
+      window.matchMedia(REDUCED_MOTION).matches
+    ) {
+      return undefined;
+    }
+
+    let frame = 0;
+    const onMove = (event) => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const rect = hero.getBoundingClientRect();
+        hero.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+        hero.style.setProperty('--my', `${event.clientY - rect.top}px`);
+        hero.classList.add('is-lit');
+      });
+    };
+    const onLeave = () => hero.classList.remove('is-lit');
+
+    hero.addEventListener('pointermove', onMove);
+    hero.addEventListener('pointerleave', onLeave);
+
+    return () => {
+      hero.removeEventListener('pointermove', onMove);
+      hero.removeEventListener('pointerleave', onLeave);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
     <div className="portfolio">
@@ -210,7 +283,7 @@ function Portfolio() {
       </header>
 
       <main id="main-content">
-        <section className="hero" id="top">
+        <section className="hero" id="top" ref={heroRef}>
           <div className="shell hero-layout">
             <h1>
               Hey,
@@ -225,15 +298,11 @@ function Portfolio() {
                 that I run today.
               </p>
               <p>
-                Based in Vermont, working remotely, and open to senior and
-                staff engineering roles.
+                Based in Vermont and working remotely.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#work">
-                  View selected work
-                </a>
                 <a
-                  className="text-link"
+                  className="button button-primary"
                   href="/Kyle_Piontek_Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
@@ -250,26 +319,18 @@ function Portfolio() {
           <div className="shell">
             <div className="section-heading">
               <h2>Selected work</h2>
-              <p>Four products I designed, built, and run myself.</p>
             </div>
 
             <div className="project-grid">
               <article className="project-card">
-                <a
-                  className="project-media"
+                <ProductMedia
                   href="https://sitecmd.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Visit the SiteCMD website"
-                >
-                  <img
-                    src={sitecmdImg}
-                    alt="SiteCMD homepage introducing the local-first website and code scanner"
-                    width="1400"
-                    height="780"
-                    fetchpriority="high"
-                  />
-                </a>
+                  label="Visit the SiteCMD website"
+                  poster={sitecmdPoster}
+                  webm={sitecmdWebm}
+                  mp4={sitecmdMp4}
+                  priority
+                />
                 <div className="project-card-copy">
                   <h3>SiteCMD</h3>
                   <p>
@@ -279,13 +340,15 @@ function Portfolio() {
                     developers already use.
                   </p>
                   <p>
-                    Built as one connected system, from the Rust scan engines
-                    to the Tauri desktop app and React interface, with a
-                    privacy boundary that keeps code and findings on the
-                    user&apos;s machine.
+                    Rust scan engines, a Tauri desktop app with a React
+                    interface, and a hosted service on Cloudflare Workers for
+                    scheduled scans, deploy checks, and CI gates. Code and
+                    findings stay on the user&apos;s machine unless they connect
+                    a site.
                   </p>
                   <p className="project-stack">
-                    Rust, Tauri, React, TypeScript, SQLite, Node.js, Cloudflare
+                    Rust, Tauri, React, TypeScript, SQLite, Cloudflare Workers,
+                    Durable Objects
                   </p>
                   <a
                     className="text-link"
@@ -300,21 +363,13 @@ function Portfolio() {
               </article>
 
               <article className="project-card">
-                <a
-                  className="project-media"
+                <ProductMedia
                   href="https://visityourteam.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Visit the Visit Your Team website"
-                >
-                  <img
-                    src={visitYourTeamImg}
-                    alt="Visit Your Team homepage with venue planning tools"
-                    width="1425"
-                    height="890"
-                    loading="lazy"
-                  />
-                </a>
+                  label="Visit the Visit Your Team website"
+                  poster={visitYourTeamPoster}
+                  webm={visitYourTeamWebm}
+                  mp4={visitYourTeamMp4}
+                />
                 <div className="project-card-copy">
                   <h3>Visit Your Team</h3>
                   <p>
@@ -343,21 +398,13 @@ function Portfolio() {
               </article>
 
               <article className="project-card">
-                <a
-                  className="project-media"
+                <ProductMedia
                   href="https://wasitvibed.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Visit the Was It Vibed website"
-                >
-                  <img
-                    src={wasItVibedImg}
-                    alt="Was It Vibed homepage with scanner form and illustrative evidence report"
-                    width="1400"
-                    height="780"
-                    loading="lazy"
-                  />
-                </a>
+                  label="Visit the Was It Vibed website"
+                  poster={wasItVibedPoster}
+                  webm={wasItVibedWebm}
+                  mp4={wasItVibedMp4}
+                />
                 <div className="project-card-copy">
                   <h3>Was It Vibed</h3>
                   <p>
@@ -386,21 +433,13 @@ function Portfolio() {
               </article>
 
               <article className="project-card">
-                <a
-                  className="project-media"
+                <ProductMedia
                   href="https://smarthomeu.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Visit the SmartHomeU website"
-                >
-                  <img
-                    src={smartHomeUImg}
-                    alt="SmartHomeU homepage with smart home courses, guides, and reviews"
-                    width="1440"
-                    height="900"
-                    loading="lazy"
-                  />
-                </a>
+                  label="Visit the SmartHomeU website"
+                  poster={smartHomeUPoster}
+                  webm={smartHomeUWebm}
+                  mp4={smartHomeUMp4}
+                />
                 <div className="project-card-copy">
                   <h3>SmartHomeU</h3>
                   <p>
@@ -511,32 +550,24 @@ function Portfolio() {
                 cannot simply go offline: government site portfolios,
                 revenue-producing platforms, and enterprise CMS programs. I
                 know how to improve them without losing what already works.
+                Along the way I mentor, review code, and step into technical
+                leadership when a project needs it.
               </p>
               <p>
-                I also build products end to end. Claude Code and Codex write
-                a lot of my code now; automated tests, repository hooks, and my
-                own review decide what merges. Recent work spans React
-                frontends for Tauri desktop applications with Rust at the core,
-                data-heavy Next.js sites, public Cloudflare services, and the
-                operational work required to ship them. I mentor, review, and
-                step into technical leadership when a project needs it.
+                My own products cover the other side of the work: React
+                frontends for Tauri desktop apps with Rust at the core,
+                data-heavy Next.js sites, and public Cloudflare services.
+                Claude Code and Codex write a lot of my code now; automated
+                tests, repository hooks, and my own review decide what merges.
               </p>
             </div>
-          </div>
-
-          <div className="shell capabilities">
-            {capabilities.map((capability) => (
-              <div className="capability" key={capability.title}>
-                <h3>{capability.title}</h3>
-                <p>{capability.detail}</p>
-              </div>
-            ))}
-            <p className="capabilities-stack">
+            <p className="about-stack">
               Day to day: TypeScript, JavaScript, React, Next.js, Node.js, PHP,
               Drupal, GraphQL, MySQL, Rust, Tauri, Cloudflare, Claude Code,
               Codex, and MCP.
             </p>
           </div>
+
         </section>
 
         <section className="contact" id="contact">
@@ -551,22 +582,36 @@ function Portfolio() {
             </div>
             <div className="contact-links">
               <a href="mailto:hello@kylepiontek.com">hello@kylepiontek.com</a>
-              <a
-                href="https://www.linkedin.com/in/kyle-piontek"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-                <span className="sr-only"> opens in a new tab</span>
-              </a>
-              <a
-                href="https://github.com/kpiontek"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-                <span className="sr-only"> opens in a new tab</span>
-              </a>
+              <div className="contact-social">
+                <a
+                  className="contact-icon"
+                  href="https://www.linkedin.com/in/kyle-piontek"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn, opens in a new tab"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    />
+                  </svg>
+                </a>
+                <a
+                  className="contact-icon"
+                  href="https://github.com/kpiontek"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub, opens in a new tab"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                      fill="currentColor"
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </section>

@@ -153,7 +153,7 @@ The palette is grounded, restrained, and high-contrast. Deep evergreen owns prim
 - **Moss Slate** (#56615b): Supporting copy, navigation, roles, and secondary information.
 - **Quiet Moss** (#56615b): Compact dates and stack metadata. It shares Moss Slate's measured contrast while retaining a quieter semantic role.
 - **Sage Rule** (#cfd7d1): Repeated separators, row borders, and media outlines.
-- **Strong Sage Rule** (#9eaaa2): Capability dividers that need slightly more authority.
+- **Strong Sage Rule** (#9eaaa2): Dividers that need slightly more authority than the Sage Rule.
 - **Inverse Sage** (#bdccc4): Supporting copy and footer text on the Deep Forest field.
 - **Media Frame** (#e2e9e4): The muted sage backing behind real product screens.
 - **Portrait Frame** (#dfe7e1): The quiet backing within the circular headshot.
@@ -185,11 +185,11 @@ The palette is grounded, restrained, and high-contrast. Deep evergreen owns prim
 
 ## Layout
 
-The page uses a centered shell capped at 1280px. Desktop gutters are 32px per side, tablet gutters are 20px, and mobile gutters are 16px. Section padding expands fluidly from 96px to 152px, with the contact band reaching 160px at its widest.
+The page uses a centered shell capped at 1280px. Desktop gutters are 32px per side, tablet gutters are 20px, and mobile gutters are 16px. Section padding expands fluidly from 64px to 96px, and the contact band uses the same range.
 
-The opening viewport uses a 7:5 grid with a fluid 56-120px gap and an 800px maximum visual height. Section headings use two equal columns. The flagship project copy uses a 4:8 split, supporting projects use two equal columns, experience rows use a 2:3:6 split, the about section uses a 4:8 split, and the contact band uses two equal columns. This repeated asymmetry makes hierarchy legible without card chrome.
+The hero uses a 7:5 grid with a fluid 56-120px gap and takes its height from its content, with 64-96px of fluid padding. Section headings use two equal columns. The flagship project copy uses a 4:8 split, supporting projects use two equal columns, experience rows use a 2:3:6 split, the about section uses a 4:8 split, and the contact band uses two equal columns. This repeated asymmetry makes hierarchy legible without card chrome.
 
-At 1080px the header role disappears and the capability grid reduces to two columns. At 820px the hero, section headings, and contact layout become single-column; project and experience grids simplify while retaining comparison structure. At 620px all content stacks, the primary button fills the available width, section spacing tightens, and semantic reading order becomes the visual order.
+At 1080px the header role disappears and the about columns stack. At 820px the hero, section headings, and contact layout become single-column; project and experience grids simplify while retaining comparison structure. At 620px all content stacks, the primary button fills the available width, section spacing tightens, and semantic reading order becomes the visual order.
 
 **The Reading Order Rule.** Responsive layouts may simplify their columns, but they must preserve the document's semantic order and never require horizontal scrolling.
 
@@ -224,7 +224,7 @@ Text links are the secondary action language. They use Evergreen Action, bold co
 
 ### Cards / Containers
 
-Projects are not boxed into decorative cards. A project media frame uses Media Frame backing, a one-pixel Sage Rule outline inset by 1px, square corners, and overflow clipping. Featured media preserves its source aspect ratio at every width; supporting media uses 16:10, changing to 4:3 on narrow screens. Text sits outside the frame in the page grid. Hover keeps the image stationary and adds a three-pixel Evergreen Action border inside the frame over 180ms.
+Projects are not boxed into decorative cards. A project media frame uses Media Frame backing, a one-pixel Sage Rule outline inset by 1px, square corners, and overflow clipping. Every project frame holds a short, silent, looping clip of the product in use (WebM with MP4 fallback, first-frame poster) at 16:10 on every width; clips play only while at least a third of the frame is in view and stay on their poster under reduced motion. Text sits outside the frame in the page grid. Hover adds a three-pixel accent border inside the frame over 180ms and eases the clip to a 1.025 scale over 700ms; reduced motion removes the scale.
 
 ### Navigation
 
@@ -245,6 +245,14 @@ Experience is a ruled list, not a timeline illustration. Each row uses 36px vert
 ### Contact and Footer
 
 The contact band and footer form one Deep Forest conclusion. Large Pure White type anchors the invitation, Inverse Sage supports the message, and underlined Pale Mint links shift to Inverse Orange while dropping their underline on hover. A translucent white rule separates the compact three-column footer, which stacks on mobile.
+
+### Hero Light
+
+The hero's dot field carries the one authored pointer interaction on the page: a second, denser dot layer masked to a 220px radius that follows a fine pointer and fades in over 420ms. Both layers fade toward the bottom of the hero so the headline and intro sit on near-solid ground; the field is fully present only in the top quarter. Dot alpha is scheme-aware (`--dot-alpha`, `--dot-lit-alpha`) and lower in dark. The lit layer exists only for hover-capable pointers and is removed under reduced motion.
+
+### Color Scheme
+
+The system is light by default and follows `prefers-color-scheme: dark` with the same identity: Deep Forest canvases, Pale Mint for interactive text and title rules, Inverse Orange for hover, and the tonal patterns recolored in mint. The evergreen header and primary button are unchanged across schemes. There is no manual toggle.
 
 **The State, Not Spectacle Rule.** Motion may clarify hover, focus, menu state, or initial hierarchy. It must remain restrained, disappear under reduced-motion preferences, and never carry essential meaning.
 
