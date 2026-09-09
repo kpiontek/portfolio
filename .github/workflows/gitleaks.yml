@@ -1,0 +1,36 @@
+# Remote counterpart to the `gitleaks protect` pre-commit hook: catches secrets
+# that reached a branch on a machine where the hook was skipped.
+name: gitleaks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # The action lists the commits on a pull request. Dependabot runs get a
+  # restricted token and fail without this scope.
+  pull-requests: read
+
+concurrency:
+  group: gitleaks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # Full history so the scan sees every commit, not just the tip.
+          fetch-depth: 0
+
+      # No license key: gitleaks-action is free for personal repositories.
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Pinned so CI and local installs flag the same findings.
+          GITLEAKS_VERSION: '8.30.1'

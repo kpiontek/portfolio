@@ -1,0 +1,32 @@
+# Weekly bumps, grouped so routine updates arrive as one review instead of a
+# stream of single dependency PRs.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      # Majors still open on their own, where they get a closer look.
+      npm-minor-patch:
+        update-types:
+          - minor
+          - patch
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      # Action pins are SHAs, so one PR per week keeps them all current.
+      github-actions:
+        patterns:
+          - '*'
+    labels:
+      - dependencies
+      - github-actions

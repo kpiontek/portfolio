@@ -2,109 +2,109 @@
 name: Kyle Piontek Portfolio
 description: A clean, work-first senior developer portfolio built on sage white, forest charcoal, deep evergreen, and real product evidence.
 colors:
-  sage-canvas: "#f1f4f1"
-  paper: "#fbfcfb"
-  white: "#ffffff"
-  forest-charcoal: "#111814"
-  moss-slate: "#56615b"
-  quiet-moss: "#56615b"
-  sage-rule: "#cfd7d1"
-  sage-rule-strong: "#9eaaa2"
-  evergreen: "#1f5a43"
-  evergreen-hover: "#164532"
-  deep-forest: "#0d261c"
-  inverse-muted: "#bdccc4"
-  focus-fern: "#3f765c"
-  pale-mint: "#a6d1bb"
-  burnt-orange: "#b5471f"
-  inverse-orange: "#ffb58a"
-  media-frame: "#e2e9e4"
-  portrait-frame: "#dfe7e1"
+  sage-canvas: '#f1f4f1'
+  paper: '#fbfcfb'
+  white: '#ffffff'
+  forest-charcoal: '#111814'
+  moss-slate: '#56615b'
+  quiet-moss: '#56615b'
+  sage-rule: '#cfd7d1'
+  sage-rule-strong: '#9eaaa2'
+  evergreen: '#1f5a43'
+  evergreen-hover: '#164532'
+  deep-forest: '#0d261c'
+  inverse-muted: '#bdccc4'
+  focus-fern: '#3f765c'
+  pale-mint: '#a6d1bb'
+  burnt-orange: '#b5471f'
+  inverse-orange: '#ffb58a'
+  media-frame: '#e2e9e4'
+  portrait-frame: '#dfe7e1'
 typography:
   display:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "clamp(4.25rem, 7.5vw, 6rem)"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: 'clamp(4.25rem, 7.5vw, 6rem)'
     fontWeight: 730
     lineHeight: 0.98
-    letterSpacing: "-0.038em"
+    letterSpacing: '-0.038em'
   headline:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "clamp(2.7rem, 5vw, 4.4rem)"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: 'clamp(2.7rem, 5vw, 4.4rem)'
     fontWeight: 710
     lineHeight: 1
-    letterSpacing: "-0.035em"
+    letterSpacing: '-0.035em'
   title:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "clamp(2.3rem, 4vw, 3.5rem)"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: 'clamp(2.3rem, 4vw, 3.5rem)'
     fontWeight: 710
     lineHeight: 1.04
-    letterSpacing: "-0.035em"
+    letterSpacing: '-0.035em'
   lead:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "clamp(1.2rem, 1.8vw, 1.42rem)"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: 'clamp(1.2rem, 1.8vw, 1.42rem)'
     fontWeight: 540
     lineHeight: 1.48
-    letterSpacing: "-0.018em"
+    letterSpacing: '-0.018em'
   body:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "1rem"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: '1rem'
     fontWeight: 400
     lineHeight: 1.75
-    letterSpacing: "normal"
+    letterSpacing: 'normal'
   label:
-    fontFamily: "Manrope, Helvetica Neue, sans-serif"
-    fontSize: "0.89rem"
+    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
+    fontSize: '0.89rem'
     fontWeight: 700
     lineHeight: 1.2
-    letterSpacing: "normal"
+    letterSpacing: 'normal'
 rounded:
-  none: "0"
-  control: "2px"
-  round: "50%"
+  none: '0'
+  control: '2px'
+  round: '50%'
 components:
   button-primary:
-    backgroundColor: "{colors.evergreen}"
-    textColor: "{colors.white}"
-    typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    padding: "0 20px"
-    height: "48px"
+    backgroundColor: '{colors.evergreen}'
+    textColor: '{colors.white}'
+    typography: '{typography.label}'
+    rounded: '{rounded.control}'
+    padding: '0 20px'
+    height: '48px'
   button-primary-hover:
-    backgroundColor: "{colors.evergreen-hover}"
-    textColor: "{colors.white}"
-    typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    padding: "0 20px"
-    height: "48px"
+    backgroundColor: '{colors.evergreen-hover}'
+    textColor: '{colors.white}'
+    typography: '{typography.label}'
+    rounded: '{rounded.control}'
+    padding: '0 20px'
+    height: '48px'
   text-link:
-    backgroundColor: "transparent"
-    textColor: "{colors.evergreen}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 0 4px"
+    backgroundColor: 'transparent'
+    textColor: '{colors.evergreen}'
+    typography: '{typography.label}'
+    rounded: '{rounded.none}'
+    padding: '0 0 4px'
   text-link-hover:
-    backgroundColor: "transparent"
-    textColor: "{colors.burnt-orange}"
-    typography: "{typography.label}"
-    rounded: "{rounded.none}"
-    padding: "0 0 4px"
+    backgroundColor: 'transparent'
+    textColor: '{colors.burnt-orange}'
+    typography: '{typography.label}'
+    rounded: '{rounded.none}'
+    padding: '0 0 4px'
   navigation-link:
-    backgroundColor: "transparent"
-    textColor: "{colors.white}"
-    rounded: "{rounded.none}"
+    backgroundColor: 'transparent'
+    textColor: '{colors.white}'
+    rounded: '{rounded.none}'
   navigation-link-hover:
-    backgroundColor: "transparent"
-    textColor: "{colors.inverse-orange}"
-    rounded: "{rounded.none}"
+    backgroundColor: 'transparent'
+    textColor: '{colors.inverse-orange}'
+    rounded: '{rounded.none}'
   project-media:
-    backgroundColor: "{colors.media-frame}"
-    rounded: "{rounded.none}"
-    width: "100%"
+    backgroundColor: '{colors.media-frame}'
+    rounded: '{rounded.none}'
+    width: '100%'
   experience-row:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.forest-charcoal}"
-    rounded: "{rounded.none}"
-    padding: "36px 0"
+    backgroundColor: '{colors.paper}'
+    textColor: '{colors.forest-charcoal}'
+    rounded: '{rounded.none}'
+    padding: '36px 0'
 ---
 
 # Design System: Kyle Piontek Portfolio

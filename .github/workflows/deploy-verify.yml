@@ -1,0 +1,63 @@
+# Cloudflare Pages builds and deploys this site itself on every push to main,
+# outside GitHub Actions. Nothing here triggers a deploy: the job builds locally
+# to learn which fingerprinted bundle this commit produces, polls the live site
+# until Cloudflare has published that exact build, and then checks it.
+name: deploy-verify
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Only the newest commit on main is worth verifying.
+concurrency:
+  group: deploy-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The same commit produces the same fingerprinted filename Cloudflare will
+      # serve, which is how the poll below knows this deploy landed.
+      - name: Build
+        run: npm run build
+
+      - name: Read the entry bundle name
+        id: asset
+        run: |
+          asset="$(grep -o '/assets/index-[A-Za-z0-9_-]*\.js' dist/index.html | head -n 1)"
+          if [ -z "$asset" ]; then
+            echo "no /assets/index-*.js reference found in dist/index.html" >&2
+            exit 1
+          fi
+          echo "path=$asset" >> "$GITHUB_OUTPUT"
+          echo "entry bundle: $asset"
+
+      - name: Wait for the deploy, then check headers and endpoints
+        run: node scripts/verify-deploy.mjs --expect-asset "${{ steps.asset.outputs.path }}"
+
+      # The live suite drives real Chromium, which the runner lacks.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # PORTFOLIO_URL points the accessibility and hydration suite at production
+      # instead of a local preview build.
+      - name: Accessibility and hydration checks against production
+        env:
+          PORTFOLIO_URL: https://kylepiontek.com
+        run: npx vitest run tests/browser.test.js
