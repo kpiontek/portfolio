@@ -1,0 +1,35 @@
+# Pre-commit runs the fast, file-scoped checks. Pre-push is the local mirror of
+# .github/workflows/quality.yml, so a push that passes here passes CI.
+# Emergency bypass: LEFTHOOK=0 git push
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: eslint
+      glob: '*.{js,mjs,jsx}'
+      run: npx eslint {staged_files}
+    - name: prettier
+      glob: '*.{js,mjs,jsx,json,scss,md,yml,yaml,html}'
+      run: npx prettier --write {staged_files}
+      stage_fixed: true
+    - name: gitleaks
+      run: |
+        if command -v gitleaks >/dev/null 2>&1; then
+          gitleaks protect --staged --redact --no-banner
+        else
+          echo "gitleaks is not installed; skipping the secret scan (brew install gitleaks)"
+        fi
+
+pre-push:
+  parallel: false
+  jobs:
+    - name: lint
+      run: npm run lint
+    - name: format
+      run: npm run format:check
+    - name: knip
+      run: npm run knip
+    - name: build
+      run: npm run build
+    - name: test
+      run: npm test

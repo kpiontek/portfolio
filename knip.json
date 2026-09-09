@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/entry-server.jsx",
+    "scripts/*.mjs",
+    "tests/**/*.test.{js,mjs}"
+  ],
+  "project": [
+    "src/**/*.{js,jsx,scss}",
+    "scripts/**/*.mjs",
+    "tests/**/*.{js,mjs}"
+  ],
+  "rules": {
+    "files": "error",
+    "dependencies": "error",
+    "devDependencies": "error",
+    "unlisted": "error",
+    "binaries": "error",
+    "duplicates": "error",
+    "exports": "warn",
+    "types": "warn"
+  }
+}

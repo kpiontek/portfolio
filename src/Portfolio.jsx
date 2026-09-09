@@ -292,14 +292,12 @@ function Portfolio() {
             </h1>
             <div className="hero-copy">
               <p>
-                I&apos;m a Senior Full Stack Developer with 15 years of
-                building and fixing software: 120+ state government websites,
-                a marketplace with 500,000 users, and four products of my own
-                that I run today.
+                I&apos;m a Senior Full Stack Developer with 15 years of building
+                and fixing software: 120+ state government websites, a
+                marketplace with 500,000 users, and four products of my own that
+                I run today.
               </p>
-              <p>
-                Based in Vermont and working remotely.
-              </p>
+              <p>Based in Vermont and working remotely.</p>
               <div className="hero-actions">
                 <a
                   className="button button-primary"
@@ -325,7 +323,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://sitecmd.com"
-                  label="Visit the SiteCMD website"
+                  label="Visit the SiteCMD website, opens in a new tab"
                   poster={sitecmdPoster}
                   webm={sitecmdWebm}
                   mp4={sitecmdMp4}
@@ -335,9 +333,9 @@ function Portfolio() {
                   <h3>SiteCMD</h3>
                   <p>
                     A local-first desktop app, CLI, and MCP server that audit
-                    websites and source code with 420+ checks, prioritize
-                    issues by real risk, and hand exact fixes to the tools
-                    developers already use.
+                    websites and source code with 420+ checks, prioritize issues
+                    by real risk, and hand exact fixes to the tools developers
+                    already use.
                   </p>
                   <p>
                     Rust scan engines, a Tauri desktop app with a React
@@ -365,7 +363,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://visityourteam.com"
-                  label="Visit the Visit Your Team website"
+                  label="Visit the Visit Your Team website, opens in a new tab"
                   poster={visitYourTeamPoster}
                   webm={visitYourTeamWebm}
                   mp4={visitYourTeamMp4}
@@ -400,7 +398,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://wasitvibed.com"
-                  label="Visit the Was It Vibed website"
+                  label="Visit the Was It Vibed website, opens in a new tab"
                   poster={wasItVibedPoster}
                   webm={wasItVibedWebm}
                   mp4={wasItVibedMp4}
@@ -435,7 +433,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://smarthomeu.com"
-                  label="Visit the SmartHomeU website"
+                  label="Visit the SmartHomeU website, opens in a new tab"
                   poster={smartHomeUPoster}
                   webm={smartHomeUWebm}
                   mp4={smartHomeUMp4}
@@ -507,17 +505,17 @@ function Portfolio() {
               <blockquote>
                 <p>
                   Kyle was not only extremely skilled in turning our designs
-                  into functional, responsive code, but he also made the
-                  process smooth and collaborative… His knowledge of WCAG
-                  helped ensure our designs weren&apos;t just visually
-                  appealing but user-friendly as well. Anyone looking for a
-                  thoughtful, skilled, and team-oriented engineer would be
-                  lucky to have him on board.
+                  into functional, responsive code, but he also made the process
+                  smooth and collaborative… His knowledge of WCAG helped ensure
+                  our designs weren&apos;t just visually appealing but
+                  user-friendly as well. Anyone looking for a thoughtful,
+                  skilled, and team-oriented engineer would be lucky to have him
+                  on board.
                 </p>
               </blockquote>
               <figcaption>
-                <span className="endorsement-name">Melina Sanchez</span>,
-                Senior Designer at Optiv
+                <span className="endorsement-name">Melina Sanchez</span>, Senior
+                Designer at Optiv
               </figcaption>
             </figure>
           </div>
@@ -546,19 +544,19 @@ function Portfolio() {
 
             <div className="about-columns">
               <p>
-                Much of my career has been spent modernizing systems that
-                cannot simply go offline: government site portfolios,
-                revenue-producing platforms, and enterprise CMS programs. I
-                know how to improve them without losing what already works.
-                Along the way I mentor, review code, and step into technical
-                leadership when a project needs it.
+                Much of my career has been spent modernizing systems that cannot
+                simply go offline: government site portfolios, revenue-producing
+                platforms, and enterprise CMS programs. I know how to improve
+                them without losing what already works. Along the way I mentor,
+                review code, and step into technical leadership when a project
+                needs it.
               </p>
               <p>
                 My own products cover the other side of the work: React
                 frontends for Tauri desktop apps with Rust at the core,
-                data-heavy Next.js sites, and public Cloudflare services.
-                Claude Code and Codex write a lot of my code now; automated
-                tests, repository hooks, and my own review decide what merges.
+                data-heavy Next.js sites, and public Cloudflare services. Claude
+                Code and Codex write a lot of my code now; automated tests,
+                repository hooks, and my own review decide what merges.
               </p>
             </div>
             <p className="about-stack">
@@ -567,7 +565,6 @@ function Portfolio() {
               Codex, and MCP.
             </p>
           </div>
-
         </section>
 
         <section className="contact" id="contact">

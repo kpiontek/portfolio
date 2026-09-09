@@ -609,7 +609,6 @@ img {
   border-color: var(--accent-line);
 }
 
-
 .project-stack {
   max-width: 70ch;
   margin: 28px 0 0;
@@ -619,7 +618,6 @@ img {
   letter-spacing: 0.015em;
   line-height: 1.6;
 }
-
 
 .project-grid {
   display: grid;
@@ -631,7 +629,6 @@ img {
 .project-card .project-media {
   aspect-ratio: 16 / 10;
 }
-
 
 .project-card-copy {
   padding-top: 30px;
@@ -1178,7 +1175,6 @@ img {
   .project-grid {
     gap: 80px;
   }
-
 
   .experience-item {
     grid-template-columns: 1fr;

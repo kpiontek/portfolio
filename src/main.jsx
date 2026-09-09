@@ -1,9 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Portfolio from './Portfolio'
+import { StrictMode } from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import Portfolio from './Portfolio';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+const root = document.getElementById('root');
+const app = (
+  <StrictMode>
     <Portfolio />
-  </React.StrictMode>,
-)
+  </StrictMode>
+);
+
+// The production build ships prerendered markup; the dev server starts empty.
+if (root.hasChildNodes()) {
+  hydrateRoot(root, app);
+} else {
+  createRoot(root).render(app);
+}
