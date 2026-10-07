@@ -238,9 +238,9 @@ Each major section opens with a large headline marked by an Evergreen Action und
 
 The flagship project pairs a large real product screen with a 4:8 evidence grid. Whitespace separates the media from the title and evidence, with no divider above the title. The left column holds the project title and role. The right column holds the summary, ruled contribution rows with evergreen dots, stack metadata, and text links. At 620px the grid becomes one reading column while retaining the same evidence order.
 
-### Experience Rows
+### Work History Rows
 
-Experience is a ruled list, not a timeline illustration. Each row uses 36px vertical padding and three desktop columns for dates, role and company, and evidence. It simplifies to two columns at tablet width and one column on mobile.
+Work History is a ruled list, not a timeline illustration. Each row uses 36px vertical padding and three desktop columns for dates, role and company, and a single line of evidence; the full detail lives in the resume. It simplifies to two columns at tablet width and one column on mobile.
 
 ### Contact and Footer
 

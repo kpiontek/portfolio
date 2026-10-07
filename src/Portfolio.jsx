@@ -24,35 +24,35 @@ const experience = [
     role: 'Senior Web Developer',
     company: 'Digital Artisans',
     detail:
-      'Own full-stack features across the data model, GraphQL API, and React UI of an enterprise Drupal platform. Took over a delayed project after two vendor handoffs, stabilized the codebase, and restored a monthly release schedule.',
-  },
-  {
-    dates: '2026 - Present',
-    role: 'Founder & Engineer',
-    company: 'Brambleworks',
-    detail:
-      'Building and operating independent technology products including SiteCMD, SmartHomeU, Visit Your Team, and Was It Vibed, from product direction and interface design through full-stack architecture, release, and ongoing operations.',
+      'Took over a late project after two vendor handoffs, got it stable, and cut monthly releases from several hours to under an hour.',
   },
   {
     dates: 'Apr 2024 - Apr 2025',
     role: 'Full Stack Web Developer',
     company: 'Optiv Security',
     detail:
-      'Served as backup Lead Technical Architect on a Drupal 10 platform. Cut page load times by nearly 50% by optimizing backend code, reducing frontend scripts, and improving caching.',
+      "Cut page load times on Optiv's Drupal 10 marketing sites by nearly half and backed up the Lead Technical Architect.",
   },
   {
     dates: 'Jun 2020 - Apr 2024',
     role: 'Software Engineer',
     company: 'Tyler Technologies',
     detail:
-      'Built and maintained more than 120 Drupal websites for the State of Vermont, migrated legacy PHP applications to Drupal with zero downtime, mentored developers, and covered for the Director of Development.',
+      'Built and maintained 120+ Drupal websites for State of Vermont agencies and backed up the Director of Development.',
   },
   {
     dates: 'Feb 2019 - Jun 2020',
     role: 'Full Stack Engineer',
     company: 'CashorTrade.org',
     detail:
-      'Designed and built the payments and escrow system for a ticket marketplace serving more than 500,000 users, which more than doubled company revenue. Cut API response times by 30%.',
+      'Designed and built the payment and escrow system that turned the platform from a passion project into a viable business.',
+  },
+  {
+    dates: 'Feb 2017 - Feb 2019',
+    role: 'Front-End Engineer',
+    company: 'Bluehouse Group',
+    detail:
+      "Built sites for 10+ clients and led the team's move to WCAG 2.0 accessibility.",
   },
 ];
 
@@ -221,7 +221,7 @@ function Portfolio() {
 
           <nav className="desktop-nav" aria-label="Primary navigation">
             <a href="#work">Work</a>
-            <a href="#experience">Experience</a>
+            <a href="#experience">Work History</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -261,7 +261,7 @@ function Portfolio() {
               Work
             </a>
             <a href="#experience" onClick={closeMenu}>
-              Experience
+              Work History
             </a>
             <a href="#about" onClick={closeMenu}>
               About
@@ -332,21 +332,20 @@ function Portfolio() {
                 <div className="project-card-copy">
                   <h3>SiteCMD</h3>
                   <p>
-                    A local-first desktop app, CLI, and MCP server that audit
-                    websites and source code with 420+ checks, prioritize issues
-                    by real risk, and hand exact fixes to the tools developers
-                    already use.
+                    A website scanner that audits live sites and source code
+                    with 420+ deterministic checks and hands exact fixes to the
+                    AI editor a developer already uses. It shipped as an
+                    open-source Rust and React desktop app with a CLI and MCP
+                    server.
                   </p>
                   <p>
-                    Rust scan engines, a Tauri desktop app with a React
-                    interface, and a hosted service on Cloudflare Workers for
-                    scheduled scans, deploy checks, and CI gates. Code and
-                    findings stay on the user&apos;s machine unless they connect
-                    a site.
+                    Now moving to a Cloudflare Workers web app that tracks a
+                    site&apos;s scans, uptime, analytics, and search in one
+                    report.
                   </p>
                   <p className="project-stack">
-                    Rust, Tauri, React, TypeScript, SQLite, Cloudflare Workers,
-                    Durable Objects
+                    Rust, React, TypeScript, Cloudflare Workers, Durable
+                    Objects, Tauri
                   </p>
                   <a
                     className="text-link"
@@ -376,9 +375,9 @@ function Portfolio() {
                     rankings, and a trip cost calculator.
                   </p>
                   <p>
-                    Built around validated data for 124 teams and roughly 1,165
-                    static routes, now drawing 5,000+ monthly visitors, mostly
-                    from organic search.
+                    Built around validated data for 124 teams and about 1,165
+                    statically generated pages, now drawing 5,000+ monthly
+                    visitors, mostly from organic search.
                   </p>
                   <p className="project-stack">
                     Next.js, React, TypeScript, Supabase, Cloudflare
@@ -446,9 +445,8 @@ function Portfolio() {
                     database with live retail pricing.
                   </p>
                   <p>
-                    Built on Drupal 11 with a custom theme and a Node.js
-                    price-scraping service that keeps the product database
-                    current.
+                    Built on Drupal 11 with a Node.js price-scraping service
+                    that keeps the product database current.
                   </p>
                   <p className="project-stack">
                     Drupal 11, PHP, MySQL, Node.js, Puppeteer
@@ -471,7 +469,7 @@ function Portfolio() {
         <section className="experience section" id="experience">
           <div className="shell">
             <div className="section-heading">
-              <h2>Experience</h2>
+              <h2>Work History</h2>
               <p>
                 Fifteen years, from agency work to state government to
                 enterprise platforms, plus my own products since 2026.
@@ -537,32 +535,31 @@ function Portfolio() {
             <div className="about-copy">
               <h2>About</h2>
               <p className="about-lead">
-                I build products end to end, keep difficult platforms online,
-                and work AI-native with a hard line on what ships.
+                Self-taught. I started programming at age 12, left college to
+                work, and have been building and fixing websites ever since.
               </p>
             </div>
 
             <div className="about-columns">
               <p>
-                Much of my career has been spent modernizing systems that cannot
-                simply go offline: government site portfolios, revenue-producing
-                platforms, and enterprise CMS programs. I know how to improve
-                them without losing what already works. Along the way I mentor,
-                review code, and step into technical leadership when a project
-                needs it.
+                That has meant agencies, State of Vermont agencies, a startup
+                marketplace, and enterprise platforms, often on systems that
+                could not go offline while I improved them. Along the way I have
+                mentored developers, reviewed a lot of code, and stepped in for
+                lead architects and directors when they were out.
               </p>
               <p>
-                My own products cover the other side of the work: React
-                frontends for Tauri desktop apps with Rust at the core,
-                data-heavy Next.js sites, and public Cloudflare services. Claude
-                Code and Codex write a lot of my code now; automated tests,
-                repository hooks, and my own review decide what merges.
+                These days I also build my own products on nights and weekends:
+                a Rust and React website scanner, a data-heavy Next.js site, and
+                public Cloudflare services. Claude Code and Codex help me move
+                faster, but tests, git hooks, and my own review decide what
+                ships.
               </p>
             </div>
             <p className="about-stack">
               Day to day: TypeScript, JavaScript, React, Next.js, Node.js, PHP,
-              Drupal, GraphQL, MySQL, Rust, Tauri, Cloudflare, Claude Code,
-              Codex, and MCP.
+              Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code, Codex, and
+              MCP.
             </p>
           </div>
         </section>
@@ -572,9 +569,8 @@ function Portfolio() {
             <div className="contact-copy">
               <h2>Let&apos;s talk.</h2>
               <p>
-                If you&apos;re hiring for a senior engineering role or need
-                experienced help with a difficult platform, I&apos;d be glad to
-                hear what you&apos;re working on.
+                If you&apos;re hiring for a senior engineering role, I&apos;d be
+                glad to hear what you&apos;re working on.
               </p>
             </div>
             <div className="contact-links">
