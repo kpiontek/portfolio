@@ -67,12 +67,6 @@ rounded:
   small: '8px'
   round: '50%'
 components:
-  button-primary:
-    backgroundColor: '{colors.evergreen}'
-    textColor: '#ffffff'
-    rounded: '{rounded.none}'
-    padding: '0 24px'
-    height: '48px'
   text-link:
     backgroundColor: 'transparent'
     textColor: '{colors.evergreen}'
@@ -96,7 +90,7 @@ Structure comes from bands: the hero, then sections that alternate between the p
 
 - Seven text sizes and an 8px spacing scale, defined once as custom properties at the top of `src/Portfolio.scss`.
 - Sections read as separate bands, each opening with a title over a green rule.
-- Green marks what you can act on: links, the primary button, navigation, focus.
+- Green marks what you can act on: links, navigation, focus.
 - Metadata (dates, stack lists, skill groups, the endorsement caption) is monospace.
 - Square edges except 8px corners on the project recordings and the right end of the desktop header bar, and the round portrait.
 - Nothing moves on its own except the map drawing itself in once.
@@ -105,7 +99,7 @@ Structure comes from bands: the hero, then sections that alternate between the p
 
 Light scheme: warm paper (#ecebe6) alternating with a lighter surface (#f6f5f1), near-black ink (#141516), muted text #55585c, and hairlines #d4d2cb. Dark scheme: near-black (#0f1011) alternating with a lifted surface (#16171a), off-white ink (#ecebe7), muted #a3a5a8, and hairlines #2a2c2f.
 
-- **Evergreen** (#1f5a43) in light mode and **Jade** (#3fae74) in dark mode and on the dark bands: links, the primary button, navigation, section rules, the quote mark, focus, and selection. Outside the contour map, nothing else is green.
+- **Evergreen** (#1f5a43) in light mode and **Jade** (#3fae74) in dark mode and on the dark bands: links, navigation, section rules, the quote mark, focus, and selection. Outside the contour map, nothing else is green.
 - **The dark band** (ink in light, #1d1f22 in dark): the header, the contact section, and the footer, so the header and footer bookend the page.
 
 **The Accent Is a Signal Rule.** Green means "you can act on this" or "a new section starts here." Backgrounds and body text stay neutral.
@@ -123,16 +117,16 @@ Every piece of text uses one of these sizes:
 | `--text-xl`      | 24 to 28 | Project titles, the endorsement, the email address               |
 | `--text-lg`      | 19 to 22 | The hero intro, the Experience and About leads, the contact note |
 | `--text-md`      | 18       | Body copy, Experience rows                                       |
-| `--text-sm`      | 16       | Navigation, buttons, text links, the header role, the footer     |
+| `--text-sm`      | 16       | Navigation, text links, the header role, the footer              |
 | `--text-xs`      | 14       | Metadata: dates, stack lists, captions                           |
 
-Large sizes use weight 500. Nothing sets `letter-spacing`; every font uses its own spacing. Paragraphs use `text-wrap: pretty`, so no line ends on a single orphaned word.
+Large sizes use weight 500. Nothing sets `letter-spacing`; every font uses its own spacing.
 
 ## Spacing
 
 An 8px scale: `--space-1` (8) through `--space-7` (80), plus `--gutter` (24 to 40) for every grid gap and `--section` (64 to 96) for every section's top and bottom padding. The rules that follow from it:
 
-- A section title's rule sits `--space-2` below it and `--space-5` above the content.
+- A section title's rule sits `--space-1` below it and `--space-5` above the content.
 - Paragraphs in a block are `--space-2` apart; a link or stack line after them is `--space-3` away.
 - A project's recording sits `--space-3` above its copy, and project rows are `--space-6` apart.
 - List rows are padded `--space-2` top and bottom.
@@ -145,7 +139,7 @@ A centered shell capped at 1280px with 32px gutters on desktop, 20px on tablet, 
 - **Experience:** the lead in the first column, the list across the other two.
 - **About:** the portrait in the first column, centered against the copy across the other two, then the skills box across the full width.
 
-Between 821px and 1080px each project becomes a row with the recording beside its copy. At 820px and below, where the mobile menu takes over, projects, Experience, and About all stack (About reads portrait, copy, skills, with the skills in two columns), and the header shows the name and role stacked beside the menu button. Below 620px the skills drop to one column and the primary button fills the width.
+Between 821px and 1080px each project becomes a row with the recording beside its copy. At 820px and below, where the mobile menu takes over, projects, Experience, and About all stack (About reads portrait, copy, skills, with the skills in two columns), and the header shows the name and role stacked beside the menu button. Below 620px the skills drop to one column.
 
 **The Reading Order Rule.** Responsive layouts may simplify their columns, but they keep the document's reading order and never scroll sideways.
 
@@ -157,7 +151,7 @@ Between 821px and 1080px each project becomes a row with the recording beside it
 
 ### Hero
 
-Fills the screen below the header (`100svh` minus `--header-height`), with the greeting, a short intro, a muted line with the location, and the green resume button centered vertically over the contour map.
+Fills the screen below the header (`100svh` minus `--header-height`), with the greeting, a short intro, and a muted line with the location, centered vertically over the contour map. The resume lives in the header, not in a button here.
 
 ### Contour map
 
@@ -169,27 +163,27 @@ The script writes two files. `src/assets/hero-contours.svg` gives every line its
 
 ### Section headings
 
-Each section opens with its h2 at `--text-2xl` over a 1px solid green rule that spans 60% of the shell.
+Each section opens with its h2 at `--text-2xl` over a 1px solid green rule that spans 60% of the shell on desktop and the full width at 820px and below.
 
 ### Projects
 
-Every project frame holds a short, silent, looping recording of the product (WebM with an MP4 fallback and a 1200x750 poster) at 16:10, with 8px rounded corners and a one-pixel hairline. Recordings stay on their poster, unloaded, until a visitor presses the play button; then they loop silently, and the same button pauses them. Hovering the frame draws a two-pixel green border inside it. Copy sits outside the frame: the name, two short paragraphs, a mono stack line, and a "Visit {Name}" link.
+Every project frame holds a short, silent, looping recording of the product (WebM with an MP4 fallback and a 1200x750 poster) at 16:10, with 8px rounded corners and a one-pixel hairline. Recordings stay on their poster, unloaded, until a visitor presses the play button; then they loop silently, and the same button pauses them. Hovering the frame draws a two-pixel green border inside it. Copy sits outside the frame: the name, which links to the product in green and underlines on hover, two short paragraphs, and a mono stack line.
 
 ### Experience
 
-A lead sentence and a link to the resume in the first column; a ruled list of the whole career across the other two, one row per job on desktop: mono dates, the role, and the company right-aligned. A full-width endorsement follows, opening with a large green quote mark and closing with a mono caption.
+A lead sentence and a "View Resume" link in the first column; the whole career across the other two, one row per job on desktop: mono dates, the role, and the company right-aligned, with a hairline between jobs and none above the first or below the last. The first row sits flush with the top so it lines up with the lead. Below a full-width hairline, the endorsement opens with a large green quote mark and closes with a mono caption.
 
 ### About
 
-A round portrait, 320px at most, vertically centered against a lead sentence and two muted paragraphs. Under both, a full-width skills box: a 1px hairline frame on the page color holding "Key skills" and six groups from the resume (Languages, Frontend, Backend & APIs, Data & CMS, Infrastructure & Tooling, AI Engineering) in three columns, each a mono label over its four or five strongest items.
+A round portrait, 320px at most (240px and centered on its own row at 820px and below), vertically centered against a lead sentence and two muted paragraphs. Under both, a full-width skills box: a 1px hairline frame on the page color holding "Key skills" and six groups from the resume (Languages, Frontend, Backend & APIs, Data & CMS, Infrastructure & Tooling, AI Engineering) in three columns, each a mono label over its four or five strongest items.
 
 ### Contact and footer
 
-The dark band, with the still contour map rising faintly from the bottom. The heading, a one-line invitation, the email address at `--text-xl` with a soft underline, and icon links for LinkedIn and GitHub. Below a hairline, one compact footer row: the copyright on the left, links to the source on GitHub and back to the top on the right. Footer links are green and turn white on hover, like the header's.
+The dark band, with the still contour map rising faintly from the bottom. The heading, a one-line invitation, the email address at `--text-xl` with a soft underline, and icon links for LinkedIn and GitHub. Below a hairline that runs edge to edge, one compact footer row: the copyright on the left, links to the source on GitHub and back to the top on the right. Footer links are green and turn white on hover, like the header's.
 
-### Buttons, links, and focus
+### Links and focus
 
-The primary button is green with white text (dark text on jade in dark mode) and deepens on hover. Hover never moves anything: links strengthen their underline and shift color, all over 200ms. Keyboard focus is a 1px dashed outline offset 3px, evergreen on paper and jade on the header, the dark band, and the video controls.
+Hover never moves anything: links strengthen their underline and shift color over 200ms. Keyboard focus is a 1px dashed outline offset 3px, evergreen on paper and jade on the header, the dark band, and the video controls.
 
 ## Motion
 
@@ -212,7 +206,7 @@ The site follows `prefers-color-scheme` with the same identity in both: paper an
 
 - **Don't** add a one-off size or spacing value; add it to the scale or use the nearest step.
 - **Don't** set `letter-spacing`; the fonts' own spacing is used everywhere.
-- **Don't** recast the portfolio as a product or company marketing page: no taglines, logo walls, impact metrics, or testimonial carousels.
+- **Don't** recast the portfolio as a product or company marketing page: no taglines, call-to-action buttons, logo walls, impact metrics, or testimonial carousels.
 - **Don't** add background patterns beyond the contour map, or gradients, glass, glows, corners rounder than 8px (the portrait aside), or shadows beyond the header's.
 - **Don't** add cursor effects, preloaders, smooth-scroll libraries, scroll-driven text, marquees, or anything that loops on its own.
 - **Don't** pull icons from a font kit or icon library; draw any icon as inline SVG.

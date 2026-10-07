@@ -25,7 +25,7 @@ Cloudflare Pages builds and deploys `dist/` on every push to `main`. Security he
 
 - No em dashes or en dashes anywhere in source or copy. Use commas, periods, or colons.
 - Plain voice. This is a portfolio, not marketing copy. No taglines, no buzzwords.
-- Product links read "Visit {Name}", without doubling a name that already starts with "Visit". Links that open a new tab say so for screen readers.
+- Each project's title links to its site. Links that open a new tab say so for screen readers.
 - No inline `style=` attributes; the CSP has no `unsafe-inline`.
 - WCAG 2.2 AA. The browser test runs axe in light, dark, and mobile contexts.
 - Every asset under `src/assets` must be imported; every poster is 1200x750.

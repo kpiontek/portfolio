@@ -346,22 +346,10 @@ function Portfolio() {
               <p className="hero-intro">
                 I'm Kyle, a self-taught Senior Full Stack Engineer. I've spent
                 15 years building for everyone from state government to
-                startups, and building projects of my own in my spare time.
+                startups, as well as building projects of my own in my spare
+                time.
               </p>
-              <p className="hero-location">
-                Based in Montpelier, Vermont, and working remotely.
-              </p>
-              <div className="hero-actions">
-                <a
-                  className="button button-primary"
-                  href="/Kyle_Piontek_Resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Download resume
-                  <span className="sr-only"> opens in a new tab</span>
-                </a>
-              </div>
+              <p className="hero-location">Based in Montpelier, Vermont.</p>
             </div>
           </div>
         </section>
@@ -381,7 +369,16 @@ function Portfolio() {
                   mp4={sitecmdMp4}
                 />
                 <div className="project-card-copy">
-                  <h3>SiteCMD</h3>
+                  <h3>
+                    <a
+                      href="https://sitecmd.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      SiteCMD
+                      <span className="sr-only"> opens in a new tab</span>
+                    </a>
+                  </h3>
                   <p>
                     A website scanner that audits live sites and source code
                     with 420+ deterministic checks and hands exact fixes to the
@@ -398,15 +395,6 @@ function Portfolio() {
                     Rust, React, TypeScript, Cloudflare Workers, Durable
                     Objects, Tauri
                   </p>
-                  <a
-                    className="text-link"
-                    href="https://sitecmd.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Visit SiteCMD
-                    <span className="sr-only"> opens in a new tab</span>
-                  </a>
                 </div>
               </article>
 
@@ -420,7 +408,16 @@ function Portfolio() {
                   mp4={visitYourTeamMp4}
                 />
                 <div className="project-card-copy">
-                  <h3>Visit Your Team</h3>
+                  <h3>
+                    <a
+                      href="https://visityourteam.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit Your Team
+                      <span className="sr-only"> opens in a new tab</span>
+                    </a>
+                  </h3>
                   <p>
                     A game-day planning guide for every NFL, NBA, NHL, and MLB
                     venue, with real prices, insider tips, comparison tools,
@@ -434,15 +431,6 @@ function Portfolio() {
                   <p className="project-stack">
                     Next.js, React, TypeScript, Supabase, Cloudflare
                   </p>
-                  <a
-                    className="text-link"
-                    href="https://visityourteam.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Visit Your Team
-                    <span className="sr-only"> opens in a new tab</span>
-                  </a>
                 </div>
               </article>
 
@@ -456,7 +444,16 @@ function Portfolio() {
                   mp4={wasItVibedMp4}
                 />
                 <div className="project-card-copy">
-                  <h3>Was It Vibed</h3>
+                  <h3>
+                    <a
+                      href="https://wasitvibed.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Was It Vibed
+                      <span className="sr-only"> opens in a new tab</span>
+                    </a>
+                  </h3>
                   <p>
                     A public scanner that estimates whether a website was
                     vibe-coded using explainable pattern matching across CSS,
@@ -470,15 +467,6 @@ function Portfolio() {
                   <p className="project-stack">
                     Cloudflare Workers, TypeScript, Durable Objects, D1, Vitest
                   </p>
-                  <a
-                    className="text-link"
-                    href="https://wasitvibed.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Visit Was It Vibed
-                    <span className="sr-only"> opens in a new tab</span>
-                  </a>
                 </div>
               </article>
 
@@ -492,7 +480,16 @@ function Portfolio() {
                   mp4={smartHomeUMp4}
                 />
                 <div className="project-card-copy">
-                  <h3>SmartHomeU</h3>
+                  <h3>
+                    <a
+                      href="https://smarthomeu.com"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      SmartHomeU
+                      <span className="sr-only"> opens in a new tab</span>
+                    </a>
+                  </h3>
                   <p>
                     A smart home education site with 22 free courses and 112
                     lessons, product reviews, comparison tools, and a product
@@ -505,15 +502,6 @@ function Portfolio() {
                   <p className="project-stack">
                     Drupal 11, PHP, MySQL, Node.js, Puppeteer
                   </p>
-                  <a
-                    className="text-link"
-                    href="https://smarthomeu.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Visit SmartHomeU
-                    <span className="sr-only"> opens in a new tab</span>
-                  </a>
                 </div>
               </article>
             </div>
@@ -527,8 +515,9 @@ function Portfolio() {
             <div className="experience-layout">
               <div className="experience-intro">
                 <p>
-                  Fifteen years, from agency work to state government to
-                  enterprise platforms, plus my own products since 2026.
+                  From agencies and startups to government and enterprise
+                  platforms, I&apos;ve helped many projects come to life over
+                  the years.
                 </p>
                 <a
                   className="text-link"
@@ -536,7 +525,7 @@ function Portfolio() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Read the full resume
+                  View Resume
                   <span className="sr-only"> opens in a new tab</span>
                 </a>
               </div>

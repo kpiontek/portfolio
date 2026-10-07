@@ -6,8 +6,8 @@
 // card losing one of its two video sources (so Safari or Firefox shows a
 // blank box), a target="_blank" link without rel="noreferrer" or without
 // telling a screen reader a new tab is coming, an inline style creeping back
-// into a codebase that keeps all styling in Portfolio.scss, and product link
-// copy drifting away from the "Visit {Name}" pattern.
+// into a codebase that keeps all styling in Portfolio.scss, and a project
+// title losing its link to the product.
 import { describe, it, expect } from 'vitest';
 import { createElement } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -273,55 +273,42 @@ describe('links', () => {
 });
 
 describe('product cards', () => {
-  const EXPECTED_LINK_TEXT = [
-    'Visit SiteCMD',
+  const EXPECTED_TITLES = [
+    'SiteCMD',
     'Visit Your Team',
-    'Visit Was It Vibed',
-    'Visit SmartHomeU',
+    'Was It Vibed',
+    'SmartHomeU',
   ];
 
-  it('labels each product link "Visit {Name}"', () => {
-    const linkText = projectCards.map((card) => {
-      const link = elements(card.inner, 'a').find((anchor) =>
-        (anchor.attributes.class ?? '').split(/\s+/).includes('text-link'),
-      );
-      expect(link, 'a project card has no text link').toBeTruthy();
+  /** The link inside a card's h3, which is how a visitor reaches the product. */
+  function titleLink(card) {
+    const title = elements(card.inner, 'h3')[0];
+    expect(title, 'a project card has no h3').toBeTruthy();
+    const link = elements(title.inner, 'a')[0];
+    expect(link, `"${toText(title.inner)}" is not a link`).toBeTruthy();
+    return link;
+  }
+
+  it('links each card title to its product', () => {
+    const titles = projectCards.map((card) => {
+      const link = titleLink(card);
+      expect(link.attributes.href).toMatch(/^https:\/\//);
       // Drop the sr-only suffix, keeping the visible words only.
       return toText(
         link.inner.replace(/<span class="sr-only">[\s\S]*?<\/span>/, ''),
       );
     });
 
-    expect(linkText).toEqual(EXPECTED_LINK_TEXT);
+    expect(titles).toEqual(EXPECTED_TITLES);
   });
 
-  it('keeps each link name in step with the card heading', () => {
+  it('sends the media link and the title link to the same product', () => {
     for (const card of projectCards) {
-      const name = toText(elements(card.inner, 'h3')[0].inner);
-      const link = elements(card.inner, 'a').find((anchor) =>
-        (anchor.attributes.class ?? '').split(/\s+/).includes('text-link'),
-      );
-      const visible = toText(
-        link.inner.replace(/<span class="sr-only">[\s\S]*?<\/span>/, ''),
-      );
-
-      // A name that already starts with "Visit" is not doubled.
-      expect(visible).toBe(name.startsWith('Visit ') ? name : `Visit ${name}`);
-    }
-  });
-
-  it('sends the media link and the text link to the same product', () => {
-    for (const card of projectCards) {
-      const cardAnchors = elements(card.inner, 'a');
-      const media = cardAnchors.find((anchor) =>
+      const media = elements(card.inner, 'a').find((anchor) =>
         (anchor.attributes.class ?? '').split(/\s+/).includes('project-media'),
       );
-      const text = cardAnchors.find((anchor) =>
-        (anchor.attributes.class ?? '').split(/\s+/).includes('text-link'),
-      );
 
-      expect(media.attributes.href).toBe(text.attributes.href);
-      expect(media.attributes.href).toMatch(/^https:\/\//);
+      expect(media.attributes.href).toBe(titleLink(card).attributes.href);
     }
   });
 });
