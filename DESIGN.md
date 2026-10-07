@@ -1,266 +1,201 @@
 ---
 name: Kyle Piontek Portfolio
-description: A clean, work-first senior developer portfolio built on sage white, forest charcoal, deep evergreen, and real product evidence.
+description: An editorial, work-first engineer portfolio on warm paper and near-black, with large light Manrope type, monospace labels, and real product recordings.
 colors:
-  sage-canvas: '#f1f4f1'
-  paper: '#fbfcfb'
-  white: '#ffffff'
-  forest-charcoal: '#111814'
-  moss-slate: '#56615b'
-  quiet-moss: '#56615b'
-  sage-rule: '#cfd7d1'
-  sage-rule-strong: '#9eaaa2'
+  paper: '#ecebe6'
+  ink: '#141516'
+  muted: '#55585c'
+  line: '#d4d2cb'
   evergreen: '#1f5a43'
-  evergreen-hover: '#164532'
-  deep-forest: '#0d261c'
-  inverse-muted: '#bdccc4'
-  focus-fern: '#3f765c'
+  evergreen-deep: '#143b2c'
+  charcoal: '#17191b'
   pale-mint: '#a6d1bb'
-  burnt-orange: '#b5471f'
-  inverse-orange: '#ffb58a'
-  media-frame: '#e2e9e4'
-  portrait-frame: '#dfe7e1'
+  media-frame: '#dfded8'
+  night: '#0f1011'
+  night-ink: '#ecebe7'
+  night-muted: '#a3a5a8'
+  night-line: '#2a2c2f'
+  night-rule: '#5a5d61'
+  night-header: '#25282c'
+  night-band: '#17181a'
 typography:
   display:
     fontFamily: 'Manrope, Helvetica Neue, sans-serif'
-    fontSize: 'clamp(4.25rem, 7.5vw, 6rem)'
-    fontWeight: 730
-    lineHeight: 0.98
-    letterSpacing: '-0.038em'
-  headline:
+    fontSize: 'clamp(4.5rem, 10.5vw, 9.5rem)'
+    fontWeight: 500
+    lineHeight: 0.85
+    letterSpacing: '-0.05em'
+  contact:
     fontFamily: 'Manrope, Helvetica Neue, sans-serif'
-    fontSize: 'clamp(2.7rem, 5vw, 4.4rem)'
-    fontWeight: 710
-    lineHeight: 1
-    letterSpacing: '-0.035em'
+    fontSize: 'clamp(1.5rem, 7.4vw, 6.75rem)'
+    fontWeight: 500
+    lineHeight: 1.1
+    letterSpacing: '-0.045em'
   title:
     fontFamily: 'Manrope, Helvetica Neue, sans-serif'
-    fontSize: 'clamp(2.3rem, 4vw, 3.5rem)'
-    fontWeight: 710
-    lineHeight: 1.04
-    letterSpacing: '-0.035em'
+    fontSize: 'clamp(2.5rem, 4.4vw, 4rem)'
+    fontWeight: 500
+    lineHeight: 0.95
+    letterSpacing: '-0.045em'
   lead:
     fontFamily: 'Manrope, Helvetica Neue, sans-serif'
-    fontSize: 'clamp(1.2rem, 1.8vw, 1.42rem)'
-    fontWeight: 540
-    lineHeight: 1.48
-    letterSpacing: '-0.018em'
+    fontSize: 'clamp(1.15rem, 1.55vw, 1.375rem)'
+    fontWeight: 500
+    lineHeight: 1.5
+    letterSpacing: '-0.015em'
   body:
     fontFamily: 'Manrope, Helvetica Neue, sans-serif'
     fontSize: '1rem'
     fontWeight: 400
-    lineHeight: 1.75
+    lineHeight: 1.65
     letterSpacing: 'normal'
   label:
-    fontFamily: 'Manrope, Helvetica Neue, sans-serif'
-    fontSize: '0.89rem'
-    fontWeight: 700
-    lineHeight: 1.2
-    letterSpacing: 'normal'
+    fontFamily: 'ui-monospace, SF Mono, Menlo, Consolas, monospace'
+    fontSize: '0.8125rem'
+    fontWeight: 600
+    lineHeight: 1.4
+    letterSpacing: '0.08em'
 rounded:
   none: '0'
-  control: '2px'
-  round: '50%'
 components:
   button-primary:
-    backgroundColor: '{colors.evergreen}'
-    textColor: '{colors.white}'
-    typography: '{typography.label}'
-    rounded: '{rounded.control}'
-    padding: '0 20px'
-    height: '48px'
-  button-primary-hover:
-    backgroundColor: '{colors.evergreen-hover}'
-    textColor: '{colors.white}'
-    typography: '{typography.label}'
-    rounded: '{rounded.control}'
-    padding: '0 20px'
+    backgroundColor: '{colors.ink}'
+    textColor: '{colors.paper}'
+    rounded: '{rounded.none}'
+    padding: '0 22px'
     height: '48px'
   text-link:
     backgroundColor: 'transparent'
     textColor: '{colors.evergreen}'
+    rounded: '{rounded.none}'
+    padding: '0 0 3px'
+  section-label:
+    textColor: '{colors.ink}'
     typography: '{typography.label}'
-    rounded: '{rounded.none}'
-    padding: '0 0 4px'
-  text-link-hover:
-    backgroundColor: 'transparent'
-    textColor: '{colors.burnt-orange}'
-    typography: '{typography.label}'
-    rounded: '{rounded.none}'
-    padding: '0 0 4px'
-  navigation-link:
-    backgroundColor: 'transparent'
-    textColor: '{colors.white}'
-    rounded: '{rounded.none}'
-  navigation-link-hover:
-    backgroundColor: 'transparent'
-    textColor: '{colors.inverse-orange}'
-    rounded: '{rounded.none}'
   project-media:
     backgroundColor: '{colors.media-frame}'
     rounded: '{rounded.none}'
     width: '100%'
-  experience-row:
-    backgroundColor: '{colors.paper}'
-    textColor: '{colors.forest-charcoal}'
-    rounded: '{rounded.none}'
-    padding: '36px 0'
 ---
 
 # Design System: Kyle Piontek Portfolio
 
 ## Overview
 
-**Creative North Star: "Work First"**
+**Work first, set like a printed page.** The portfolio earns attention through shipped work, a plain career history, and direct writing. It is a senior engineer's portfolio, never a product or company page.
 
-Work First means the portfolio earns attention through shipped work, career evidence, and direct writing. It is clean, modern, professional, precise, credible, restrained, and editorial. The interface behaves like a senior developer portfolio, never a product or company page.
+The look comes from type, not decoration: one very large light headline, smaller light headings, monospace labels for anything that is metadata, and one-pixel rules that organize the page. The one decoration is a faint contour map of the real hills around Montpelier behind the hero. There are no other patterns, and no gradients, glass, or rounded cards. Real product recordings are the only imagery besides the portrait.
 
-The visual system pairs sage-white and paper fields with forest-charcoal text, a solid evergreen header, confident Manrope typography, and thin structural rules. Large type establishes seniority without bravado. Spacious grids give product screens and concrete outcomes room to lead.
+**Key characteristics:**
 
-Real product screens and authored content are the expressive material. Low-contrast dot, line, and concentric-circle fields add depth at section edges without becoming content. Motion is quiet and optional. The system rejects generic tech-template styling, product-marketing framing, novelty navigation, faux technical diagrams, gradient washes, glass, badge clouds, and decorative metaphors.
-
-**Key Characteristics:**
-
-- Work and evidence lead before decoration.
-- Manrope carries a direct, sentence-case hierarchy.
-- Sage-white and paper sections create quiet editorial pacing, with nearly tonal geometric patterns preventing large fields from feeling vacant.
-- A solid evergreen header provides a stable wayfinding anchor.
-- Evergreen anchors primary actions, interactive text, full-width section-title underlines, and the concluding contact field; burnt orange makes hover state changes unmistakable without motion.
-- Thin rules and square frames organize content, with restrained elevation reserved for the sticky header and circular portrait.
-- Real product imagery supplies specificity and visual character.
-- Responsive reflow preserves reading order, and reduced motion preserves meaning.
+- Size contrast carries the hierarchy: the greeting and the email address are huge, labels are small, and nothing in between competes with them.
+- Big type is light (weight 500) with tight tracking. Heavy weights at large sizes read as shouting.
+- Metadata is monospace: section labels, the hero location row, dates, employer labels, stack lists, and the footer.
+- Everything sits on one three-column grid, so the hero, the projects, Work History, and About share edges.
+- Square edges everywhere.
+- The hero's contour lines are the signature: real terrain, quiet at rest, lit green around the pointer.
 
 ## Colors
 
-The palette is grounded, restrained, and high-contrast. Deep evergreen owns primary actions, wayfinding, and the conclusion, while sage-tinted neutrals carry the long reading experience.
+Light scheme: warm paper (#ecebe6) with near-black ink (#141516), muted text #55585c, hairlines #d4d2cb, and ink-colored section rules. Dark scheme: near-black (#0f1011) with off-white ink (#ecebe7), muted #a3a5a8, hairlines #2a2c2f, and gray section rules (#5a5d61).
 
-### Primary
+- **Evergreen** (#1f5a43, Pale Mint #a6d1bb in dark): links, focus, selection, the media frame's hover border, and the contour lines under the pointer. Nothing else is green.
+- **Charcoal** (#17191b, #25282c in dark): the header band, which stands apart from the page in both schemes.
+- **The dark band** (ink in light, #17181a in dark): the contact section and footer, the one place the page changes background.
 
-- **Evergreen Action** (#1f5a43): The accent only: primary action fill, light-surface links, section-title underlines, text selection, and focus. Backgrounds stay neutral so the accent reads as a signal, not a theme.
-- **Evergreen Pressed** (#164532): The darker hover fill for primary buttons.
-- **Pale Mint** (#a6d1bb): Links, title rules, and focus on dark surfaces.
-- **Burnt Orange** (#b5471f): The hover color for links on light surfaces.
-- **Inverse Orange** (#ffb58a): The hover color for links on the dark contact field and in dark mode.
-
-Light scheme neutrals: page #f6f6f4, surface #ffffff, ink #17191b, muted #55595e, rules #deded9 and #a4a7ab, contact and footer field #17191b, media frame #ececea. Dark scheme neutrals: page #121315, surface #17181b, ink #ececea, muted #a8abaf, rules #2b2d31 and #46494e, contact field #0c0d0e, media frame #202225.
-
-### Named Rules
-
-**The Evergreen Wayfinding Rule.** Evergreen owns the header, primary actions, default interactive text, full-width section-title underlines, focus, selection, evidence markers, the concluding field, and nearly tonal structural patterns. Burnt Orange and Inverse Orange are reserved for stationary link hover feedback.
+**The Accent Is a Signal Rule.** Green means "you can act on this." Backgrounds, headings, and buttons stay neutral; the primary button is ink on paper (paper on ink in dark).
 
 ## Typography
 
-**Display Font:** Manrope (with Helvetica Neue and sans-serif fallbacks)
+**Display and text:** Manrope, self-hosted with a metric-matched Arial fallback so the swap never moves text.
 
-**Body Font:** Manrope (with Helvetica Neue and sans-serif fallbacks)
+**Labels:** the system monospace stack (`ui-monospace`, SF Mono, Menlo, Consolas), so it costs no download.
 
-**Character:** One contemporary grotesk does all the work. Tight tracking and substantial weight make headings confident; open line-height and moderate weights keep long-form evidence calm and readable.
+- **Display** (500, `clamp(4.5rem, 10.5vw, 9.5rem)`, 0.85 line-height, -0.05em): the greeting only.
+- **Contact** (500, `clamp(1.5rem, 7.4vw, 6.75rem)`, -0.045em): the email address. It wraps anywhere rather than overflow at 320px.
+- **Title** (500, `clamp(2.5rem, 4.4vw, 4rem)`, -0.045em): the flagship project name. Other project names use `clamp(1.5rem, 2.1vw, 1.875rem)`; the About lead uses `clamp(1.625rem, 3vw, 2.5rem)`.
+- **Lead** (500, `clamp(1.15rem, 1.55vw, 1.375rem)`): the hero intro and the Work History summary.
+- **Body** (400, 1rem to 1.0625rem, 1.65 to 1.7 line-height): muted, held to about 39rem.
+- **Label** (mono, 0.75rem to 0.8125rem): uppercase with 0.08em tracking for short labels; stack lists and dates keep their normal case.
 
-### Hierarchy
-
-- **Display** (730, 4.25-6rem responsive, 0.98 line-height, -0.038em tracking): The opening statement only. Its exact size is `clamp(4.25rem, 7.5vw, 6rem)`, its measure stays short, and it carries the same full-width evergreen underline as section titles.
-- **Headline** (710, 2.7-4.4rem responsive, 1 line-height, -0.035em tracking): Major section titles and the inverse contact heading use `clamp(2.7rem, 5vw, 4.4rem)`.
-- **Title** (710, 2.3-3.5rem responsive, 1.04 line-height, -0.035em tracking): Featured project names use `clamp(2.3rem, 4vw, 3.5rem)`, with supporting project titles stepping down from the same family.
-- **Lead** (540, 1.2-1.42rem responsive, 1.48 line-height, -0.018em tracking): Opening context and project summaries use `clamp(1.2rem, 1.8vw, 1.42rem)` to bridge headings and body evidence.
-- **Body** (400, `1rem`, 1.75): Long-form explanation, generally held to a 62-68 character measure.
-- **Label** (700, `0.89rem`, 1.2): Buttons and strong text links. Navigation and metadata use nearby compact sizes with weights from 620 to 730.
-
-### Named Rules
-
-**The Type Carries Authority Rule.** Establish hierarchy through scale, weight, measure, and spacing. Do not add ornamental type treatments, code styling, or all-caps badge language.
+**The Light Type Rule.** No heading on the page is heavier than 600. Large sizes use 500.
 
 ## Layout
 
-The page uses a centered shell capped at 1280px. Desktop gutters are 32px per side, tablet gutters are 20px, and mobile gutters are 16px. Section padding expands fluidly from 64px to 96px, and the contact band uses the same range.
+A centered shell capped at 1280px with 32px gutters on desktop, 20px on tablet, and 16px on phones. Sections are padded `clamp(48px, 5vw, 72px)` top and bottom, and each one opens with a section label.
 
-The hero uses a 7:5 grid with a fluid 56-120px gap and takes its height from its content, with 64-96px of fluid padding. Section headings use two equal columns. The flagship project copy uses a 4:8 split, supporting projects use two equal columns, experience rows use a 2:3:6 split, the about section uses a 4:8 split, and the contact band uses two equal columns. This repeated asymmetry makes hierarchy legible without card chrome.
+The page uses three equal columns with a `clamp(28px, 3vw, 44px)` gap:
 
-At 1080px the header role disappears and the about columns stack. At 820px the hero, section headings, and contact layout become single-column; project and experience grids simplify while retaining comparison structure. At 620px all content stacks, the primary button fills the available width, section spacing tightens, and semantic reading order becomes the visual order.
+- **Hero:** the greeting spans all three; the intro and resume button take two; the current and previous employers take the third.
+- **Selected work:** the flagship (the first card) spans the row on a subgrid, recording across two columns and copy in the third. The other projects fill one column each.
+- **Work History and About:** the summary or portrait in the first column, the list or copy across the other two.
 
-**The Reading Order Rule.** Responsive layouts may simplify their columns, but they must preserve the document's semantic order and never require horizontal scrolling.
+Below 1080px each project becomes a row with the recording beside its copy. Below 820px the hero and Work History stack to one column, About narrows to a one-to-two split, and the header shows the name and role stacked beside the menu button. Below 620px everything stacks and the primary button fills the width.
 
-## Elevation & Depth
-
-The system uses no glass effects and keeps content surfaces flat. Depth comes from alternating neutral page and surface fields, the dark contact band, low-contrast geometric background fields, one-pixel rules, high-contrast type, and real product imagery inside outlined frames. The sticky header is separated from scrolling content by a one-pixel rule, not a shadow. The circular portrait uses a soft neutral `0 12px 32px rgba(0, 0, 0, 0.12)` shadow. Project imagery stays stationary while its frame gains a three-pixel Evergreen Action border on hover.
-
-### Named Rules
-
-**The Flat-by-Default Rule.** Surfaces remain flat at rest and in interaction. Use tonal shifts, rules, and restrained image scale instead of shadows or blur. Reserve directional depth for the sticky header's layer separation and the portrait's photographic framing.
-
-## Shapes
-
-The form language is square and exact. Project frames, section bands, navigation, and content containers have no visible rounding. Primary buttons use a restrained 2px radius. The portrait uses a full circular crop, echoed by the 6px project-contribution markers and low-contrast concentric background lines. One-pixel dividers, square-stroked arrows, dot fields, and directional line fields reinforce the precise geometry.
-
-**The Square-Edge Rule.** Keep content surfaces square. Reserve slight rounding for controls and full rounding for the portrait and small status or evidence dots.
+**The Reading Order Rule.** Responsive layouts may simplify their columns, but they keep the document's reading order and never scroll sideways.
 
 ## Components
 
-### Buttons
+### Header
 
-Buttons are direct and compact rather than oversized or promotional.
+A fully opaque charcoal band, 80px on desktop and 72px on mobile, with the name, the role, the nav, and a Resume link set off by a thin vertical rule. It slides away while scrolling down and returns on any scroll up; it never hides near the top, while the mobile menu is open, or while keyboard focus is inside it. Below 820px a 44px menu button opens a full-height sheet with a clip-path transition, closes on Escape, and returns focus to the button.
 
-- **Shape:** Nearly square corners with a 2px radius and a 48px minimum height.
-- **Primary:** Evergreen Action with Pure White text, 20px horizontal padding, compact label type, and no shadow.
-- **Hover / Focus:** Hover never moves anything: controls deepen in color and links strengthen their underline, over 200ms. Keyboard focus is a 1px dashed green outline offset 3px (Evergreen on light surfaces, Pale Mint on the header, contact band, and video controls), with no change to color, underline, or background.
-- **Header:** A dark charcoal bar (lifted gray in dark mode) that slides away while scrolling down and returns on any scroll up. It never hides near the top, while the mobile menu is open, or while keyboard focus is inside it.
-- **Product previews:** Clips autoplay muted only while in view and never under reduced motion. Each has a pause and play button, which WCAG 2.2.2 requires for motion longer than five seconds.
-- **Mobile:** The primary button becomes full width below 620px.
+### Hero
 
-### Text Links
+A mono row of location, working arrangement, and the local time in Vermont. The time is filled in after hydration (the prerendered page says "Eastern Time") and refreshes when the tab comes back into view instead of ticking, since a ticking clock is auto-updating content under WCAG 2.2.2. Under the greeting, the intro and resume button sit beside a ruled list of the current and previous employers.
 
-Text links are the secondary action language. They use Evergreen Action, bold compact type, a one-pixel underline, a fixed 8px arrow gap, and 4px bottom padding. Hover removes the underline without moving the label or arrow and shifts to Burnt Orange over 180ms. Inverse contact links use Pale Mint and shift to Inverse Orange while dropping their underline.
+### Hero contours
 
-### Cards / Containers
+Contour lines every 40 m, with heavier index lines every 200 m, for about 32 by 20 km of the hills around Montpelier, traced from USGS 3DEP elevation data by `scripts/contours.mjs` into `public/montpelier-contours.svg` (about 15 KB gzipped). Montpelier sits at the center, where the Winooski and North Branch valleys meet.
 
-Projects are not boxed into decorative cards. A project media frame uses Media Frame backing, a one-pixel Sage Rule outline inset by 1px, square corners, and overflow clipping. Every project frame holds a short, silent, looping clip of the product in use (WebM with MP4 fallback, first-frame poster) at 16:10 on every width; clips play only while at least a third of the frame is in view and stay on their poster under reduced motion. Text sits outside the frame in the page grid. Hover adds a three-pixel accent border inside the frame over 180ms and eases the clip to a 1.025 scale over 700ms; reduced motion removes the scale.
+The file is used as a CSS mask over a solid color, so the theme sets the line color and the lines stay one pixel wide at any size (`vector-effect: non-scaling-stroke`). It renders at least 1600px wide and centered, so phones show a slice of the map at the same density instead of a scaled-up one. The resting layer is ink at 22% (off-white at 14% in dark) and fades out from 30% to 95% of the hero's height, so the intro sits on near-plain ground. A second layer in Evergreen (Pale Mint in dark) shows only within a 240px circle around a fine pointer, with the same fade. The position reaches CSS through custom properties set from script, since the CSP allows no inline styles. The lit layer is absent on touch screens and under reduced motion, and browsers without mask support skip both layers rather than paint a solid block.
 
-### Navigation
+### Section labels
 
-The sticky header is a fully opaque Evergreen Action band, 80px on desktop and 72px on mobile, with Pure White identity and navigation, a translucent divider, a quieter pale role label, and a shallow downward shadow. Desktop navigation remains stationary and shifts to Inverse Orange on hover; the resume link is separated by a translucent vertical rule. Below 820px a 44px two-line menu button reveals a full-height evergreen navigation sheet using a solid clip-path transition, never an opacity fade. The sheet opens over 320ms and closes over 220ms, stays mounted so exit motion can complete, and becomes inert through visibility and pointer state while closed. Scrollbar compensation preserves the header, content shell, and menu width when body scrolling locks. Escape closes the sheet and restores focus to the menu button; crossing the desktop breakpoint also clears the lock. White links become large direct rows separated by translucent rules, and hovered rows shift to Inverse Orange without changing layout.
+A muted index, the section's h2 in mono, and a one-pixel rule running to the edge of the shell. The index is `aria-hidden` so headings read as their words alone.
 
-### Section Headings
+### Projects
 
-Each major section opens with a large headline marked by an Evergreen Action underline spanning the full title width. A concise muted summary sits to the right without a second divider below the heading group. On mobile the pair stacks with a 24px gap. The inverse contact heading uses Pale Mint for its full-width underline.
+Every project frame holds a short, silent, looping recording of the product (WebM with an MP4 fallback and a 1200x750 poster) at 16:10, with square corners and a one-pixel hairline. Recordings play muted only while in view, never under reduced motion, and each has a pause and play button. Hovering the frame draws a two-pixel evergreen border inside it. Copy sits outside the frame: the name, two short paragraphs, a mono stack line, and a "Visit {Name}" link.
 
-### Featured Project Evidence
+### Work History
 
-The flagship project pairs a large real product screen with a 4:8 evidence grid. Whitespace separates the media from the title and evidence, with no divider above the title. The left column holds the project title and role. The right column holds the summary, ruled contribution rows with evergreen dots, stack metadata, and text links. At 620px the grid becomes one reading column while retaining the same evidence order.
+A ruled list of the whole career, one row per job on desktop: mono dates, the role, and the company right-aligned. The full detail lives in the resume. A full-width endorsement follows, with a hanging opening quote and a mono caption.
 
-### Work History Rows
+### About
 
-Work History is a compact ruled list of the whole career, not a timeline illustration and not a copy of the resume. Each row is one line on desktop: dates, role, and company in three columns with 16px vertical padding. The full detail lives in the resume. It simplifies to two columns at tablet width and one column on mobile.
+A square portrait with square corners and no shadow. A large lead sentence, two muted paragraphs, and a mono "Day to day" line under a hairline.
 
-### Contact and Footer
+### Contact and footer
 
-The contact band and footer form one dark neutral conclusion. Large Pure White type anchors the invitation, Inverse Sage supports the message, and underlined Pale Mint links shift to Inverse Orange while dropping their underline on hover. A translucent white rule separates the compact three-column footer, which stacks on mobile.
+The dark band. A short note, the email address set at contact size with a soft underline, and icon links for LinkedIn and GitHub. The footer is mono: the copyright, the role line, and links to the source on GitHub and back to the top.
 
-### Hero Light
+### Buttons, links, and focus
 
-The hero's dot field carries the one authored pointer interaction on the page: a second, denser dot layer masked to a 220px radius that follows a fine pointer and fades in over 420ms. Both layers fade toward the bottom of the hero so the headline and intro sit on near-solid ground; the field is fully present only in the top quarter. Dot alpha is scheme-aware (`--dot-alpha`, `--dot-lit-alpha`) and lower in dark. The lit layer exists only for hover-capable pointers and is removed under reduced motion.
+Hover never moves anything: links strengthen their underline and shift color, buttons deepen and gain an underline, all over 200ms. Keyboard focus is a 1px dashed outline offset 3px, evergreen on paper and pale mint on the header, the dark band, and the video controls.
 
-### Color Scheme
+## Motion
 
-The system is light by default and follows `prefers-color-scheme: dark` with the same identity: neutral charcoal canvases, Pale Mint for interactive text and title rules, Inverse Orange for hover, and the tonal patterns in light gray. The primary button stays Evergreen in both schemes. There is no manual toggle.
+The hero fades and rises into place once on load, and its contour lines light up around a fine pointer. The header slides, the mobile sheet clips open, and the recordings play in view. Everything else is still. Reduced motion removes the entrance, the pointer light, the transitions, and autoplay.
 
-**The State, Not Spectacle Rule.** Motion may clarify hover, focus, menu state, or initial hierarchy. It must remain restrained, disappear under reduced-motion preferences, and never carry essential meaning.
+## Color Scheme
+
+The site follows `prefers-color-scheme` with the same identity in both: paper and ink in light, near-black and off-white in dark. There is no manual toggle.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** lead with real product screens, factual outcomes, and readable evidence.
-- **Do** use large Manrope headings, measured line lengths, and generous whitespace to establish confidence.
-- **Do** alternate the neutral page, surface, and dark contact fields to pace long pages.
-- **Do** use nearly tonal dot, directional-line, and concentric-line patterns at section edges to give large fields quiet depth.
-- **Do** use one-pixel rules to organize sections, lists, and media without adding card chrome.
-- **Do** preserve visible focus, semantic reading order, and reduced-motion behavior at every breakpoint.
-- **Do** use evergreen consistently for actions, links, full-width title underlines, evidence, and the conclusion.
+- **Do** lead with real product recordings, factual outcomes, and readable evidence.
+- **Do** get hierarchy from size contrast and spacing, with light weights at large sizes.
+- **Do** put metadata in the mono label style and everything else in Manrope.
+- **Do** keep elements on the three-column grid and use one-pixel rules to organize them.
+- **Do** keep visible focus, semantic reading order, and reduced-motion behavior at every breakpoint.
 
 ### Don't:
 
-- **Don't** recast the portfolio as a product or company marketing page.
-- **Don't** add gradient washes, glass, zero-offset decorative glows, floating panels, broadly rounded cards, or shadows beyond the header and portrait's restrained directional treatments.
-- **Don't** introduce novelty navigation, decorative metaphors, faux technical diagrams, or blueprint treatments.
-- **Don't** turn skills or technologies into badge clouds or pill collections.
-- **Don't** replace product evidence with stock illustration, abstract decoration, or generic interface mockups.
+- **Don't** recast the portfolio as a product or company marketing page: no taglines, logo walls, impact metrics, or testimonial carousels.
+- **Don't** add background patterns beyond the hero contours, or gradients, glass, glows, rounded cards, or shadows beyond the header's.
+- **Don't** add preloaders, custom cursors, smooth-scroll libraries, scroll-driven text, or marquees.
+- **Don't** turn skills or technologies into badges or pills.
 - **Don't** make motion necessary for comprehension or ignore reduced-motion preferences.

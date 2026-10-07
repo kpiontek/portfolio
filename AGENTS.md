@@ -13,6 +13,7 @@ The source for kylepiontek.com, Kyle Piontek's one-page portfolio. React 18, Vit
 - `npm run preview` serves `dist/`
 - `npm run lint`, `npm run format:check`, `npm run knip`, `npm test` are the checks CI runs; `npm test` expects `dist/` to exist, so build first
 - `npm run verify:deploy` polls the live site after a push and checks headers and endpoints
+- `npm run contours` refetches USGS elevation data and rewrites `public/montpelier-contours.svg`, the contour lines behind the hero; the SVG is committed, so run it only to change the map
 
 Git hooks are managed by lefthook (`lefthook.yml`). Pre-commit formats and lints staged files and scans for secrets. Pre-push runs the same sequence as `.github/workflows/quality.yml`. Bypass only for an emergency with `LEFTHOOK=0`.
 
@@ -24,7 +25,7 @@ Cloudflare Pages builds and deploys `dist/` on every push to `main`. Security he
 
 - No em dashes or en dashes anywhere in source or copy. Use commas, periods, or colons.
 - Plain voice. This is a portfolio, not marketing copy. No taglines, no buzzwords.
-- Product links read "Visit {Name}". Links that open a new tab say so for screen readers.
+- Product links read "Visit {Name}", without doubling a name that already starts with "Visit". Links that open a new tab say so for screen readers.
 - No inline `style=` attributes; the CSP has no `unsafe-inline`.
 - WCAG 2.2 AA. The browser test runs axe in light, dark, and mobile contexts.
 - Every asset under `src/assets` must be imported; every poster is 1200x750.

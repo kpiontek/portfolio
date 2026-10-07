@@ -97,7 +97,7 @@ describe('page structure', () => {
 
   it('has exactly one h1', () => {
     const h1s = headings.filter((heading) => heading.level === 1);
-    expect(h1s.map((heading) => heading.text)).toEqual(["Hi, I'm Kyle"]);
+    expect(h1s.map((heading) => heading.text)).toEqual(['Hello']);
   });
 
   it('has the section headings the nav promises', () => {
@@ -275,7 +275,7 @@ describe('links', () => {
 describe('product cards', () => {
   const EXPECTED_LINK_TEXT = [
     'Visit SiteCMD',
-    'Visit Visit Your Team',
+    'Visit Your Team',
     'Visit Was It Vibed',
     'Visit SmartHomeU',
   ];
@@ -305,7 +305,8 @@ describe('product cards', () => {
         link.inner.replace(/<span class="sr-only">[\s\S]*?<\/span>/, ''),
       );
 
-      expect(visible).toBe(`Visit ${name}`);
+      // A name that already starts with "Visit" is not doubled.
+      expect(visible).toBe(name.startsWith('Visit ') ? name : `Visit ${name}`);
     }
   });
 

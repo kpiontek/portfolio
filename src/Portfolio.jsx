@@ -174,6 +174,32 @@ function ProductMedia({
   );
 }
 
+// The time in Vermont, for anyone checking how their hours overlap. The
+// prerendered page says "Eastern Time" until the browser fills in the clock.
+// It refreshes when the tab comes back into view instead of ticking, since a
+// ticking clock is auto-updating content under WCAG 2.2.2.
+function LocalTime() {
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const format = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
+    const update = () => setTime(format.format(new Date()));
+
+    update();
+    document.addEventListener('visibilitychange', update);
+
+    return () => {
+      document.removeEventListener('visibilitychange', update);
+    };
+  }, []);
+
+  return time ? `${time} ET` : 'Eastern Time';
+}
+
 function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const heroRef = useRef(null);
@@ -280,6 +306,8 @@ function Portfolio() {
 
   const closeMenu = () => setMobileMenuOpen(false);
 
+  // Lights the contour lines in a circle around a fine pointer. The position
+  // goes through custom properties, since the CSP allows no inline styles.
   useEffect(() => {
     const hero = heroRef.current;
     if (
@@ -391,16 +419,33 @@ function Portfolio() {
 
       <main id="main-content">
         <section className="hero" id="top" ref={heroRef}>
-          <div className="shell hero-layout">
-            <h1>Hi, I'm Kyle</h1>
-            <div className="hero-copy">
-              <p>
+          <div className="shell">
+            <ul className="hero-meta">
+              <li>Montpelier, Vermont</li>
+              <li>Working remotely</li>
+              <li>
+                <LocalTime />
+              </li>
+            </ul>
+
+            <div className="hero-layout">
+              <h1>Hello</h1>
+              <p className="hero-intro">
                 I'm a Senior Full Stack Engineer with 15 years of building and
                 fixing software: 120+ state government websites, a marketplace
                 with 500,000 users, and four products of my own that I run
                 today.
               </p>
-              <p>Based in Vermont and working remotely.</p>
+              <dl className="hero-roles">
+                <div>
+                  <dt>Currently</dt>
+                  <dd>Senior Web Developer at Digital Artisans</dd>
+                </div>
+                <div>
+                  <dt>Previously</dt>
+                  <dd>Optiv Security and Tyler Technologies</dd>
+                </div>
+              </dl>
               <div className="hero-actions">
                 <a
                   className="button button-primary"
@@ -418,7 +463,8 @@ function Portfolio() {
 
         <section className="work section" id="work">
           <div className="shell">
-            <div className="section-heading">
+            <div className="section-label">
+              <span aria-hidden="true">01</span>
               <h2>Selected work</h2>
             </div>
 
@@ -493,7 +539,7 @@ function Portfolio() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Visit Visit Your Team
+                    Visit Your Team
                     <span className="sr-only"> opens in a new tab</span>
                   </a>
                 </div>
@@ -575,33 +621,38 @@ function Portfolio() {
 
         <section className="experience section" id="experience">
           <div className="shell">
-            <div className="section-heading">
+            <div className="section-label">
+              <span aria-hidden="true">02</span>
               <h2>Work History</h2>
-              <p>
-                Fifteen years, from agency work to state government to
-                enterprise platforms, plus my own products since 2026.
-              </p>
             </div>
 
-            <ol className="experience-list">
-              {experience.map((item) => (
-                <li className="experience-item" key={item.company}>
-                  <p className="experience-dates">{item.dates}</p>
-                  <h3 className="experience-role">{item.role}</h3>
-                  <p className="experience-company">{item.company}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="experience-layout">
+              <div className="experience-intro">
+                <p>
+                  Fifteen years, from agency work to state government to
+                  enterprise platforms, plus my own products since 2026.
+                </p>
+                <a
+                  className="text-link"
+                  href="/Kyle_Piontek_Resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Read the full resume
+                  <span className="sr-only"> opens in a new tab</span>
+                </a>
+              </div>
 
-            <a
-              className="text-link experience-resume"
-              href="/Kyle_Piontek_Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read the full resume
-              <span className="sr-only"> opens in a new tab</span>
-            </a>
+              <ol className="experience-list">
+                {experience.map((item) => (
+                  <li className="experience-item" key={item.company}>
+                    <p className="experience-dates">{item.dates}</p>
+                    <h3 className="experience-role">{item.role}</h3>
+                    <p className="experience-company">{item.company}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
             <figure className="endorsement">
               <blockquote>
@@ -624,94 +675,102 @@ function Portfolio() {
         </section>
 
         <section className="about section" id="about">
-          <div className="shell about-layout">
-            <div className="about-portrait">
-              <img
-                src={headshotImg}
-                alt="Kyle Piontek"
-                width="640"
-                height="640"
-                loading="lazy"
-                decoding="async"
-              />
+          <div className="shell">
+            <div className="section-label">
+              <span aria-hidden="true">03</span>
+              <h2>About Me</h2>
             </div>
 
-            <div className="about-copy">
-              <h2>About Me</h2>
-              <p className="about-lead">
-                When I got my first laptop, I took it apart and put it back
-                together just to see how it worked. I&apos;ve been teaching
-                myself how things work ever since.
-              </p>
-              <p>
-                I started programming at 12, left college to start working, and
-                have spent the last 15 years as a developer. I&apos;ve worked
-                for everyone from Fortune 500 companies to a small startup,
-                where I built the payment and escrow system that turned the
-                platform from a passion project into a real business. I also
-                spent four years building and maintaining 120+ websites for the
-                State of Vermont, and today I work mainly on the GraphQL API and
-                React UI of an enterprise platform.
-              </p>
-              <p>
-                I&apos;ve been building with AI for over a year, and it&apos;s
-                let me build my own products that I never would have had time
-                for before. Claude Code and Codex help me move faster, but
-                tests, git hooks, and my own review decide what ships. What I
-                care about most hasn&apos;t changed: usability, performance, and
-                accessibility, because even the best software is only as
-                valuable as the people who can actually use it.
-              </p>
-              <p className="about-stack">
-                Day to day: TypeScript, JavaScript, React, Next.js, Node.js,
-                PHP, Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code,
-                Codex, and MCP.
-              </p>
+            <div className="about-layout">
+              <div className="about-portrait">
+                <img
+                  src={headshotImg}
+                  alt="Kyle Piontek"
+                  width="640"
+                  height="640"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <div className="about-copy">
+                <p className="about-lead">
+                  When I got my first laptop, I took it apart and put it back
+                  together just to see how it worked. I&apos;ve been teaching
+                  myself how things work ever since.
+                </p>
+                <p>
+                  I started programming at 12, left college to start working,
+                  and have spent the last 15 years as a developer. I&apos;ve
+                  worked for everyone from Fortune 500 companies to a small
+                  startup, where I built the payment and escrow system that
+                  turned the platform from a passion project into a real
+                  business. I also spent four years building and maintaining
+                  120+ websites for the State of Vermont, and today I work
+                  mainly on the GraphQL API and React UI of an enterprise
+                  platform.
+                </p>
+                <p>
+                  I&apos;ve been building with AI for over a year, and it&apos;s
+                  let me build my own products that I never would have had time
+                  for before. Claude Code and Codex help me move faster, but
+                  tests, git hooks, and my own review decide what ships. What I
+                  care about most hasn&apos;t changed: usability, performance,
+                  and accessibility, because even the best software is only as
+                  valuable as the people who can actually use it.
+                </p>
+                <p className="about-stack">
+                  Day to day: TypeScript, JavaScript, React, Next.js, Node.js,
+                  PHP, Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code,
+                  Codex, and MCP.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="contact" id="contact">
-          <div className="shell contact-layout">
-            <div className="contact-copy">
-              <h2>Let&apos;s talk.</h2>
-              <p>
-                If you&apos;re hiring for a senior engineering role, I&apos;d be
-                glad to hear what you&apos;re working on.
-              </p>
+          <div className="shell">
+            <div className="section-label">
+              <span aria-hidden="true">04</span>
+              <h2>Contact</h2>
             </div>
-            <div className="contact-links">
-              <a href="mailto:hello@kylepiontek.com">hello@kylepiontek.com</a>
-              <div className="contact-social">
-                <a
-                  className="contact-icon"
-                  href="https://www.linkedin.com/in/kyle-piontek"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn, opens in a new tab"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                    />
-                  </svg>
-                </a>
-                <a
-                  className="contact-icon"
-                  href="https://github.com/kpiontek"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub, opens in a new tab"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                    />
-                  </svg>
-                </a>
-              </div>
+            <p className="contact-note">
+              If you&apos;re hiring for a senior engineering role, I&apos;d be
+              glad to hear what you&apos;re working on.
+            </p>
+            <a className="contact-email" href="mailto:hello@kylepiontek.com">
+              hello@kylepiontek.com
+            </a>
+            <div className="contact-social">
+              <a
+                className="contact-icon"
+                href="https://www.linkedin.com/in/kyle-piontek"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn, opens in a new tab"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    fill="currentColor"
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+              </a>
+              <a
+                className="contact-icon"
+                href="https://github.com/kpiontek"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub, opens in a new tab"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    fill="currentColor"
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </section>
@@ -721,7 +780,17 @@ function Portfolio() {
         <div className="shell footer-inner">
           <p>© {new Date().getFullYear()} Kyle Piontek</p>
           <p>Senior Full Stack Engineer based in Vermont</p>
-          <a href="#top">Back to top</a>
+          <div className="footer-links">
+            <a
+              href="https://github.com/kpiontek/portfolio"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View source
+              <span className="sr-only"> opens in a new tab</span>
+            </a>
+            <a href="#top">Back to top</a>
+          </div>
         </div>
       </footer>
     </div>

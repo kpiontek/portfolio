@@ -35,13 +35,13 @@ if (!hasBuild) {
     });
 
     it('contains the hero heading', () => {
-      // React escapes the apostrophe in "I'm Kyle" when it serializes.
+      // React escapes apostrophes when it serializes, so decode them first.
       const h1 = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '';
       const text = h1
         .replace(/<[^>]*>/g, '')
         .replace(/&#x27;|&#39;|&apos;/g, "'");
 
-      expect(text).toContain("I'm Kyle");
+      expect(text).toContain('Hello');
     });
 
     it('contains all four project cards', () => {
