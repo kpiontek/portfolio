@@ -585,22 +585,21 @@ function Portfolio() {
                 </p>
                 <p>
                   I started programming at 12, left college to start working,
-                  and have spent the last 15 years as a developer. I&apos;ve
-                  worked for everyone from Fortune 500 companies to a small
-                  startup, where I built the payment and escrow system that
-                  turned the platform from a passion project into a real
-                  business. I also spent four years building and maintaining
-                  120+ websites for the State of Vermont, and today I work
-                  mainly on the GraphQL API and React UI of an enterprise
-                  platform.
+                  and have spent the last 15 years as a developer. What
+                  I&apos;ve always liked most isn&apos;t the code itself.
+                  It&apos;s sitting down with the people who have the problem,
+                  understanding how they actually work, and figuring out how the
+                  software can get out of their way. Over the years that&apos;s
+                  meant learning HVAC operations, state government, healthcare,
+                  and ticket resale well enough to build for them.
                 </p>
                 <p>
                   I&apos;ve been building with AI for over a year, and it&apos;s
                   let me build my own products that I never would have had time
                   for before. Claude Code and Codex help me move faster, but
                   tests, git hooks, and my own review decide what ships. What I
-                  care about most hasn&apos;t changed: usability, performance,
-                  and accessibility, because even the best software is only as
+                  care about hasn&apos;t changed: usability, performance, and
+                  accessibility, because even the best software is only as
                   valuable as the people who can actually use it.
                 </p>
               </div>
@@ -614,25 +613,31 @@ function Portfolio() {
                   </div>
                   <div>
                     <dt>Frontend</dt>
-                    <dd>React, Next.js, Astro, Sass, WCAG accessibility</dd>
+                    <dd>
+                      React, Next.js, Astro, technical SEO, WCAG accessibility
+                    </dd>
                   </div>
                   <div>
                     <dt>Backend &amp; APIs</dt>
-                    <dd>Node.js, GraphQL, REST, Stripe</dd>
+                    <dd>Node.js, GraphQL, REST, OAuth and OIDC, Stripe</dd>
                   </div>
                   <div>
                     <dt>Data &amp; CMS</dt>
-                    <dd>MySQL, PostgreSQL, Supabase, Drupal</dd>
+                    <dd>MySQL, PostgreSQL, Redis, data modeling, Drupal</dd>
                   </div>
                   <div>
                     <dt>Infrastructure &amp; Tooling</dt>
                     <dd>
-                      Cloudflare, Linux, Docker, GitHub Actions, Playwright
+                      Cloudflare Workers, Docker, Linux, GitHub Actions,
+                      Playwright
                     </dd>
                   </div>
                   <div>
                     <dt>AI Engineering</dt>
-                    <dd>Claude Code, Codex, MCP servers, TDD</dd>
+                    <dd>
+                      Spec-driven development, TDD, cross-model code review,
+                      building MCP servers, git hooks that gate generated code
+                    </dd>
                   </div>
                 </dl>
               </div>
