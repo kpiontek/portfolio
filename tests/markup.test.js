@@ -97,7 +97,7 @@ describe('page structure', () => {
 
   it('has exactly one h1', () => {
     const h1s = headings.filter((heading) => heading.level === 1);
-    expect(h1s.map((heading) => heading.text)).toEqual(["Hey, I'm Kyle."]);
+    expect(h1s.map((heading) => heading.text)).toEqual(["Hi, I'm Kyle"]);
   });
 
   it('has the section headings the nav promises', () => {
