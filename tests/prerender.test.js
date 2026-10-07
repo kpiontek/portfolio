@@ -55,7 +55,7 @@ if (!hasBuild) {
 
       expect(h2s).toContain('Selected work');
       expect(h2s).toContain('Work History');
-      expect(h2s).toContain('About');
+      expect(h2s).toContain('About Me');
       expect(h2s.length).toBeGreaterThanOrEqual(4);
     });
 

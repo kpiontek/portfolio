@@ -56,7 +56,7 @@ describe('document head', () => {
     const titles = [...html.matchAll(/<title>([\s\S]*?)<\/title>/gi)];
     expect(titles).toHaveLength(1);
     expect(titles[0][1].trim()).toBe(
-      'Kyle Piontek | Senior Full Stack Developer',
+      'Kyle Piontek | Senior Full Stack Engineer',
     );
   });
 

@@ -107,7 +107,7 @@ describe('page structure', () => {
 
     expect(h2s).toContain('Selected work');
     expect(h2s).toContain('Work History');
-    expect(h2s).toContain('About');
+    expect(h2s).toContain('About Me');
 
     // The contact section's heading is conversational, so match the section
     // rather than the exact words.

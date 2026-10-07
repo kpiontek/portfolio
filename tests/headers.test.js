@@ -30,8 +30,6 @@ const hasBuild = existsSync(distIndexPath);
 // each one. Anything the page references that is missing from this map fails
 // the test on purpose: adding a third party should be a deliberate edit here.
 const ALLOWED_ORIGINS = {
-  'https://fonts.googleapis.com': ['style-src'],
-  'https://fonts.gstatic.com': ['font-src'],
   'https://plausible.io': ['script-src', 'connect-src'],
 };
 

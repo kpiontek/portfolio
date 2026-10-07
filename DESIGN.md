@@ -136,27 +136,13 @@ The palette is grounded, restrained, and high-contrast. Deep evergreen owns prim
 
 ### Primary
 
-- **Evergreen Action** (#1f5a43): The header field, primary action fill, light-surface links, full-width section-title underlines, text selection, contribution markers, and low-opacity structural patterns.
-- **Evergreen Pressed** (#164532): The darker hover state for primary buttons.
-- **Focus Fern** (#3f765c): The globally visible keyboard-focus outline, chosen to clear 3:1 against both light surfaces and Deep Forest.
-- **Pale Mint** (#a6d1bb): The accessible default for links and title rules on the inverse contact field.
-- **Burnt Orange** (#b5471f): The stationary hover color for links on Paper and Sage White surfaces.
-- **Inverse Orange** (#ffb58a): The stationary hover color for links on Evergreen Action and the Deep Forest field.
+- **Evergreen Action** (#1f5a43): The accent only: primary action fill, light-surface links, section-title underlines, text selection, and focus. Backgrounds stay neutral so the accent reads as a signal, not a theme.
+- **Evergreen Pressed** (#164532): The darker hover fill for primary buttons.
+- **Pale Mint** (#a6d1bb): Links, title rules, and focus on dark surfaces.
+- **Burnt Orange** (#b5471f): The hover color for links on light surfaces.
+- **Inverse Orange** (#ffb58a): The hover color for links on the dark contact field and in dark mode.
 
-### Neutral
-
-- **Sage White Canvas** (#f1f4f1): The page background and the work and about section fields.
-- **Paper** (#fbfcfb): The hero and experience section.
-- **Pure White** (#ffffff): Header navigation, inverse text, and primary-button text.
-- **Forest Charcoal** (#111814): Primary headings and body emphasis.
-- **Deep Forest** (#0d261c): The contact and footer field.
-- **Moss Slate** (#56615b): Supporting copy, navigation, roles, and secondary information.
-- **Quiet Moss** (#56615b): Compact dates and stack metadata. It shares Moss Slate's measured contrast while retaining a quieter semantic role.
-- **Sage Rule** (#cfd7d1): Repeated separators, row borders, and media outlines.
-- **Strong Sage Rule** (#9eaaa2): Dividers that need slightly more authority than the Sage Rule.
-- **Inverse Sage** (#bdccc4): Supporting copy and footer text on the Deep Forest field.
-- **Media Frame** (#e2e9e4): The muted sage backing behind real product screens.
-- **Portrait Frame** (#dfe7e1): The quiet backing within the circular headshot.
+Light scheme neutrals: page #f6f6f4, surface #ffffff, ink #17191b, muted #55595e, rules #deded9 and #a4a7ab, contact and footer field #17191b, media frame #ececea. Dark scheme neutrals: page #121315, surface #17181b, ink #ececea, muted #a8abaf, rules #2b2d31 and #46494e, contact field #0c0d0e, media frame #202225.
 
 ### Named Rules
 
@@ -195,7 +181,7 @@ At 1080px the header role disappears and the about columns stack. At 820px the h
 
 ## Elevation & Depth
 
-The system uses no glass effects and keeps content surfaces flat. Depth comes from alternating Sage White Canvas and Paper fields, the Deep Forest contact band, low-contrast geometric background fields, one-pixel rules, high-contrast type, and real product imagery inside outlined frames. The sticky header uses a shallow downward `0 10px 24px rgba(13, 38, 28, 0.16)` shadow to separate fixed navigation from scrolling content. The circular portrait uses a soft `0 12px 32px rgba(31, 90, 67, 0.14)` evergreen cast. Project imagery stays stationary while its frame gains a three-pixel Evergreen Action border on hover.
+The system uses no glass effects and keeps content surfaces flat. Depth comes from alternating neutral page and surface fields, the dark contact band, low-contrast geometric background fields, one-pixel rules, high-contrast type, and real product imagery inside outlined frames. The sticky header is separated from scrolling content by a one-pixel rule, not a shadow. The circular portrait uses a soft neutral `0 12px 32px rgba(0, 0, 0, 0.12)` shadow. Project imagery stays stationary while its frame gains a three-pixel Evergreen Action border on hover.
 
 ### Named Rules
 
@@ -215,7 +201,9 @@ Buttons are direct and compact rather than oversized or promotional.
 
 - **Shape:** Nearly square corners with a 2px radius and a 48px minimum height.
 - **Primary:** Evergreen Action with Pure White text, 20px horizontal padding, compact label type, and no shadow.
-- **Hover / Focus:** Hover moves the control up 2px while shifting to Evergreen Pressed over 180ms. Keyboard focus uses a 3px Focus Fern outline with a 4px offset.
+- **Hover / Focus:** Hover never moves anything: controls deepen in color and links strengthen their underline, over 200ms. Keyboard focus is a 1px dashed green outline offset 3px (Evergreen on light surfaces, Pale Mint on the header, contact band, and video controls), with no change to color, underline, or background.
+- **Header:** A dark charcoal bar (lifted gray in dark mode) that slides away while scrolling down and returns on any scroll up. It never hides near the top, while the mobile menu is open, or while keyboard focus is inside it.
+- **Product previews:** Clips autoplay muted only while in view and never under reduced motion. Each has a pause and play button, which WCAG 2.2.2 requires for motion longer than five seconds.
 - **Mobile:** The primary button becomes full width below 620px.
 
 ### Text Links
@@ -240,11 +228,11 @@ The flagship project pairs a large real product screen with a 4:8 evidence grid.
 
 ### Work History Rows
 
-Work History is a ruled list, not a timeline illustration. Each row uses 36px vertical padding and three desktop columns for dates, role and company, and a single line of evidence; the full detail lives in the resume. It simplifies to two columns at tablet width and one column on mobile.
+Work History is a compact ruled list of the whole career, not a timeline illustration and not a copy of the resume. Each row is one line on desktop: dates, role, and company in three columns with 16px vertical padding. The full detail lives in the resume. It simplifies to two columns at tablet width and one column on mobile.
 
 ### Contact and Footer
 
-The contact band and footer form one Deep Forest conclusion. Large Pure White type anchors the invitation, Inverse Sage supports the message, and underlined Pale Mint links shift to Inverse Orange while dropping their underline on hover. A translucent white rule separates the compact three-column footer, which stacks on mobile.
+The contact band and footer form one dark neutral conclusion. Large Pure White type anchors the invitation, Inverse Sage supports the message, and underlined Pale Mint links shift to Inverse Orange while dropping their underline on hover. A translucent white rule separates the compact three-column footer, which stacks on mobile.
 
 ### Hero Light
 
@@ -252,7 +240,7 @@ The hero's dot field carries the one authored pointer interaction on the page: a
 
 ### Color Scheme
 
-The system is light by default and follows `prefers-color-scheme: dark` with the same identity: Deep Forest canvases, Pale Mint for interactive text and title rules, Inverse Orange for hover, and the tonal patterns recolored in mint. The evergreen header and primary button are unchanged across schemes. There is no manual toggle.
+The system is light by default and follows `prefers-color-scheme: dark` with the same identity: neutral charcoal canvases, Pale Mint for interactive text and title rules, Inverse Orange for hover, and the tonal patterns in light gray. The primary button stays Evergreen in both schemes. There is no manual toggle.
 
 **The State, Not Spectacle Rule.** Motion may clarify hover, focus, menu state, or initial hierarchy. It must remain restrained, disappear under reduced-motion preferences, and never carry essential meaning.
 
@@ -262,7 +250,7 @@ The system is light by default and follows `prefers-color-scheme: dark` with the
 
 - **Do** lead with real product screens, factual outcomes, and readable evidence.
 - **Do** use large Manrope headings, measured line lengths, and generous whitespace to establish confidence.
-- **Do** alternate Sage White Canvas, Paper, and Deep Forest fields to pace long pages.
+- **Do** alternate the neutral page, surface, and dark contact fields to pace long pages.
 - **Do** use nearly tonal dot, directional-line, and concentric-line patterns at section edges to give large fields quiet depth.
 - **Do** use one-pixel rules to organize sections, lists, and media without adding card chrome.
 - **Do** preserve visible focus, semantic reading order, and reduced-motion behavior at every breakpoint.

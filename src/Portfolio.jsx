@@ -23,52 +23,81 @@ const experience = [
     dates: 'May 2025 - Present',
     role: 'Senior Web Developer',
     company: 'Digital Artisans',
-    detail:
-      'Took over a late project after two vendor handoffs, got it stable, and cut monthly releases from several hours to under an hour.',
   },
   {
     dates: 'Apr 2024 - Apr 2025',
     role: 'Full Stack Web Developer',
     company: 'Optiv Security',
-    detail:
-      "Cut page load times on Optiv's Drupal 10 marketing sites by nearly half and backed up the Lead Technical Architect.",
   },
   {
     dates: 'Jun 2020 - Apr 2024',
     role: 'Software Engineer',
     company: 'Tyler Technologies',
-    detail:
-      'Built and maintained 120+ Drupal websites for State of Vermont agencies and backed up the Director of Development.',
   },
   {
     dates: 'Feb 2019 - Jun 2020',
     role: 'Full Stack Engineer',
     company: 'CashorTrade.org',
-    detail:
-      'Designed and built the payment and escrow system that turned the platform from a passion project into a viable business.',
   },
   {
     dates: 'Feb 2017 - Feb 2019',
     role: 'Front-End Engineer',
     company: 'Bluehouse Group',
-    detail:
-      "Built sites for 10+ clients and led the team's move to WCAG 2.0 accessibility.",
+  },
+  {
+    dates: 'Jun 2014 - Jun 2016',
+    role: 'Full Stack Engineer (Contract)',
+    company: 'Blue Coda',
+  },
+  {
+    dates: 'Jun 2013 - Jun 2014',
+    role: 'Web Developer (Contract)',
+    company: 'Hark Digital',
+  },
+  {
+    dates: 'Oct 2011 - Jun 2013',
+    role: 'Web Developer',
+    company: 'Red Barn Media Group',
   },
 ];
 
-function ProductMedia({ href, label, poster, webm, mp4, priority = false }) {
+function ProductMedia({
+  href,
+  name,
+  label,
+  poster,
+  webm,
+  mp4,
+  priority = false,
+}) {
   const videoRef = useRef(null);
+  const userPaused = useRef(false);
+  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || window.matchMedia(REDUCED_MOTION).matches) return undefined;
+    if (!video) return undefined;
+
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    video.addEventListener('play', onPlay);
+    video.addEventListener('pause', onPause);
+
+    // Reduced motion: never autoplay; the button still lets a visitor choose to watch.
+    if (window.matchMedia(REDUCED_MOTION).matches) {
+      userPaused.current = true;
+      return () => {
+        video.removeEventListener('play', onPlay);
+        video.removeEventListener('pause', onPause);
+      };
+    }
 
     video.muted = true;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !userPaused.current) {
           video.play().catch(() => {});
-        } else {
+        } else if (!entry.isIntersecting) {
           video.pause();
         }
       },
@@ -76,41 +105,119 @@ function ProductMedia({ href, label, poster, webm, mp4, priority = false }) {
     );
     observer.observe(video);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('play', onPlay);
+      video.removeEventListener('pause', onPause);
+    };
   }, []);
 
+  // WCAG 2.2.2: anything that moves on its own for more than five seconds
+  // needs a way to stop it.
+  const toggle = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      userPaused.current = false;
+      video.muted = true;
+      video.play().catch(() => {});
+    } else {
+      userPaused.current = true;
+      video.pause();
+    }
+  };
+
   return (
-    <a
-      className="project-media"
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-    >
-      <video
-        ref={videoRef}
-        className="project-video"
-        poster={poster}
-        width="1200"
-        height="750"
-        muted
-        playsInline
-        loop
-        preload={priority ? 'auto' : 'metadata'}
-        aria-hidden="true"
-        tabIndex={-1}
+    <div className="project-media-wrap">
+      <a
+        className="project-media"
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={label}
       >
-        <source src={webm} type="video/webm" />
-        <source src={mp4} type="video/mp4" />
-      </video>
-    </a>
+        <video
+          ref={videoRef}
+          className="project-video"
+          poster={poster}
+          width="1200"
+          height="750"
+          muted
+          playsInline
+          loop
+          preload={priority ? 'auto' : 'metadata'}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source src={webm} type="video/webm" />
+          <source src={mp4} type="video/mp4" />
+        </video>
+      </a>
+      <button
+        type="button"
+        className="media-toggle"
+        onClick={toggle}
+        aria-label={`${playing ? 'Pause' : 'Play'} the ${name} preview`}
+      >
+        {playing ? (
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <rect x="3" y="2" width="3.5" height="12" fill="currentColor" />
+            <rect x="9.5" y="2" width="3.5" height="12" fill="currentColor" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M4 2.2v11.6L13.5 8z" fill="currentColor" />
+          </svg>
+        )}
+      </button>
+    </div>
   );
 }
 
 function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const heroRef = useRef(null);
+  const headerRef = useRef(null);
   const menuButtonRef = useRef(null);
+
+  // Hide the header while scrolling down and bring it back on any scroll up.
+  // It never hides near the top, while the mobile menu is open, or while
+  // keyboard focus is inside it.
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return undefined;
+
+    let lastY = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const nearTop = y <= header.offsetHeight;
+      if (nearTop) {
+        header.classList.remove('is-hidden');
+      } else if (Math.abs(y - lastY) > 6) {
+        const hide =
+          y > lastY &&
+          !header.contains(document.activeElement) &&
+          !document.body.classList.contains('menu-open');
+        header.classList.toggle('is-hidden', hide);
+      }
+      lastY = y;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    const onFocusIn = () => header.classList.remove('is-hidden');
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    header.addEventListener('focusin', onFocusIn);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      header.removeEventListener('focusin', onFocusIn);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -212,11 +319,11 @@ function Portfolio() {
         Skip to main content
       </a>
 
-      <header className="site-header">
+      <header className="site-header" ref={headerRef}>
         <div className="shell header-inner">
           <a className="brand" href="#top" onClick={closeMenu}>
             <span className="brand-name">Kyle Piontek</span>
-            <span className="brand-role">Senior Full Stack Developer</span>
+            <span className="brand-role">Senior Full Stack Engineer</span>
           </a>
 
           <nav className="desktop-nav" aria-label="Primary navigation">
@@ -285,17 +392,13 @@ function Portfolio() {
       <main id="main-content">
         <section className="hero" id="top" ref={heroRef}>
           <div className="shell hero-layout">
-            <h1>
-              Hey,
-              <br />
-              I&apos;m Kyle.
-            </h1>
+            <h1>Hi, I'm Kyle</h1>
             <div className="hero-copy">
               <p>
-                I&apos;m a Senior Full Stack Developer with 15 years of building
-                and fixing software: 120+ state government websites, a
-                marketplace with 500,000 users, and four products of my own that
-                I run today.
+                I'm a Senior Full Stack Engineer with 15 years of building and
+                fixing software: 120+ state government websites, a marketplace
+                with 500,000 users, and four products of my own that I run
+                today.
               </p>
               <p>Based in Vermont and working remotely.</p>
               <div className="hero-actions">
@@ -323,6 +426,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://sitecmd.com"
+                  name="SiteCMD"
                   label="Visit the SiteCMD website, opens in a new tab"
                   poster={sitecmdPoster}
                   webm={sitecmdWebm}
@@ -362,6 +466,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://visityourteam.com"
+                  name="Visit Your Team"
                   label="Visit the Visit Your Team website, opens in a new tab"
                   poster={visitYourTeamPoster}
                   webm={visitYourTeamWebm}
@@ -397,6 +502,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://wasitvibed.com"
+                  name="Was It Vibed"
                   label="Visit the Was It Vibed website, opens in a new tab"
                   poster={wasItVibedPoster}
                   webm={wasItVibedWebm}
@@ -432,6 +538,7 @@ function Portfolio() {
               <article className="project-card">
                 <ProductMedia
                   href="https://smarthomeu.com"
+                  name="SmartHomeU"
                   label="Visit the SmartHomeU website, opens in a new tab"
                   poster={smartHomeUPoster}
                   webm={smartHomeUWebm}
@@ -480,11 +587,8 @@ function Portfolio() {
               {experience.map((item) => (
                 <li className="experience-item" key={item.company}>
                   <p className="experience-dates">{item.dates}</p>
-                  <div className="experience-role">
-                    <h3>{item.role}</h3>
-                    <p>{item.company}</p>
-                  </div>
-                  <p className="experience-detail">{item.detail}</p>
+                  <h3 className="experience-role">{item.role}</h3>
+                  <p className="experience-company">{item.company}</p>
                 </li>
               ))}
             </ol>
@@ -533,34 +637,37 @@ function Portfolio() {
             </div>
 
             <div className="about-copy">
-              <h2>About</h2>
+              <h2>About Me</h2>
               <p className="about-lead">
-                Self-taught. I started programming at age 12, left college to
-                work, and have been building and fixing websites ever since.
-              </p>
-            </div>
-
-            <div className="about-columns">
-              <p>
-                That has meant agencies, State of Vermont agencies, a startup
-                marketplace, and enterprise platforms, often on systems that
-                could not go offline while I improved them. Along the way I have
-                mentored developers, reviewed a lot of code, and stepped in for
-                lead architects and directors when they were out.
+                When I got my first laptop, I took it apart and put it back
+                together just to see how it worked. I&apos;ve been teaching
+                myself how things work ever since.
               </p>
               <p>
-                These days I also build my own products on nights and weekends:
-                a Rust and React website scanner, a data-heavy Next.js site, and
-                public Cloudflare services. Claude Code and Codex help me move
-                faster, but tests, git hooks, and my own review decide what
-                ships.
+                I started programming at 12, left college to start working, and
+                have spent the last 15 years as a developer. I&apos;ve worked
+                for everyone from Fortune 500 companies to a small startup,
+                where I built the payment and escrow system that turned the
+                platform from a passion project into a real business. I also
+                spent four years building and maintaining 120+ websites for the
+                State of Vermont, and today I work mainly on the GraphQL API and
+                React UI of an enterprise platform.
+              </p>
+              <p>
+                I&apos;ve been building with AI for over a year, and it&apos;s
+                let me build my own products that I never would have had time
+                for before. Claude Code and Codex help me move faster, but
+                tests, git hooks, and my own review decide what ships. What I
+                care about most hasn&apos;t changed: usability, performance, and
+                accessibility, because even the best software is only as
+                valuable as the people who can actually use it.
+              </p>
+              <p className="about-stack">
+                Day to day: TypeScript, JavaScript, React, Next.js, Node.js,
+                PHP, Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code,
+                Codex, and MCP.
               </p>
             </div>
-            <p className="about-stack">
-              Day to day: TypeScript, JavaScript, React, Next.js, Node.js, PHP,
-              Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code, Codex, and
-              MCP.
-            </p>
           </div>
         </section>
 
@@ -613,7 +720,7 @@ function Portfolio() {
       <footer className="site-footer">
         <div className="shell footer-inner">
           <p>© {new Date().getFullYear()} Kyle Piontek</p>
-          <p>Senior Full Stack Developer based in Vermont</p>
+          <p>Senior Full Stack Engineer based in Vermont</p>
           <a href="#top">Back to top</a>
         </div>
       </footer>
