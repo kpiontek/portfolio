@@ -13,7 +13,7 @@ Source for my personal portfolio site at [kylepiontek.com](https://kylepiontek.c
 
 The page is one component, `src/Portfolio.jsx`, styled by `src/Portfolio.scss`. A production build runs three steps: a client build, an SSR build of `src/entry-server.jsx`, and `scripts/prerender.mjs`, which renders the app to HTML and injects that markup into `dist/index.html`. In the browser, `src/main.jsx` hydrates the prerendered markup instead of rendering the page from scratch.
 
-The contour lines behind the hero are the real hills around Montpelier. `scripts/contours.mjs` (`npm run contours`) fetches USGS 3DEP elevation data for the area, traces it with d3-contour, and writes `public/montpelier-contours.svg`. The SVG is committed, so builds never touch the network.
+The contour lines behind the hero are the real hills around Montpelier. `scripts/contours.mjs` (`npm run contours`) fetches USGS 3DEP elevation data for the area, traces it with d3-contour, colors each line by its elevation, and writes two files: `src/assets/hero-contours.svg`, which the page renders inline so the stylesheet can draw its lines in on load, and `public/montpelier-contours.svg`, the still copy behind the contact band. Both are committed, so builds never touch the network.
 
 Deploys go to Cloudflare Pages. Every push to `main` triggers a build, and the contents of `./dist` are served as static assets. Security headers, including a Content-Security-Policy with no `unsafe-inline`, live in `public/_headers`.
 
@@ -54,7 +54,7 @@ Colors, typography, layout, and component rules are documented in [DESIGN.md](DE
 
 ## Accessibility
 
-The site is checked against WCAG 2.2 AA with axe. Product cards use short screen recordings (webm and mp4 with poster frames) that play only while in view and stay paused for visitors who set `prefers-reduced-motion`.
+The site is checked against WCAG 2.2 AA with axe. Product cards use short screen recordings (webm and mp4 with poster frames) that stay on the poster until a visitor presses play, so nothing on the page moves on its own.
 
 ## Security
 
@@ -66,4 +66,4 @@ The code in this repository is MIT licensed. See [LICENSE](LICENSE).
 
 The content is not. The photo, resume, written copy, endorsement quote, and product recordings and images under `src/assets` and `public` are copyright Kyle Piontek, all rights reserved, and may not be reused.
 
-The contour lines behind the hero (`public/montpelier-contours.svg`) are traced from USGS 3DEP elevation data, which is in the public domain.
+The contour maps (`src/assets/hero-contours.svg` and `public/montpelier-contours.svg`) are traced from USGS 3DEP elevation data, which is in the public domain.

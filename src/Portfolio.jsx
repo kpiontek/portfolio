@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './Portfolio.scss';
 
 import headshotImg from './assets/headshot.webp';
+import heroContours from './assets/hero-contours.svg?raw';
 import sitecmdPoster from './assets/projects/sitecmd-poster.webp';
 import sitecmdWebm from './assets/projects/sitecmd.webm';
 import sitecmdMp4 from './assets/projects/sitecmd.mp4';
@@ -14,9 +15,6 @@ import visitYourTeamMp4 from './assets/projects/visit-your-team.mp4';
 import wasItVibedPoster from './assets/projects/was-it-vibed-poster.webp';
 import wasItVibedWebm from './assets/projects/was-it-vibed.webm';
 import wasItVibedMp4 from './assets/projects/was-it-vibed.mp4';
-
-const REDUCED_MOTION = '(prefers-reduced-motion: reduce)';
-const FINE_POINTER = '(hover: hover) and (pointer: fine)';
 
 const experience = [
   {
@@ -61,68 +59,20 @@ const experience = [
   },
 ];
 
-function ProductMedia({
-  href,
-  name,
-  label,
-  poster,
-  webm,
-  mp4,
-  priority = false,
-}) {
+// The recordings stay on their posters until a visitor presses play, so
+// nothing on the page moves on its own. preload="none" also keeps the
+// megabytes of video off the wire for anyone who never watches.
+function ProductMedia({ href, name, label, poster, webm, mp4 }) {
   const videoRef = useRef(null);
-  const userPaused = useRef(false);
   const [playing, setPlaying] = useState(false);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return undefined;
-
-    const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
-    video.addEventListener('play', onPlay);
-    video.addEventListener('pause', onPause);
-
-    // Reduced motion: never autoplay; the button still lets a visitor choose to watch.
-    if (window.matchMedia(REDUCED_MOTION).matches) {
-      userPaused.current = true;
-      return () => {
-        video.removeEventListener('play', onPlay);
-        video.removeEventListener('pause', onPause);
-      };
-    }
-
-    video.muted = true;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !userPaused.current) {
-          video.play().catch(() => {});
-        } else if (!entry.isIntersecting) {
-          video.pause();
-        }
-      },
-      { threshold: 0.35 },
-    );
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-      video.removeEventListener('play', onPlay);
-      video.removeEventListener('pause', onPause);
-    };
-  }, []);
-
-  // WCAG 2.2.2: anything that moves on its own for more than five seconds
-  // needs a way to stop it.
   const toggle = () => {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      userPaused.current = false;
       video.muted = true;
       video.play().catch(() => {});
     } else {
-      userPaused.current = true;
       video.pause();
     }
   };
@@ -145,9 +95,11 @@ function ProductMedia({
           muted
           playsInline
           loop
-          preload={priority ? 'auto' : 'metadata'}
+          preload="none"
           aria-hidden="true"
           tabIndex={-1}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         >
           <source src={webm} type="video/webm" />
           <source src={mp4} type="video/mp4" />
@@ -174,35 +126,8 @@ function ProductMedia({
   );
 }
 
-// The time in Vermont, for anyone checking how their hours overlap. The
-// prerendered page says "Eastern Time" until the browser fills in the clock.
-// It refreshes when the tab comes back into view instead of ticking, since a
-// ticking clock is auto-updating content under WCAG 2.2.2.
-function LocalTime() {
-  const [time, setTime] = useState('');
-
-  useEffect(() => {
-    const format = new Intl.DateTimeFormat('en-US', {
-      timeZone: 'America/New_York',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
-    const update = () => setTime(format.format(new Date()));
-
-    update();
-    document.addEventListener('visibilitychange', update);
-
-    return () => {
-      document.removeEventListener('visibilitychange', update);
-    };
-  }, []);
-
-  return time ? `${time} ET` : 'Eastern Time';
-}
-
 function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const heroRef = useRef(null);
   const headerRef = useRef(null);
   const menuButtonRef = useRef(null);
 
@@ -306,38 +231,29 @@ function Portfolio() {
 
   const closeMenu = () => setMobileMenuOpen(false);
 
-  // Lights the contour lines in a circle around a fine pointer. The position
-  // goes through custom properties, since the CSP allows no inline styles.
+  // In-page links scroll to their section without putting #id in the address
+  // bar, and move focus there so keyboard and screen reader users land in the
+  // same place. Without JavaScript they still work as plain anchors.
   useEffect(() => {
-    const hero = heroRef.current;
-    if (
-      !hero ||
-      !window.matchMedia(FINE_POINTER).matches ||
-      window.matchMedia(REDUCED_MOTION).matches
-    ) {
-      return undefined;
-    }
+    const onClick = (event) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      const link = event.target.closest('a[href^="#"]');
+      const target = link && document.getElementById(link.hash.slice(1));
+      if (!target) return;
 
-    let frame = 0;
-    const onMove = (event) => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        const rect = hero.getBoundingClientRect();
-        hero.style.setProperty('--mx', `${event.clientX - rect.left}px`);
-        hero.style.setProperty('--my', `${event.clientY - rect.top}px`);
-        hero.classList.add('is-lit');
-      });
+      event.preventDefault();
+      if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start' });
     };
-    const onLeave = () => hero.classList.remove('is-lit');
 
-    hero.addEventListener('pointermove', onMove);
-    hero.addEventListener('pointerleave', onLeave);
+    document.addEventListener('click', onClick);
 
     return () => {
-      hero.removeEventListener('pointermove', onMove);
-      hero.removeEventListener('pointerleave', onLeave);
-      if (frame) window.cancelAnimationFrame(frame);
+      document.removeEventListener('click', onClick);
     };
   }, []);
 
@@ -355,8 +271,8 @@ function Portfolio() {
           </a>
 
           <nav className="desktop-nav" aria-label="Primary navigation">
-            <a href="#work">Work</a>
-            <a href="#experience">Work History</a>
+            <a href="#work">Projects</a>
+            <a href="#experience">Experience</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -393,10 +309,10 @@ function Portfolio() {
         >
           <div className="shell mobile-nav-inner">
             <a href="#work" onClick={closeMenu}>
-              Work
+              Projects
             </a>
             <a href="#experience" onClick={closeMenu}>
-              Work History
+              Experience
             </a>
             <a href="#about" onClick={closeMenu}>
               About
@@ -418,34 +334,23 @@ function Portfolio() {
       </header>
 
       <main id="main-content">
-        <section className="hero" id="top" ref={heroRef}>
+        <section className="hero" id="top">
+          <div
+            className="hero-map"
+            aria-hidden="true"
+            dangerouslySetInnerHTML={{ __html: heroContours }}
+          />
           <div className="shell">
-            <ul className="hero-meta">
-              <li>Montpelier, Vermont</li>
-              <li>Working remotely</li>
-              <li>
-                <LocalTime />
-              </li>
-            </ul>
-
             <div className="hero-layout">
               <h1>Hello</h1>
               <p className="hero-intro">
-                I'm a Senior Full Stack Engineer with 15 years of building and
-                fixing software: 120+ state government websites, a marketplace
-                with 500,000 users, and four products of my own that I run
-                today.
+                I'm Kyle, a self-taught Senior Full Stack Engineer. I've spent
+                15 years building for everyone from state government to
+                startups, and building projects of my own in my spare time.
               </p>
-              <dl className="hero-roles">
-                <div>
-                  <dt>Currently</dt>
-                  <dd>Senior Web Developer at Digital Artisans</dd>
-                </div>
-                <div>
-                  <dt>Previously</dt>
-                  <dd>Optiv Security and Tyler Technologies</dd>
-                </div>
-              </dl>
+              <p className="hero-location">
+                Based in Montpelier, Vermont, and working remotely.
+              </p>
               <div className="hero-actions">
                 <a
                   className="button button-primary"
@@ -463,10 +368,7 @@ function Portfolio() {
 
         <section className="work section" id="work">
           <div className="shell">
-            <div className="section-label">
-              <span aria-hidden="true">01</span>
-              <h2>Selected work</h2>
-            </div>
+            <h2 className="section-heading">Personal Projects</h2>
 
             <div className="project-grid">
               <article className="project-card">
@@ -477,7 +379,6 @@ function Portfolio() {
                   poster={sitecmdPoster}
                   webm={sitecmdWebm}
                   mp4={sitecmdMp4}
-                  priority
                 />
                 <div className="project-card-copy">
                   <h3>SiteCMD</h3>
@@ -621,10 +522,7 @@ function Portfolio() {
 
         <section className="experience section" id="experience">
           <div className="shell">
-            <div className="section-label">
-              <span aria-hidden="true">02</span>
-              <h2>Work History</h2>
-            </div>
+            <h2 className="section-heading">Experience</h2>
 
             <div className="experience-layout">
               <div className="experience-intro">
@@ -676,10 +574,7 @@ function Portfolio() {
 
         <section className="about section" id="about">
           <div className="shell">
-            <div className="section-label">
-              <span aria-hidden="true">03</span>
-              <h2>About Me</h2>
-            </div>
+            <h2 className="section-heading">About Me</h2>
 
             <div className="about-layout">
               <div className="about-portrait">
@@ -719,11 +614,38 @@ function Portfolio() {
                   and accessibility, because even the best software is only as
                   valuable as the people who can actually use it.
                 </p>
-                <p className="about-stack">
-                  Day to day: TypeScript, JavaScript, React, Next.js, Node.js,
-                  PHP, Drupal, GraphQL, MySQL, Rust, Cloudflare, Claude Code,
-                  Codex, and MCP.
-                </p>
+              </div>
+
+              <div className="skills">
+                <h3>Key skills</h3>
+                <dl>
+                  <div>
+                    <dt>Languages</dt>
+                    <dd>TypeScript, JavaScript, PHP, Rust, SQL</dd>
+                  </div>
+                  <div>
+                    <dt>Frontend</dt>
+                    <dd>React, Next.js, Astro, Sass, WCAG accessibility</dd>
+                  </div>
+                  <div>
+                    <dt>Backend &amp; APIs</dt>
+                    <dd>Node.js, GraphQL, REST, Stripe</dd>
+                  </div>
+                  <div>
+                    <dt>Data &amp; CMS</dt>
+                    <dd>MySQL, PostgreSQL, Supabase, Drupal</dd>
+                  </div>
+                  <div>
+                    <dt>Infrastructure &amp; Tooling</dt>
+                    <dd>
+                      Cloudflare, Linux, Docker, GitHub Actions, Playwright
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>AI Engineering</dt>
+                    <dd>Claude Code, Codex, MCP servers, TDD</dd>
+                  </div>
+                </dl>
               </div>
             </div>
           </div>
@@ -731,13 +653,10 @@ function Portfolio() {
 
         <section className="contact" id="contact">
           <div className="shell">
-            <div className="section-label">
-              <span aria-hidden="true">04</span>
-              <h2>Contact</h2>
-            </div>
+            <h2 className="section-heading">Contact</h2>
             <p className="contact-note">
-              If you&apos;re hiring for a senior engineering role, I&apos;d be
-              glad to hear what you&apos;re working on.
+              Whether you&apos;re hiring or need help with a project, let&apos;s
+              have a chat.
             </p>
             <a className="contact-email" href="mailto:hello@kylepiontek.com">
               hello@kylepiontek.com
@@ -779,7 +698,6 @@ function Portfolio() {
       <footer className="site-footer">
         <div className="shell footer-inner">
           <p>© {new Date().getFullYear()} Kyle Piontek</p>
-          <p>Senior Full Stack Engineer based in Vermont</p>
           <div className="footer-links">
             <a
               href="https://github.com/kpiontek/portfolio"

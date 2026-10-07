@@ -3,8 +3,9 @@
 //
 // Real regressions this catches: a runtime error that never shows up in an SSR
 // render, a WCAG failure introduced by a color tweak (contrast is a rendered
-// property, so no static check finds it), the IntersectionObserver that starts
-// the product recordings silently breaking, hydration mismatching the
+// property, so no static check finds it), a product recording starting on its
+// own or its play button doing nothing, an in-page link putting #id in the
+// address bar, hydration mismatching the
 // prerendered markup and throwing the whole page away, and the mobile menu
 // losing its aria-expanded state or its Escape handling.
 //
@@ -189,18 +190,52 @@ if (!canRun) {
   });
 
   describe('desktop behavior', () => {
-    it('plays a product recording once its card scrolls into view', async () => {
+    it('keeps the product recordings still until a visitor presses play', async () => {
       const { context, page } = await openPage(CONTEXTS[0].options);
 
       try {
-        await page.locator('.project-card').first().scrollIntoViewIfNeeded();
+        const card = page.locator('.project-card').first();
+        await card.scrollIntoViewIfNeeded();
+        await page.waitForTimeout(800);
+        const allPaused = await page.evaluate(() =>
+          [...document.querySelectorAll('.project-card video')].every(
+            (video) => video.paused,
+          ),
+        );
+        expect(allPaused, 'a recording started on its own').toBe(true);
+
+        const toggle = card.locator('.media-toggle');
+        await toggle.click();
+        await page.waitForFunction(
+          () => !document.querySelector('.project-card video').paused,
+          undefined,
+          { timeout: 5000 },
+        );
+        expect(await toggle.getAttribute('aria-label')).toMatch(/^Pause /);
+      } finally {
+        await context.close();
+      }
+    });
+
+    it('scrolls to a section from the nav without changing the URL', async () => {
+      const { context, page } = await openPage(CONTEXTS[0].options);
+
+      try {
+        const before = page.url();
+        await page.locator('.desktop-nav a[href="#about"]').click();
         await page.waitForFunction(
           () => {
-            const video = document.querySelector('.project-card video');
-            return Boolean(video) && !video.paused;
+            const top = document
+              .getElementById('about')
+              .getBoundingClientRect().top;
+            return top >= 0 && top < 200;
           },
           undefined,
-          { timeout: 2500 },
+          { timeout: 5000 },
+        );
+        expect(page.url()).toBe(before);
+        expect(await page.evaluate(() => document.activeElement?.id)).toBe(
+          'about',
         );
       } finally {
         await context.close();

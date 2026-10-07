@@ -13,7 +13,7 @@ The source for kylepiontek.com, Kyle Piontek's one-page portfolio. React 18, Vit
 - `npm run preview` serves `dist/`
 - `npm run lint`, `npm run format:check`, `npm run knip`, `npm test` are the checks CI runs; `npm test` expects `dist/` to exist, so build first
 - `npm run verify:deploy` polls the live site after a push and checks headers and endpoints
-- `npm run contours` refetches USGS elevation data and rewrites `public/montpelier-contours.svg`, the contour lines behind the hero; the SVG is committed, so run it only to change the map
+- `npm run contours` refetches USGS elevation data and rewrites `src/assets/hero-contours.svg` (rendered inline behind the hero) and `public/montpelier-contours.svg` (behind the contact band); both are committed, so run it only to change the map
 
 Git hooks are managed by lefthook (`lefthook.yml`). Pre-commit formats and lints staged files and scans for secrets. Pre-push runs the same sequence as `.github/workflows/quality.yml`. Bypass only for an emergency with `LEFTHOOK=0`.
 

@@ -57,14 +57,18 @@ const sourceFiles = walk(srcDir).filter((path) =>
  * Reading the imports rather than the bundle keeps this honest even when a
  * build has not run.
  */
+// Vite import queries such as ?raw are not part of the file name.
+const withoutQuery = (specifier) => specifier.replace(/\?.*$/, '');
+
 const importedAssets = new Set();
 for (const file of sourceFiles) {
   const source = readFileSync(file, 'utf8');
   const pattern = /from\s+['"](\.[^'"]+)['"]/g;
   let match;
   while ((match = pattern.exec(source)) !== null) {
-    if (!ASSET_EXTENSIONS.has(extname(match[1]))) continue;
-    importedAssets.add(resolve(dirname(file), match[1]));
+    const specifier = withoutQuery(match[1]);
+    if (!ASSET_EXTENSIONS.has(extname(specifier))) continue;
+    importedAssets.add(resolve(dirname(file), specifier));
   }
 }
 
@@ -79,14 +83,15 @@ describe('imported assets', () => {
     let match;
 
     while ((match = pattern.exec(portfolioSource)) !== null) {
-      if (!ASSET_EXTENSIONS.has(extname(match[1]))) continue;
+      const specifier = withoutQuery(match[1]);
+      if (!ASSET_EXTENSIONS.has(extname(specifier))) continue;
       found += 1;
-      const path = resolve(srcDir, match[1]);
+      const path = resolve(srcDir, specifier);
       if (!existsSync(path)) missing.push(`${match[1]} -> ${shortPath(path)}`);
     }
 
-    // 12 recordings and posters plus the headshot.
-    expect(found).toBe(13);
+    // 12 recordings and posters, the headshot, and the hero's contour map.
+    expect(found).toBe(14);
     expect(missing, `missing files:\n${missing.join('\n')}`).toEqual([]);
   });
 

@@ -105,8 +105,8 @@ describe('page structure', () => {
       .filter((heading) => heading.level === 2)
       .map((heading) => heading.text);
 
-    expect(h2s).toContain('Selected work');
-    expect(h2s).toContain('Work History');
+    expect(h2s).toContain('Personal Projects');
+    expect(h2s).toContain('Experience');
     expect(h2s).toContain('About Me');
 
     // The contact section's heading is conversational, so match the section
@@ -199,8 +199,8 @@ describe('media', () => {
       expect(attributes.width).toBe('1200');
       expect(attributes.height).toBe('750');
 
-      // Autoplay only works when the video is muted, and it has to loop
-      // silently without taking over the viewport on iOS.
+      // The recordings have no sound, and they loop inline without taking
+      // over the viewport on iOS when someone presses play.
       expect(attributes).toHaveProperty('muted');
       expect(attributes).toHaveProperty('playsinline');
       expect(attributes).toHaveProperty('loop');
