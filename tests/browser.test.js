@@ -204,14 +204,23 @@ if (!canRun) {
         );
         expect(allPaused, 'a recording started on its own').toBe(true);
 
-        const toggle = card.locator('.media-toggle');
-        await toggle.click();
+        // The video reports playing a moment before React re-renders the
+        // button, so wait for both rather than reading the label right away.
+        await card.locator('.media-toggle').click();
         await page.waitForFunction(
-          () => !document.querySelector('.project-card video').paused,
+          () => {
+            const first = document.querySelector('.project-card');
+            return (
+              !first.querySelector('video').paused &&
+              first
+                .querySelector('.media-toggle')
+                .getAttribute('aria-label')
+                .startsWith('Pause ')
+            );
+          },
           undefined,
           { timeout: 5000 },
         );
-        expect(await toggle.getAttribute('aria-label')).toMatch(/^Pause /);
       } finally {
         await context.close();
       }
